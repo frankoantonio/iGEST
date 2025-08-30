@@ -1,0 +1,22 @@
+<div class="error-container">
+    <div class="error-content">
+
+        <img src="images/default/logo_error.png" alt="Error Logo" class="error-logo">
+
+        <div class="error-message-row">
+            <div class="error-icon">
+                <i class="pi pi-exclamation-triangle"></i>
+            </div>
+            <div class="error-text">
+                {{ errorMessage }}
+            </div>
+        </div>
+
+        @if (showRetryButton) {
+        <button nz-button nzType="primary" nzSize="large" nzBlock class="my-button" (click)="recargar()">
+            <nz-icon nzType="sync" [nzSpin]="true"></nz-icon> Actualizar
+        </button>
+        }
+
+    </div>
+</div>

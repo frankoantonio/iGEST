@@ -1,0 +1,69 @@
+====================================================================================================
+INSTALACIÓN NODE ANGULAR
+====================================================================================================
+SETTING
+
+	Abrir PowerShell como Administrador
+	Set-ExecutionPolicy RemoteSigned
+	
+NVM
+
+	https://github.com/coreybutler/nvm-windows
+	Descargar la ultima versión e instalar
+	en CMD
+	nvm --version
+	nvm install 22.18.0
+	nvm list
+	nvm use 22.18.0
+	
+ANGULAR
+
+	npm install -g @angular/cli		ó		npm install -g @angular/cli@latest	//última versión
+	npm install -g @angular/cli@17												//versión específica
+	ng --version
+	ng new ....
+	code .
+	
+PRIMEFACES
+	
+	npm install primeng @primeuix/themes
+	npm install primeng primeicons
+
+	El archivo app.config.ts quedaría así:
+		import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
+		import { provideRouter } from '@angular/router';
+		import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+		import { providePrimeNG } from 'primeng/config';
+		import Aura from '@primeuix/themes/aura';
+		import { routes } from './app.routes';
+		import { provideHttpClient } from '@angular/common/http';
+
+		export const appConfig: ApplicationConfig = {
+		  providers: [
+			provideBrowserGlobalErrorListeners(),
+			provideZoneChangeDetection({ eventCoalescing: true }),
+			provideRouter(routes),
+			provideAnimationsAsync(),
+			providePrimeNG({
+			  theme: {
+				preset: Aura,
+			  },
+			}),
+			provideHttpClient()
+		  ]
+		};
+	
+	--ERA UN INTENTO LO SIGUIENTE
+	https://github.com/primefaces/sakai-ng
+	Descargar el proyecto
+	Copiar la carpeta "assets" y "layout" donde correspoda
+	En el terminal
+	npm install primeicons
+	npm install primeflex
+
+	
+	
+
+====================================================================================================
+
+

@@ -1,0 +1,33 @@
+<div class="splash-container" [ngStyle]="{ 'background-color': getBackgroundColor() }">
+    <div class="splash-content">
+
+        <div class="logo-container">
+            <img [src]="getLogoPath()" [ngStyle]="getLogoStyles()" alt="Company Logo" class="splash-logo">
+        </div>
+
+        <div class="spacer"></div>
+
+        <div class="progress-container">
+            <div class="progress-background">
+                <svg class="progress-svg" viewBox="0 0 60 60" width="60" height="60">
+                    <circle cx="30" cy="30" r="26" fill="none" stroke="rgba(255, 255, 255, 0.24)" stroke-width="4">
+                    </circle>
+                </svg>
+            </div>
+
+            <div class="progress-active">
+                <svg class="progress-svg" viewBox="0 0 60 60" width="60" height="60">
+                    <circle cx="30" cy="30" r="26" fill="none" [attr.stroke]="getTextColor()" stroke-width="4"
+                        stroke-linecap="round" [style.stroke-dasharray]="163.36"
+                        [style.stroke-dashoffset]="163.36 - (163.36 * progressValue)" class="progress-circle">
+                    </circle>
+                </svg>
+            </div>
+
+            <div class="progress-text" [ngStyle]="{ color: getTextColor() }">
+                {{ countValue }}%
+            </div>
+        </div>
+
+    </div>
+</div>

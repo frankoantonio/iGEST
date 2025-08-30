@@ -1,0 +1,56 @@
+<div class="login-container" [ngStyle]="{ 'background-image': backgroundImageUrl }">
+  <div class="login-card">
+    <img [src]="'https://storage.googleapis.com/igest-public/logos/logo_' + Vars.obMyUI.idEmpresa + '.png'"
+         class="login-logo" alt="Logo" />
+
+    <form [formGroup]="form" (ngSubmit)="login()" class="login-form">
+      
+      <!-- Usuario -->
+      <div class="form-field">
+        <p-floatlabel>
+          <input id="username" type="text" pInputText formControlName="username" autocomplete="off" />
+          <label for="username">Usuario</label>
+        </p-floatlabel>
+        <small *ngIf="username?.invalid && username?.touched">Mínimo 6 caracteres</small>
+      </div>
+
+      <!-- Precio -->
+      <div class="form-field">
+        <p-floatlabel>
+          <p-inputgroup>
+            <p-inputgroup-addon>$</p-inputgroup-addon>
+            <p-inputnumber formControlName="price" inputId="price" style="flex: 1 1 auto; width: 100%;" />
+            <p-inputgroup-addon>.00</p-inputgroup-addon>
+          </p-inputgroup>
+          <label for="price">Precio</label>
+        </p-floatlabel>
+        <small *ngIf="price?.invalid && price?.touched">Ingrese un precio válido</small>
+      </div>
+
+      <!-- Enlaces -->
+      <div class="form-row between">
+        <button pButton type="button" label="Olvidé mi contraseña" class="p-button-text"
+                (click)="recoverPassword()"></button>
+        <button pButton type="button" label="Regístrese" class="p-button-text"
+                (click)="showRegisterModal()"></button>
+      </div>
+
+      <!-- Botón principal -->
+      <div class="main-button">
+        <button pButton type="submit" label="INGRESAR" icon="pi pi-sign-in"
+                class="p-button-primary p-button-rounded p-button-lg"></button>
+      </div>
+
+      <!-- Botones inferiores -->
+      <div class="form-row between">
+        <button pButton type="button" label="Ubícanos" icon="pi pi-map-marker"
+                class="p-button-outlined" (click)="goToUbicanos()"></button>
+        <button pButton type="button" label="Contáctanos" icon="pi pi-phone"
+                (click)="contactUs()"></button>
+      </div>
+
+    </form>
+  </div>
+
+  <p-toast></p-toast>
+</div>

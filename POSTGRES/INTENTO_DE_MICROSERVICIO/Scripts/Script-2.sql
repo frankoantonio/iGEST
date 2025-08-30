@@ -1,0 +1,1 @@
+SELECT nom_usu username, pwd_usu "password", activo enabled FROM usuario WHERE nom_usu = "1004.fbarzola" 

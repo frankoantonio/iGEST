@@ -1,0 +1,15 @@
+/*
+ * Document   : Application
+ * Author     : Franklin Barzola Olivares <frankoantonio@gmail.com>
+ */
+package com.yupanastudio.igest.server;
+
+import org.springframework.boot.SpringApplication;
+
+public class Application {
+
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
+}

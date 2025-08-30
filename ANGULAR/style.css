@@ -1,0 +1,23 @@
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.caja  {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    background-color: blue;
+    border: 2px solid black;
+    margin-top: 20px;
+    
+}
+
+.cuadrado {
+    width: 200px;
+    height: 200px;
+    background-color: red;
+    border: 2px solid black;
+    margin-top: 20px;
+}

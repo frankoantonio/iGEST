@@ -1,0 +1,116 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Proyectos\\iGEST\\NET\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9DB96058-A965-42E8-8E39-AC27988CAABF}|com.yupanastudio.igest.winapp.service\\com.yupanastudio.igest.winapp.service.csproj|d:\\proyectos\\igest\\net\\com.yupanastudio.igest.winapp.service\\admin\\loginxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DB96058-A965-42E8-8E39-AC27988CAABF}|com.yupanastudio.igest.winapp.service\\com.yupanastudio.igest.winapp.service.csproj|solutionrelative:com.yupanastudio.igest.winapp.service\\admin\\loginxservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9DB96058-A965-42E8-8E39-AC27988CAABF}|com.yupanastudio.igest.winapp.service\\com.yupanastudio.igest.winapp.service.csproj|d:\\proyectos\\igest\\net\\com.yupanastudio.igest.winapp.service\\admin\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9DB96058-A965-42E8-8E39-AC27988CAABF}|com.yupanastudio.igest.winapp.service\\com.yupanastudio.igest.winapp.service.csproj|solutionrelative:com.yupanastudio.igest.winapp.service\\admin\\usuarioservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4E75F8-AFF2-4D4E-8630-058EE3DDA7D3}|com.yupanastudio.igest.winapp.model\\com.yupanastudio.igest.winapp.model.csproj|d:\\proyectos\\igest\\net\\com.yupanastudio.igest.winapp.model\\admin\\vars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4E75F8-AFF2-4D4E-8630-058EE3DDA7D3}|com.yupanastudio.igest.winapp.model\\com.yupanastudio.igest.winapp.model.csproj|solutionrelative:com.yupanastudio.igest.winapp.model\\admin\\vars.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A4E75F8-AFF2-4D4E-8630-058EE3DDA7D3}|com.yupanastudio.igest.winapp.model\\com.yupanastudio.igest.winapp.model.csproj|d:\\proyectos\\igest\\net\\com.yupanastudio.igest.winapp.model\\util\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A4E75F8-AFF2-4D4E-8630-058EE3DDA7D3}|com.yupanastudio.igest.winapp.model\\com.yupanastudio.igest.winapp.model.csproj|solutionrelative:com.yupanastudio.igest.winapp.model\\util\\utils.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "LoginXService.cs",
+              "DocumentMoniker": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.service\\admin\\LoginXService.cs",
+              "RelativeDocumentMoniker": "com.yupanastudio.igest.winapp.service\\admin\\LoginXService.cs",
+              "ToolTip": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.service\\admin\\LoginXService.cs",
+              "RelativeToolTip": "com.yupanastudio.igest.winapp.service\\admin\\LoginXService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:17:15.997Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsuarioService.cs",
+              "DocumentMoniker": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.service\\admin\\UsuarioService.cs",
+              "RelativeDocumentMoniker": "com.yupanastudio.igest.winapp.service\\admin\\UsuarioService.cs",
+              "ToolTip": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.service\\admin\\UsuarioService.cs",
+              "RelativeToolTip": "com.yupanastudio.igest.winapp.service\\admin\\UsuarioService.cs",
+              "ViewState": "AgIAADEAAAAAAAAAAAAgwCYAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T18:16:59.853Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Vars.cs",
+              "DocumentMoniker": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.model\\admin\\Vars.cs",
+              "RelativeDocumentMoniker": "com.yupanastudio.igest.winapp.model\\admin\\Vars.cs",
+              "ToolTip": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.model\\admin\\Vars.cs",
+              "RelativeToolTip": "com.yupanastudio.igest.winapp.model\\admin\\Vars.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T16:54:49.081Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Utils.cs",
+              "DocumentMoniker": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.model\\util\\Utils.cs",
+              "RelativeDocumentMoniker": "com.yupanastudio.igest.winapp.model\\util\\Utils.cs",
+              "ToolTip": "D:\\Proyectos\\iGEST\\NET\\com.yupanastudio.igest.winapp.model\\util\\Utils.cs",
+              "RelativeToolTip": "com.yupanastudio.igest.winapp.model\\util\\Utils.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAowE4AAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-11T15:38:49.967Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

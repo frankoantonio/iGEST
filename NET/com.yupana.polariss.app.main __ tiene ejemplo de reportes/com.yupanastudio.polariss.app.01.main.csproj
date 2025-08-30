@@ -1,0 +1,353 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{23F86E02-B8CB-4EDC-B61B-16B6201E2310}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>com.yupanastudio.polariss.app</RootNamespace>
+    <AssemblyName>com.yupanastudio.polariss.app.main</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>com.yupanastudio.polariss.app.principal.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ComponentFactory.Krypton.Design, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Components.Suite.4.5.9\lib\net20\ComponentFactory.Krypton.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Docking, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Components.Suite.4.5.9\lib\net20\ComponentFactory.Krypton.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Navigator, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Components.Suite.4.5.9\lib\net20\ComponentFactory.Krypton.Navigator.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Ribbon, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Components.Suite.4.5.9\lib\net20\ComponentFactory.Krypton.Ribbon.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Toolkit, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Components.Suite.4.5.9\lib\net20\ComponentFactory.Krypton.Toolkit.dll</HintPath>
+    </Reference>
+    <Reference Include="ComponentFactory.Krypton.Workspace, Version=4.5.0.0, Culture=neutral, PublicKeyToken=a87e673e9ecb6e8e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Krypton.Components.Suite.4.5.9\lib\net20\ComponentFactory.Krypton.Workspace.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.DataVisualization, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.DataVisualization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Design, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.ProcessingObjectModel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.ProcessingObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=15.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.ReportingServices.ReportViewerControl.Winforms.150.900.148\lib\net40\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.314.76\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="template\FrmMaster.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="template\FrmMaster.Designer.cs">
+      <DependentUpon>FrmMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="template\UcMaster.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="template\UcMaster.Designer.cs">
+      <DependentUpon>UcMaster.cs</DependentUpon>
+    </Compile>
+    <Compile Include="comercial\FrmCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="comercial\FrmCliente.Designer.cs">
+      <DependentUpon>FrmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\FrmBuscarArticulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="principal\FrmBuscarArticulo.Designer.cs">
+      <DependentUpon>FrmBuscarArticulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\FrmBuscarPersona.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="principal\FrmBuscarPersona.Designer.cs">
+      <DependentUpon>FrmBuscarPersona.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="principal\FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\FrmMainCopia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="principal\FrmMainCopia.Designer.cs">
+      <DependentUpon>FrmMainCopia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\FrmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="principal\FrmMain.Designer.cs">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\OvalPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="principal\UcInformesVta.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="principal\UcInformesVta.Designer.cs">
+      <DependentUpon>UcInformesVta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\UcNotaPedido.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="principal\UcNotaPedido.Designer.cs">
+      <DependentUpon>UcNotaPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\UcReportes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="principal\UcReportes.Designer.cs">
+      <DependentUpon>UcReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\UcFondo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="principal\UcFondo.Designer.cs">
+      <DependentUpon>UcFondo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="principal\Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SqlServerTypes\Loader.cs" />
+    <Compile Include="principal\Vars.cs" />
+    <EmbeddedResource Include="template\FrmMaster.resx">
+      <DependentUpon>FrmMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="template\UcMaster.resx">
+      <DependentUpon>UcMaster.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="comercial\FrmCliente.resx">
+      <DependentUpon>FrmCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="comercial\RptFacturaA4.rdlc" />
+    <EmbeddedResource Include="principal\FrmBuscarArticulo.resx">
+      <DependentUpon>FrmBuscarArticulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\FrmBuscarPersona.resx">
+      <DependentUpon>FrmBuscarPersona.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\FrmMainCopia.resx">
+      <DependentUpon>FrmMainCopia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\FrmMain.resx">
+      <DependentUpon>FrmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\UcInformesVta.resx">
+      <DependentUpon>UcInformesVta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\UcNotaPedido.resx">
+      <DependentUpon>UcNotaPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\UcReportes.resx">
+      <DependentUpon>UcReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="principal\UcFondo.resx">
+      <DependentUpon>UcFondo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Report1.rdlc" />
+    <EmbeddedResource Include="Report2.rdlc" />
+    <EmbeddedResource Include="Report3.rdlc" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Departamento.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Direccion.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Distrito.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Empresa.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.GbVar.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Local.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Negocio.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Opcion.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Pais.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Persona.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Provincia.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.RepFacturaDet.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.RepFacturaEmp.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.RepFacturaHead.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Rpta.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Sistema.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Tipo.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Usuario.datasource" />
+    <None Include="Properties\DataSources\com.yupana.polariss.model.Venta.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\com.yupana.polariss.app.bridge\com.yupanastudio.polariss.bridge.csproj">
+      <Project>{c6664f23-4b6b-4142-bca8-fa23f0c7cc34}</Project>
+      <Name>com.yupanastudio.polariss.bridge</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\com.yupanastudio.polariss.model\com.yupanastudio.polariss.model.csproj">
+      <Project>{34969fee-e7bf-481b-854e-bc3d21aa76de}</Project>
+      <Name>com.yupanastudio.polariss.model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="laboral\" />
+    <Folder Include="reportes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\usuario.jpg" />
+    <None Include="Resources\form_close.png" />
+    <None Include="Resources\form_min.png" />
+    <None Include="Resources\icoSysLGT.png" />
+    <None Include="Resources\person.png" />
+    <None Include="Resources\head.png" />
+    <None Include="Resources\connect_ok.png" />
+    <None Include="Resources\loguito.png" />
+    <None Include="Resources\logo.png" />
+    <None Include="Resources\connect_fail.png" />
+    <None Include="Resources\btnCancelar.png" />
+    <None Include="Resources\btnAceptar.png" />
+    <None Include="Resources\icoKeyUser.png" />
+    <None Include="Resources\icoSysACD.png" />
+    <None Include="Resources\icoSysCOM.png" />
+    <None Include="Resources\icoSysFIN.png" />
+    <None Include="Resources\icoSysGEN.png" />
+    <None Include="Resources\icoSysLAB.png" />
+    <None Include="Resources\form_close_bold.png" />
+    <None Include="Resources\form_min_bold.png" />
+    <None Include="Resources\row_find.png" />
+    <None Include="Resources\row_add.png" />
+    <None Include="Resources\row_remove.png" />
+    <None Include="Resources\row_edit.png" />
+    <None Include="Resources\btnConf.png" />
+    <None Include="Resources\row_save.png" />
+    <None Include="Resources\btnMarca.png" />
+    <None Include="Resources\imgPersona.png" />
+    <None Include="Resources\row_delete.png" />
+    <None Include="Resources\banner_neg_10008.png" />
+    <None Include="Resources\banner_neg_10001.png" />
+    <None Include="Resources\banner_right.png" />
+    <None Include="Resources\banner_left.png" />
+    <Content Include="SqlServerTypes\readme.htm" />
+    <Content Include="SqlServerTypes\x64\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x64\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\msvcr120.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlServerTypes\x86\SqlServerSpatial140.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

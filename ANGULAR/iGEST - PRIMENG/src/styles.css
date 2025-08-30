@@ -1,0 +1,76 @@
+@import 'primeicons/primeicons.css';
+
+
+/* Reset básico para eliminar espacios en blanco */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HTML y body ocupan toda la pantalla */
+html,
+body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* Evita scroll horizontal */
+}
+
+/* El contenedor principal de Angular */
+app-root {
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+/* Reset para PrimeNG - elimina márgenes por defecto */
+.p-component {
+    margin: 0;
+}
+
+/* Contenedor principal responsive */
+.main-container {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Para móviles */
+@media (max-width: 768px) {
+
+    html,
+    body {
+        overflow-x: hidden;
+    }
+
+    .main-container {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+/* Para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .main-container {
+        padding: 0;
+        margin: 0;
+    }
+}
+
+/* Para escritorio */
+@media (min-width: 1025px) {
+    .main-container {
+        padding: 0;
+        margin: 0;
+    }
+}

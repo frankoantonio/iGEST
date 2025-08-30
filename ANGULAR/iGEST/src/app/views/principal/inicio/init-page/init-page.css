@@ -1,0 +1,155 @@
+/* Contenedor principal del splash */
+.splash-container {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--theme-primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Contenido centrado */
+.splash-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Contenedor del logo */
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Logo con animación por clase */
+.splash-logo {
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    opacity: 0;
+    transform: scale(0.1);
+    transition: transform 0.5s ease-out, opacity 0.5s ease-in;
+}
+
+.splash-logo.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Espaciador entre logo y progreso */
+.spacer {
+    height: 50px;
+}
+
+/* Contenedor indicador progreso */
+.progress-container {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fondo del progreso circular */
+.progress-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Progreso activo */
+.progress-active {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+/* SVG progreso */
+.progress-svg {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* Círculo progreso */
+.progress-circle {
+    transition: stroke-dashoffset 0.1s ease-out;
+    stroke: var(--theme-secondary-color);
+}
+
+/* Texto porcentaje */
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--theme-secondary-color);
+    font-size: 13px;
+    font-weight: bold;
+    z-index: 10;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .splash-logo {
+        width: 150px;
+    }
+
+    .spacer {
+        height: 40px;
+    }
+
+    .progress-container {
+        width: 50px;
+        height: 50px;
+    }
+
+    .progress-text {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .splash-logo {
+        width: 120px;
+    }
+
+    .spacer {
+        height: 25px;
+    }
+
+    .progress-container {
+        width: 45px;
+        height: 45px;
+    }
+
+    .progress-text {
+        font-size: 10px;
+    }
+}
+
+/* Transición de salida del splash */
+:host {
+    transition: opacity 0.10s ease-out;
+}
+
+:host.splash-exit {
+    opacity: 0;
+}
+
+/* Clase para animar salida body */
+:global(body.splash-exit) {
+    opacity: 0.8;
+}

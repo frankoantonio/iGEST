@@ -1,0 +1,90 @@
+/* FUENTE POPPINS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* HTML BASE */
+html {
+    height: 100%;
+    font-size: 15px;
+}
+
+/* BODY PRINCIPAL */
+body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    background-color: #f8fafc;
+    color: var(--text-primary, #1e293b);
+    ;
+}
+
+
+
+/* ===================================================================================================
+   GLOBAL REUSABLE COMPONENT STYLES
+====================================================================================================== */
+
+/* ============ BUTTON ============ */
+.my-button {
+    /* Estilos actuales */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 16px;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    background-color: var(--theme-primary-color) !important;
+    color: var(--theme-text-on-primary) !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+
+    /* NG-ZORRO override */
+    border-color: var(--theme-primary-color) !important;
+}
+
+.my-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px color-mix(in srgb, var(--theme-primary-color) 30%, transparent);
+    background-color: var(--theme-primary-color-dark) !important;
+    border-color: var(--theme-primary-color-dark) !important;
+}
+
+
+/* ============ LINK BASE ============ */
+.my-link,
+.my-link-mini {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    /* font-weight: 500; */
+    color: var(--theme-primary-color-dark);
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+a.my-link:hover,
+a.my-link-mini:hover {
+    color: var(--theme-secondary-color) !important;
+}
+
+
+/* Size variants */
+.my-link {
+    font-size: 0.9rem;
+    /* Regular link */
+}
+
+.my-link-mini {
+    font-size: 0.75rem;
+    /* Smaller for footers, etc. */
+}

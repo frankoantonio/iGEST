@@ -1,0 +1,146 @@
+/* Contenedor principal que ocupa toda la pantalla */
+.error-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* Fondo con degradado rojo */
+.gradient-background {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, #b91c1c, #fca5a5);
+    z-index: 1;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor centrado */
+.content-center {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor con scroll, sin padding */
+.scroll-container {
+    width: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Contenido del error */
+.error-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    gap: 1.875rem;
+    margin: 0;
+    padding: 0;
+}
+
+/* Estilos del logo */
+.error-logo {
+    width: 12.5rem;
+    height: 9.375rem;
+    object-fit: contain;
+    max-width: 100%;
+}
+
+/* Fila con el mensaje de error */
+.error-message-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    max-width: 90%;
+    text-align: center;
+}
+
+/* Icono de error */
+.error-icon i {
+    color: white;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+/* Texto del error */
+.error-text {
+    color: white;
+    font-family: 'Inter', 'Poppins', sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+/* Responsive para móviles */
+@media (max-width: 48rem) {
+    .error-content {
+        gap: 1.25rem;
+    }
+
+    .error-logo {
+        width: 9.375rem;
+        height: 7rem;
+    }
+
+    .error-icon i {
+        font-size: 2rem;
+    }
+
+    .error-text {
+        font-size: 0.875rem;
+    }
+
+    .scroll-container {
+        padding: 0;
+    }
+}
+
+/* Responsive para tablets */
+@media (min-width: 48.0625rem) and (max-width: 64rem) {
+    .error-logo {
+        width: 11.25rem;
+        height: 8.4375rem;
+    }
+
+    .error-text {
+        font-size: 0.9375rem;
+    }
+}
+
+/* Para pantallas muy pequeñas */
+@media (max-width: 30rem) {
+    .error-message-row {
+        flex-direction: column;
+        gap: 0.9375rem;
+    }
+
+    .error-logo {
+        width: 7.5rem;
+        height: 5.625rem;
+    }
+
+    .error-icon i {
+        font-size: 1.75rem;
+    }
+
+    .error-text {
+        font-size: 0.8125rem;
+    }
+}

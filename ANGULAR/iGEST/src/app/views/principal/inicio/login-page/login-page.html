@@ -1,0 +1,62 @@
+<div class="login-container" [ngStyle]="{ 'background-image': backgroundImageUrl }">
+
+  <nz-card class="login-card">
+
+    <img class="login-logo"
+      [src]="'https://storage.googleapis.com/igest-public/logos/logo_' + Vars.obTheme.idEmpresa + '.png'" alt="Logo" />
+
+    <div class="divider-line"></div>
+
+    <!-- Formulario -->
+    <form nz-form class="login-form" (ngSubmit)="onSubmit()">
+
+      <!-- Usuario -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input placeholder="Escribe tu usuario" [(ngModel)]="username" name="username" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Contraseña -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="lock" [nzSuffix]="eyeIcon">
+            <input [type]="passwordVisible ? 'text' : 'password'" nz-input placeholder="Escribe tu contraseña"
+              [(ngModel)]="password" name="password" />
+          </nz-input-group>
+          <ng-template #eyeIcon>
+            <nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"
+              class="password-toggle"></nz-icon>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Links -->
+      <div class="links-row">
+        <a class="my-link-mini" (click)="openRecovery()">Recupera tu contraseña</a>
+        <a class="my-link-mini" (click)="openRegister()">Regístrate</a>
+      </div>
+
+      <!-- Botón -->
+      <nz-form-item>
+        <button nz-button nzType="primary" nzSize="large" nzBlock type="submit" class="my-button" (click)="openHome()">
+          <nz-icon nzType="login"></nz-icon>
+          Iniciar Sesión
+        </button>
+      </nz-form-item>
+    </form>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <div class="bottom-divider"></div>
+      <div class="bottom-actions">
+        <a class="my-link" (click)="openLocation()"> <nz-icon nzType="environment"></nz-icon> Ubicación </a>
+        <a class="my-link" (click)="openWhatsapp()"> <nz-icon nzType="message"></nz-icon> Contacto </a>
+      </div>
+    </div>
+
+  </nz-card>
+
+</div>
