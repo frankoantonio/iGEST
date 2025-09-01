@@ -144,20 +144,20 @@ BEGIN
         CREATE TABLE IF NOT EXISTS %1$I.auditoria_2027 
         PARTITION OF %1$I.auditoria FOR VALUES IN (2027);
         
-        COMMENT ON TABLE %1$I.auditoria IS ''Tabla de auditoría para el esquema %1$s'';
-        COMMENT ON COLUMN %1$I.auditoria.id_auditoria IS ''Identificador de entidad'';
-        COMMENT ON COLUMN %1$I.auditoria.anio IS ''Año de operación'';
-        COMMENT ON COLUMN %1$I.auditoria.nom_entidad IS ''Nombre de la tabla'';
-        COMMENT ON COLUMN %1$I.auditoria.id_entidad IS ''Valor del identificador de la tabla'';
-        COMMENT ON COLUMN %1$I.auditoria.operacion IS ''Operación en la BD: UPDATE, DELETE'';
-        COMMENT ON COLUMN %1$I.auditoria.id_usuario IS ''Identificador del usuario que opera'';
-        COMMENT ON COLUMN %1$I.auditoria.nom_usuario IS ''Nombre del usuario que opera'';
-        COMMENT ON COLUMN %1$I.auditoria.ip IS ''IP del dispositivo'';
-        COMMENT ON COLUMN %1$I.auditoria.host IS ''Nombre del dispositivo'';
-        COMMENT ON COLUMN %1$I.auditoria.dispositivo IS ''Tipo de dispositivo / Sistema Operativo y/o versión'';
-        COMMENT ON COLUMN %1$I.auditoria.fe_oper IS ''Fecha de operación'';
-        COMMENT ON COLUMN %1$I.auditoria.fh_oper IS ''Fecha y hora de operación'';
-        COMMENT ON COLUMN %1$I.auditoria.valores IS ''Todos los valores (columnas) del registro'';
+        COMMENT ON TABLE %1$I.auditoria IS ''Tabla de auditoría para el esquema %1$s.'';
+        COMMENT ON COLUMN %1$I.auditoria.id_auditoria IS ''Identificador de entidad.'';
+        COMMENT ON COLUMN %1$I.auditoria.anio IS ''Año de operación.'';
+        COMMENT ON COLUMN %1$I.auditoria.nom_entidad IS ''Nombre de la tabla.'';
+        COMMENT ON COLUMN %1$I.auditoria.id_entidad IS ''Valor del identificador de la tabla.'';
+        COMMENT ON COLUMN %1$I.auditoria.operacion IS ''Operación en la BD: UPDATE, DELETE.'';
+        COMMENT ON COLUMN %1$I.auditoria.id_usuario IS ''Identificador del usuario que opera.'';
+        COMMENT ON COLUMN %1$I.auditoria.nom_usuario IS ''Nombre del usuario que opera.'';
+        COMMENT ON COLUMN %1$I.auditoria.ip IS ''IP del dispositivo.'';
+        COMMENT ON COLUMN %1$I.auditoria.host IS ''Nombre del dispositivo.'';
+        COMMENT ON COLUMN %1$I.auditoria.dispositivo IS ''Tipo de dispositivo / Sistema Operativo y/o versión.'';
+        COMMENT ON COLUMN %1$I.auditoria.fe_oper IS ''Fecha de operación.'';
+        COMMENT ON COLUMN %1$I.auditoria.fh_oper IS ''Fecha y hora de operación.'';
+        COMMENT ON COLUMN %1$I.auditoria.valores IS ''Todos los valores (columnas) del registro.'';
     ', nombre_esquema);
     
     EXECUTE sql_query;

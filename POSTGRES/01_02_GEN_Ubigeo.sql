@@ -3,7 +3,7 @@
 -- ============================================================================
 DROP TABLE IF EXISTS gen.pais CASCADE;
 CREATE TABLE gen.pais (
-	id_pais     INT             NOT NULL,
+	id_pais     INT        		NOT NULL,
     nom_pais    VARCHAR(50)     NOT NULL,
     activo      BOOLEAN         NOT NULL,
     orden       INT             NOT NULL,
@@ -46,7 +46,7 @@ CREATE TABLE gen.departamento (
 --
 COMMENT ON TABLE gen.departamento IS 'Tabla de departamentos.';
 COMMENT ON COLUMN gen.departamento.id_departamento IS 'Identificador de departamento.';
-COMMENT ON COLUMN gen.departamento.id_pais IS 'Identificador de país [gen.pais].';
+COMMENT ON COLUMN gen.departamento.id_pais IS 'Identificador de país [GEN.PAIS].';
 COMMENT ON COLUMN gen.departamento.nom_departamento IS 'Nombre de departamento.';
 --
 INSERT INTO gen.departamento (id_departamento, id_pais, nom_departamento)
@@ -114,7 +114,7 @@ CREATE TABLE gen.provincia (
 --
 COMMENT ON TABLE gen.provincia IS 'Tabla de provincias.';
 COMMENT ON COLUMN gen.provincia.id_provincia IS 'Identificador de provincia.';
-COMMENT ON COLUMN gen.provincia.id_departamento IS 'Identificador de departamento [gen.departamento].';
+COMMENT ON COLUMN gen.provincia.id_departamento IS 'Identificador de departamento [GEN.DEPARTAMENTO].';
 COMMENT ON COLUMN gen.provincia.nom_provincia IS 'Nombre de provincia.';
 --
 INSERT INTO gen.provincia (id_provincia, id_departamento, nom_provincia) 
@@ -349,12 +349,12 @@ CREATE TABLE gen.distrito (
 	latitud				VARCHAR(25)		NOT NULL,
 	longitud			VARCHAR(25)		NOT NULL,
 	CONSTRAINT distrito_pkey PRIMARY KEY (id_distrito),
-	CONSTRAINT distrito_id_provincia_fkey FOREIGN KEY (id_provincia) REFERENCES gen.provincia(id_provincia) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO action 
+	CONSTRAINT distrito_id_provincia_fkey FOREIGN KEY (id_provincia) REFERENCES gen.provincia(id_provincia) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION 
 );
 --
 COMMENT ON TABLE gen.distrito IS 'Tabla de distritos.';
 COMMENT ON COLUMN gen.distrito.id_distrito IS 'Identificador de distrito.';
-COMMENT ON COLUMN gen.distrito.id_provincia IS 'Identificador de provincia [gen.provincia].';
+COMMENT ON COLUMN gen.distrito.id_provincia IS 'Identificador de provincia [GEN.PROVINCIA].';
 COMMENT ON COLUMN gen.distrito.nom_distrito IS 'Nombre de distrito.';
 COMMENT ON COLUMN gen.distrito.latitud IS 'Coordenada, latitud en google maps.';
 COMMENT ON COLUMN gen.distrito.longitud IS 'Coordenada, longitud en google maps.';
