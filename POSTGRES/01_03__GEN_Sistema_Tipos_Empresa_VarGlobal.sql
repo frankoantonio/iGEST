@@ -6,8 +6,7 @@ CREATE TABLE gen.sistema (
 	id_sistema 		CHAR(3) 		NOT NULL PRIMARY KEY,
     nom_sistema 	VARCHAR(50) 	NOT NULL,
     nom_corto 		VARCHAR(25) 	NOT NULL UNIQUE,
-    descripcion 	VARCHAR(100) 	NOT NULL,
-    codigo 			INT 			NOT NULL UNIQUE
+    descripcion 	VARCHAR(100) 	NOT NULL
 );
 --
 COMMENT ON TABLE gen.sistema IS 'Tabla de los sistemas del ERP.'; 
@@ -15,21 +14,20 @@ COMMENT ON COLUMN gen.sistema.id_sistema IS 'Identificador de sistema.';
 COMMENT ON COLUMN gen.sistema.nom_sistema IS 'Nombre del sistema.';
 COMMENT ON COLUMN gen.sistema.nom_corto IS 'Nombre para ser usado en la ruta del API REST.';
 COMMENT ON COLUMN gen.sistema.descripcion IS 'Descripción del sistema.';
-COMMENT ON COLUMN gen.sistema.codigo IS 'Código del sistema.';
 --
-INSERT INTO gen.sistema (id_sistema, nom_sistema, nom_corto, descripcion, codigo)
+INSERT INTO gen.sistema (id_sistema, nom_sistema, nom_corto, descripcion)
 VALUES 
-('COM', 'SISTEMA COMERCIAL'				, 'comercial'	,	'Ventas, matrículas, suscripciones, facturación electrónica, cobranza.'			, 10),
-('LGT', 'SISTEMA LOGÍSTICO'				, 'logistico'	,	'Requerimientos, cotización, órdenes de C/S, compras, facturación, almacén.'	, 15),
-('PER', 'SISTEMA TALENTO HUMANO'		, 'personal'	,	'Escalafón, asistencia, remuneraciones, CAP.'									, 20),
-('FIN', 'SISTEMA FINANCIERO'			, 'financiero'	,	'Tesorería, pagaduría, fondo fijo, pendientes, conciliaciones, proyecciones.'	, 25),
-('CNT', 'SISTEMA CONTABLE'				, 'contable'	,	'Asientos, registros de compras/ventas, estados financieros.'	 				, 30),
-('ADM', 'SISTEMA DE GESTIÓN'			, 'gestion'		,	'Mesa de partes, requerimientos, reportes gerenciales.'	 						, 35),
-('COL', 'SISTEMA ACADÉMICO'				, 'colegio'		,	'Asistencia, conducta, evaluaciones, comunicados, psicología, enfermería.'		, 50),
-('ACA', 'SISTEMA ACADÉMICO'				, 'academia'	,	'Asistencia, etas, evas, fast test, simulacros, comunicados.'					, 55),
-('MED', 'SISTEMA MÉDICO'				, 'medico'		,	'Turnos, citas, triaje, laboratorio, historia, nutrición.'						, 75),
-('BKA', 'SISTEMA BANCA'					, 'banca'		,	'Préstamos, operaciones, refinanciamientos, seguros.'							, 90),
-('GEN', 'SISTEMA DE CONTROL Y ACCESO'	, 'principal' 	, 	'Datos genéricos, seguridad, catálogo, unidades orgánicas.'						, 95);
+('COM', 'SISTEMA COMERCIAL'				, 'comercial'	,	'Ventas, matrículas, suscripciones, facturación electrónica, cobranza.'			),
+('LGT', 'SISTEMA LOGÍSTICO'				, 'logistico'	,	'Requerimientos, cotización, órdenes de C/S, compras, facturación, almacén.'	),
+('PER', 'SISTEMA TALENTO HUMANO'		, 'personal'	,	'Escalafón, asistencia, remuneraciones, CAP.'									),
+('FIN', 'SISTEMA FINANCIERO'			, 'financiero'	,	'Tesorería, pagaduría, fondo fijo, pendientes, conciliaciones, proyecciones.'	),
+('CNT', 'SISTEMA CONTABLE'				, 'contable'	,	'Asientos, registros de compras/ventas, estados financieros.'	 				),
+('ADM', 'SISTEMA DE GESTIÓN'			, 'gestion'		,	'Mesa de partes, requerimientos, reportes gerenciales.'	 						),
+('COL', 'SISTEMA ACADÉMICO'				, 'colegio'		,	'Asistencia, conducta, evaluaciones, comunicados, psicología, enfermería.'		),
+('ACA', 'SISTEMA ACADÉMICO'				, 'academia'	,	'Asistencia, etas, evas, fast test, simulacros, comunicados.'					),
+('MED', 'SISTEMA MÉDICO'				, 'medico'		,	'Turnos, citas, triaje, laboratorio, historia, nutrición.'						),
+('BKA', 'SISTEMA BANCA'					, 'banca'		,	'Préstamos, operaciones, refinanciamientos, seguros.'							),
+('GEN', 'SISTEMA DE CONTROL Y ACCESO'	, 'principal' 	, 	'Datos genéricos, seguridad, catálogo, unidades orgánicas.'						);
 
 
 
@@ -72,182 +70,272 @@ COMMENT ON COLUMN gen.tipo.descripcion IS 'Descripción de tipo.';
 --
 INSERT INTO gen.tipo (id_tipo, nom_tipo, nom_corto, cod_oficial1, cod_oficial2, valor1, valor2, clave, grupo, orden, activo, id_sistema, descripcion) 
 VALUES 
-(95000 , 'NEGOCIOS EN GENERAL'									,	'COMERCIO'				, ''	,	''	,	''		,	''	,	'COMERCIO'	    ,	'TI_EMPRESA'			, 	1, true	, 'GEN' , ''),	
-(95001 , 'COLEGIOS PARTICULARES'								,	'COLEGIO'				, ''	,	''	,	''		,	''	,	'COLEGIO'	    ,	'TI_EMPRESA'			, 	2, true , 'GEN' , ''),
-(95002 , 'ACADEMIAS PREUNIVERSITARIAS'							,	'ACADEMIA'				, ''	,	''	,	''		,	''	,	'ACADEMIA'	    ,	'TI_EMPRESA'			, 	3, true , 'GEN' , ''),
-(95003 , 'CLÍNICAS MÉDICAS QUIRÚRGICAS'							,	'CLÍNICA'				, ''	,	''	,	''		,	''	,	'CLINICA'	    ,	'TI_EMPRESA'			, 	4, true , 'GEN' , ''),
-(95004 , 'BANCOS - CAJAS DE AHORRO Y CRÉDITO'					,	'BANCA'					, ''	,	''	,	''		,	''	,	'BANCA'	    	,	'TI_EMPRESA'			, 	5, true , 'GEN' , ''),
+(10000 , 'NEGOCIOS EN GENERAL'									,	'COMERCIO'				, ''	,	''	,	''		,	''	,	'COMERCIO'	    ,	'TI_NEGOCIO'			, 	1, true	, 'GEN' , ''),	
+(10001 , 'COLEGIOS PARTICULARES'								,	'COLEGIO'				, ''	,	''	,	''		,	''	,	'COLEGIO'	    ,	'TI_NEGOCIO'			, 	2, true , 'GEN' , ''),
+(10002 , 'ACADEMIAS PREUNIVERSITARIAS'							,	'ACADEMIA'				, ''	,	''	,	''		,	''	,	'ACADEMIA'	    ,	'TI_NEGOCIO'			, 	3, true , 'GEN' , ''),
+(10003 , 'CLÍNICAS MÉDICAS QUIRÚRGICAS'							,	'CLÍNICA'				, ''	,	''	,	''		,	''	,	'CLINICA'	    ,	'TI_NEGOCIO'			, 	4, true , 'GEN' , ''),
+(10004 , 'BANCOS - CAJAS DE AHORRO Y CRÉDITO'					,	'BANCA'					, ''	,	''	,	''		,	''	,	'BANCA'	    	,	'TI_NEGOCIO'			, 	5, true , 'GEN' , ''),
 	
-(95010, 'PERSONA NATURAL'										,	'PERSONA'				, ''	,	''	,	''		,	''	,	'NATURAL'	    ,	'TI_PERSONA'			, 	1, true , 'GEN' , ''),
-(95011, 'PERSONA JURÍDICA'										,	'EMPRESA'				, ''	,	''	,	''		,	''	,	'JURIDICA'	    ,	'TI_PERSONA'			, 	2, true , 'GEN' , ''),
-(95012, 'GRUPO INFORMAL'										,	'GRUPO'					, ''	,	''	,	''		,	''	,	'GRUPO'	    	,	'TI_PERSONA'			, 	3, true , 'GEN' , ''),
-(95019, 'VARIOS'												,	'VARIOS'				, ''	,	''	,	''		,	''	,	'VARIOS'	    ,	'TI_PERSONA'			, 	6, true , 'GEN' , ''),
+(10010, 'PERSONA NATURAL'										,	'PERSONA'				, ''	,	''	,	''		,	''	,	'NATURAL'	    ,	'TI_PERSONA'			, 	1, true , 'GEN' , ''),
+(10011, 'PERSONA JURÍDICA'										,	'EMPRESA'				, ''	,	''	,	''		,	''	,	'JURIDICA'	    ,	'TI_PERSONA'			, 	2, true , 'GEN' , ''),
+(10012, 'GRUPO INFORMAL'										,	'GRUPO'					, ''	,	''	,	''		,	''	,	'GRUPO'	    	,	'TI_PERSONA'			, 	3, true , 'GEN' , ''),
+(10019, 'VARIOS'												,	'VARIOS'				, ''	,	''	,	''		,	''	,	'VARIOS'	    ,	'TI_PERSONA'			, 	6, true , 'GEN' , ''),
 
-(95020, 'HOMBRE'												,	'H'						, ''	,	''	,	''		,	''	,	'HOMBRE'	    ,	'TI_SEXO'				, 	1, true , 'GEN' , ''),
-(95021, 'MUJER'													,	'M'						, ''	,	''	,	''		,	''	,	'MUJER'	    	,	'TI_SEXO'				, 	2, true , 'GEN' , ''),
-(95029, 'SIN INDICAR'											,	'-'						, ''	,	''	,	''		,	''	,	'---'	    	,	'TI_SEXO'				, 	3, true , 'GEN' , ''),
+(10020, 'HOMBRE'												,	'H'						, ''	,	''	,	''		,	''	,	'HOMBRE'	    ,	'TI_SEXO'				, 	1, true , 'GEN' , ''),
+(10021, 'MUJER'													,	'M'						, ''	,	''	,	''		,	''	,	'MUJER'	    	,	'TI_SEXO'				, 	2, true , 'GEN' , ''),
+(10029, 'SIN INDICAR'											,	'-'						, ''	,	''	,	''		,	''	,	'---'	    	,	'TI_SEXO'				, 	3, true , 'GEN' , ''),
 																																													   
-(95030, 'DOCUMENTO NACIONAL DE IDENTIDAD'						,	'DNI'					, '01'	,	''	,	'8'		,	''	,	'DNI'	    	,	'TI_DOC_IDENT'			, 	1, true , 'GEN' , ''), 	--SUNAT-PLAME-Anexo2.xlsx  ->  T3- Tipo Documento  
-(95031, 'CARNÉ DE EXTRANJERÍA'									,	'CARNÉ EXTRANJERÍA'		, '04'	,	''	,	''		,	''	,	'CEX'	    	,	'TI_DOC_IDENT'			, 	5, true , 'GEN' , ''),
-(95032, 'REGISTRO ÚNICO DE CONTRIBUYENTES'						,	'RUC'					, '06'	,	''	,	'11'	,	''	,	'RUC'	    	,	'TI_DOC_IDENT'			, 	2, true , 'GEN' , ''),
-(95033, 'PASAPORTE'												,	'PASAPORTE'				, '07'	,	''	,	''		,	''	,	'PSP'	    	,	'TI_DOC_IDENT'			, 	5, true , 'GEN' , ''),	
-(95034, 'CARNÉ DE SOLICITUD DE REFUGIO'							,	'CARNÉ SOL. REFUGIO'	, '09'	,	''	,	''		,	''	,	'CSR'	    	,	'TI_DOC_IDENT'			, 	5, true , 'GEN' , ''),
-(95035, 'PARTIDA DE NACIMIENTO'									,	'PARTIDA NACIMIENTO'	, '11'	,	''	,	''		,	''	,	'PNA'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95036, 'CARNÉ DE IDENTIDAD RELACIONES EXTERIORES'				,	'CARNÉ IDENT. REL. EXT'	, '22'	,	''	,	''		,	''	,	'CRE'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95037, 'PERMISO TEMPORAL DE PERMANENCIA'						,	'PTP'					, '23'	,	''	,	''		,	''	,	'PTP'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95038, 'DOCUMENTO DE IDENTIDAD EXTRANJERO'						,	'DOC. IDENT. EXTRANJERO', '24'	,	''	,	''		,	''	,	'DEX'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95039, 'CARNÉ DE PERMISO TEMPORAL DE PERMANENCIA'				,	'CPP'					, '26'	,	''	,	''		,	''	,	'CPP'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95040, 'CÉDULA DIPLOMÁTICA DE IDENTIDAD'						,	'CÉDULA DIPLOMÁTICA'	, 'A'	,	''	,	''		,	''	,	'CDI'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95041, 'SALVOCONDUCTO'											,	'SALVOCONDUCTO'			, 'G'	,	''	,	''		,	''	,	'SAL'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95042, 'NO DOMICILIADO, SIN RUC (EXPORTACIÓN), VARIOS'			,	'NO DOMICILIADO'		, '0'	,	''	,	''		,	''	,	'NDO'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
-(95049, 'SIN DOCUMENTO'											,	'SIN DOC. IDENTIDAD'	, '-'	,	''	,	''		,	''	,	'S/I'	    	,	'TI_DOC_IDENT'			,  10, true , 'GEN' , 'VENTAS MENORES A 700.00'),
+(10030, 'DOCUMENTO NACIONAL DE IDENTIDAD'						,	'DNI'					, '01'	,	''	,	'8'		,	''	,	'DNI'	    	,	'TI_DOC_IDENT'			, 	1, true , 'GEN' , ''), 	--SUNAT-PLAME-Anexo2.xlsx  ->  T3- Tipo Documento  
+(10031, 'CARNÉ DE EXTRANJERÍA'									,	'CARNÉ EXTRANJERÍA'		, '04'	,	''	,	''		,	''	,	'CEX'	    	,	'TI_DOC_IDENT'			, 	5, true , 'GEN' , ''),
+(10032, 'REGISTRO ÚNICO DE CONTRIBUYENTES'						,	'RUC'					, '06'	,	''	,	'11'	,	''	,	'RUC'	    	,	'TI_DOC_IDENT'			, 	2, true , 'GEN' , ''),
+(10033, 'PASAPORTE'												,	'PASAPORTE'				, '07'	,	''	,	''		,	''	,	'PSP'	    	,	'TI_DOC_IDENT'			, 	5, true , 'GEN' , ''),	
+(10034, 'CARNÉ DE SOLICITUD DE REFUGIO'							,	'CARNÉ SOL. REFUGIO'	, '09'	,	''	,	''		,	''	,	'CSR'	    	,	'TI_DOC_IDENT'			, 	5, true , 'GEN' , ''),
+(10035, 'PARTIDA DE NACIMIENTO'									,	'PARTIDA NACIMIENTO'	, '11'	,	''	,	''		,	''	,	'PNA'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10036, 'CARNÉ DE IDENTIDAD RELACIONES EXTERIORES'				,	'CARNÉ IDENT. REL. EXT'	, '22'	,	''	,	''		,	''	,	'CRE'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10037, 'PERMISO TEMPORAL DE PERMANENCIA'						,	'PTP'					, '23'	,	''	,	''		,	''	,	'PTP'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10038, 'DOCUMENTO DE IDENTIDAD EXTRANJERO'						,	'DOC. IDENT. EXTRANJERO', '24'	,	''	,	''		,	''	,	'DEX'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10039, 'CARNÉ DE PERMISO TEMPORAL DE PERMANENCIA'				,	'CPP'					, '26'	,	''	,	''		,	''	,	'CPP'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10040, 'CÉDULA DIPLOMÁTICA DE IDENTIDAD'						,	'CÉDULA DIPLOMÁTICA'	, 'A'	,	''	,	''		,	''	,	'CDI'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10041, 'SALVOCONDUCTO'											,	'SALVOCONDUCTO'			, 'G'	,	''	,	''		,	''	,	'SAL'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10042, 'NO DOMICILIADO, SIN RUC (EXPORTACIÓN), VARIOS'			,	'NO DOMICILIADO'		, '0'	,	''	,	''		,	''	,	'NDO'	    	,	'TI_DOC_IDENT'			,   5, true , 'GEN' , ''),
+(10049, 'SIN DOCUMENTO'											,	'SIN DOC. IDENTIDAD'	, '-'	,	''	,	''		,	''	,	'S/I'	    	,	'TI_DOC_IDENT'			,  10, true , 'GEN' , 'VENTAS MENORES A 700.00'),
 
-(95050, 'CORE EDITION'											,	''						, ''	,	''	,	''		,	''	,	'LITE'			,	'TI_EDITION'			,  	1, true , 'GEN' , ''),
-(95051, 'PRO EDITION'											,	''						, ''	,	''	,	''		,	''	,	'ESTD'			,	'TI_EDITION'			,  	2, true , 'GEN' , ''),
-(95052, 'PREMIUM EDITION'										,	''						, ''	,	''	,	''		,	''	,	'FULL'			,	'TI_EDITION'			,  	3, true , 'GEN' , ''),
+(10050, 'CORE EDITION'											,	''						, ''	,	''	,	''		,	''	,	'LITE'			,	'TI_EDITION'			,  	1, true , 'GEN' , ''),
+(10051, 'PRO EDITION'											,	''						, ''	,	''	,	''		,	''	,	'ESTD'			,	'TI_EDITION'			,  	2, true , 'GEN' , ''),
+(10052, 'PREMIUM EDITION'										,	''						, ''	,	''	,	''		,	''	,	'FULL'			,	'TI_EDITION'			,  	3, true , 'GEN' , ''),
 
-(95060, 'PAIS'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	1, true , 'GEN' , ''),
-(95061, 'ZONA'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	2, true , 'GEN' , ''),
-(95062, 'SEDE'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	3, true , 'GEN' , ''),
-(95063, 'AGENCIA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	4, true , 'GEN' , ''),
-(95064, 'LOCAL'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	5, true , 'GEN' , ''),
-(95065, 'EOB'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	6, true , 'GEN' , ''),
-(95066, 'PUNTO DE VENTA'										, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	7, true , 'GEN' , ''),
+(10060, 'PAIS'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	1, true , 'GEN' , ''),
+(10061, 'ZONA'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	2, true , 'GEN' , ''),
+(10062, 'SEDE'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	3, true , 'GEN' , ''),
+(10063, 'AGENCIA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	4, true , 'GEN' , ''),
+(10064, 'LOCAL'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	5, true , 'GEN' , ''),
+(10065, 'EOB'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	6, true , 'GEN' , ''),
+(10066, 'PUNTO DE VENTA'										, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_SEDE'				, 	7, true , 'GEN' , ''),
 
-(95070, 'AVENIDA'												,	'AV.'					, '01'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),	--SUNAT-PLAME-Anexo2.xlsx  ->  T5 Via
-(95071, 'JIRÓN'													,	'JR.'					, '02'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95072, 'CALLE'													,	'CA.'					, '03' 	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95073, 'PASAJE'												,	'PJ.'					, '04'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95074, 'ALAMEDA'												,	'AL.'					, '05' 	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95075, 'MALECÓN'												,	'MA.'					, '06'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95076, 'OVALO'													,	'OV.'					, '07'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95077, 'PARQUE'												,	'PQ.'					, '08'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95078, 'PLAZA'													,	'PLA.'					, '09'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95079, 'CARRETERA'												,	'CAR.'					, '10'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95080, 'TROCHA'												,	'TRO.'					, '13'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95081, 'CAMINO RURAL'											,	'CRU.' 					, '14'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95082, 'BAJADA'												,	'BAJ.' 					, '15'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95083, 'GALERIA'												,	'GAL.' 					, '16'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95084, 'PROLONGACIÓN'											,	'PRO.' 					, '17'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95085, 'PASEO'													,	'PAS.' 					, '18'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95086, 'PLAZUELA'												,	'PZU.' 					, '19'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95087, 'PORTAL'												,	'POR.' 					, '20'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95088, 'CAMINO AFIRMADO'										,	'CAF.' 					, '21'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95089, 'TROCHA CARROZABLE'										,	'TRC.' 					, '22'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
-(95090, 'OTROS'													,	'OTROS'					, '99'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   1, true , 'GEN' , ''),
-(95099, '<SIN INDICAR>'											,	''						, '99'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   2, true , 'GEN' , ''),
+(10070, 'AVENIDA'												,	'AV.'					, '01'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),	--SUNAT-PLAME-Anexo2.xlsx  ->  T5 Via
+(10071, 'JIRÓN'													,	'JR.'					, '02'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10072, 'CALLE'													,	'CA.'					, '03' 	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10073, 'PASAJE'												,	'PJ.'					, '04'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10074, 'ALAMEDA'												,	'AL.'					, '05' 	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10075, 'MALECÓN'												,	'MA.'					, '06'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10076, 'OVALO'													,	'OV.'					, '07'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10077, 'PARQUE'												,	'PQ.'					, '08'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10078, 'PLAZA'													,	'PLA.'					, '09'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10079, 'CARRETERA'												,	'CAR.'					, '10'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10080, 'TROCHA'												,	'TRO.'					, '13'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10081, 'CAMINO RURAL'											,	'CRU.' 					, '14'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10082, 'BAJADA'												,	'BAJ.' 					, '15'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10083, 'GALERIA'												,	'GAL.' 					, '16'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10084, 'PROLONGACIÓN'											,	'PRO.' 					, '17'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10085, 'PASEO'													,	'PAS.' 					, '18'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10086, 'PLAZUELA'												,	'PZU.' 					, '19'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10087, 'PORTAL'												,	'POR.' 					, '20'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10088, 'CAMINO AFIRMADO'										,	'CAF.' 					, '21'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10089, 'TROCHA CARROZABLE'										,	'TRC.' 					, '22'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   0, true , 'GEN' , ''),
+(10090, 'OTROS'													,	'OTROS'					, '99'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   1, true , 'GEN' , ''),
+(10099, '<SIN INDICAR>'											,	''						, '99'	,	''	,	''		,	''	,	''	    		,	'TI_VIA'				,   2, true , 'GEN' , ''),
 
-(95100, 'URBANIZACIÓN'											,	'URB.'					, '01'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),	--SUNAT-PLAME-Anexo2.xlsx  ->  T6 Zona
-(95101, 'PUEBLO JOVEN'											,	'P.J.'					, '02'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95102, 'UNIDAD VECINAL'										,	'U.V.'					, '03'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95103, 'CONJUNTO HABITACIONAL'									,	'C.H.'					, '04'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95104, 'ASENTAMIENTO HUMANO'									,	'A.H.'					, '05'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95105, 'COOPERATIVA'											,	'COO.'					, '06'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95106, 'RESIDENCIAL'											,	'RES.'					, '07'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95107, 'ZONA INDUSTRIAL'										,	'Z.I.'					, '08'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95108, 'GRUPO'													,	'GRU.'					, '09'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95109, 'CASERÍO'												,	'CAS.'					, '10'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95110, 'FUNDO'													,	'FND.'					, '11'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
-(95111, 'OTROS'													,	'OTROS' 				, '99'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   1, true , 'GEN' , ''),
-(95119, '<SIN INDICAR>'											,	'' 						, '99'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   2, true , 'GEN' , ''),
+(10100, 'URBANIZACIÓN'											,	'URB.'					, '01'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),	--SUNAT-PLAME-Anexo2.xlsx  ->  T6 Zona
+(10101, 'PUEBLO JOVEN'											,	'P.J.'					, '02'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10102, 'UNIDAD VECINAL'										,	'U.V.'					, '03'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10103, 'CONJUNTO HABITACIONAL'									,	'C.H.'					, '04'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10104, 'ASENTAMIENTO HUMANO'									,	'A.H.'					, '05'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10105, 'COOPERATIVA'											,	'COO.'					, '06'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10106, 'RESIDENCIAL'											,	'RES.'					, '07'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10107, 'ZONA INDUSTRIAL'										,	'Z.I.'					, '08'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10108, 'GRUPO'													,	'GRU.'					, '09'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10109, 'CASERÍO'												,	'CAS.'					, '10'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10110, 'FUNDO'													,	'FND.'					, '11'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   0, true , 'GEN' , ''),
+(10111, 'OTROS'													,	'OTROS' 				, '99'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   1, true , 'GEN' , ''),
+(10119, '<SIN INDICAR>'											,	'' 						, '99'	,	''	,	''		,	''	,	''	    		,	'TI_ZONA'				,   2, true , 'GEN' , ''),
 
-(95120, 'TRABAJADOR'											,	''						, ''	,	''	,	'USU'	,	''	,	'TRA'			,	'TI_GRP_PER'			,  	1, true , 'GEN' , ''),
-(95121, 'SOCIO COMERCIAL - CLIENTE'								,	''						, ''	,	''	,	''		,	''	,	'CLI'			,	'TI_GRP_PER'			,  	2, true , 'GEN' , ''),
-(95122, 'SOCIO COMERCIAL - PROVEEDOR'							,	''						, ''	,	''	,	''		,	''	,	'PRO'			,	'TI_GRP_PER'			,  	2, true , 'GEN' , ''),
-(95123, 'ESTUDIANTE COLEGIO'									,	''						, ''	,	''	,	'USU'	,	''	,	'ECO'			,	'TI_GRP_PER'			,  	3, true , 'GEN' , ''),
-(95124, 'ESTUDIANTE ACADEMIA'									,	''						, ''	,	''	,	'USU'	,	''	,	'EAC'			,	'TI_GRP_PER'			,  	4, true , 'GEN' , ''),
-(95125, 'DOCTOR'												,	''						, ''	,	''	,	''	    ,	''	,	'DOC'			,	'TI_GRP_PER'			,   5, true , 'GEN' , ''),
-(95126, 'PACIENTE'												,	''						, ''	,	''	,	'USU'	,	''	,	'PAC'			,	'TI_GRP_PER'			,  	6, true , 'GEN' , ''),
-(95127, 'FAMILIAR TRABAJADOR'									,	''						, ''	,	''	,	''		,	''	,	'FTR'			,	'TI_GRP_PER'			,  	6, true , 'GEN' , ''),
-(95128, 'FAMILIAR ESTUDIANTE'									,	''						, ''	,	''	,	'USU'	,	''	,	'FES'			,	'TI_GRP_PER'			,  	7, true , 'GEN' , ''),
-(95129, 'FAMILIAR PACIENTE'										,	''						, ''	,	''	,	''		,	''	,	'FPA'			,	'TI_GRP_PER'			,  	9, true , 'GEN' , ''),
+(10120, 'PAPÁ'													, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,  	1, true , 'GEN' , ''),
+(10121, 'MAMÁ'													, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,  	2, true , 'GEN' , ''),
+(10122, 'TÍO/A'													, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,   3, true , 'GEN' , ''),
+(10123, 'ABUELO/A'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,   4, true , 'GEN' , ''),
+(10124, 'HERMANO/A'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,   5, true , 'GEN' , ''),
+(10125, 'PRIMO/A'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,   6, true , 'GEN' , ''),
+(10126, 'PADRINO/MADRINA'										, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,   7, true , 'GEN' , ''),
+(10127, 'TUTOR/A'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,   8, true , 'GEN' , ''),
+(10128, 'HIJO/A'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,   9, true , 'GEN' , ''),
+(10129, 'SOBRINO/A'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,  10, true , 'GEN' , ''),
+(10130, 'AHIJADO/A'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,  11, true , 'GEN' , ''),
+(10131, 'OTRO PARENTESCO'										, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,  90, true , 'GEN' , ''),
+(10139, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_PARENTESCO_EST'		,  99, true , 'GEN' , ''),
 
-(95140, 'SOLTERO/A'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	1, true , 'GEN' , ''),
-(95141, 'CASADO/A'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	2, true , 'GEN' , ''),
-(95142, 'CONVIVIENTE'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	3, true , 'GEN' , ''),
-(95143, 'SEPARADO/A'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	4, true , 'GEN' , ''),
-(95144, 'DIVORCIADO/A'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	5, true , 'GEN' , ''),
-(95145, 'VIUDO/A'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	6, true , 'GEN' , ''),
-(95149, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	7, true , 'GEN' , ''),
+(10140, 'SOLTERO/A'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	1, true , 'GEN' , ''),
+(10141, 'CASADO/A'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	2, true , 'GEN' , ''),
+(10142, 'CONVIVIENTE'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	3, true , 'GEN' , ''),
+(10143, 'SEPARADO/A'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	4, true , 'GEN' , ''),
+(10144, 'DIVORCIADO/A'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	5, true , 'GEN' , ''),
+(10145, 'VIUDO/A'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	6, true , 'GEN' , ''),
+(10149, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_EST_CIV'			, 	7, true , 'GEN' , ''),
 
-(95150, 'CASA'													, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	1, true , 'GEN' , ''),
-(95151, 'DEPARTAMENTO'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	2, true , 'GEN' , ''),
-(95152, 'DUPLEX'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	3, true , 'GEN' , ''),
-(95153, 'CUARTO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	4, true , 'GEN' , ''),
-(95159, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	5, true , 'GEN' , ''),
+(10150, 'CASA'													, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	1, true , 'GEN' , ''),
+(10151, 'DEPARTAMENTO'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	2, true , 'GEN' , ''),
+(10152, 'DUPLEX'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	3, true , 'GEN' , ''),
+(10153, 'CUARTO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	4, true , 'GEN' , ''),
+(10159, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIVIENDA'			,  	5, true , 'GEN' , ''),
 	
-(95160, 'MATERIAL NOBLE'										, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	1, true , 'GEN' , ''),
-(95161, 'MADERA'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	2, true , 'GEN' , ''),
-(95162, 'RÚSTICO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	3, true , 'GEN' , ''),
-(95169, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	3, true , 'GEN' , ''),
+(10160, 'MATERIAL NOBLE'										, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	1, true , 'GEN' , ''),
+(10161, 'MADERA'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	2, true , 'GEN' , ''),
+(10162, 'RÚSTICO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	3, true , 'GEN' , ''),
+(10169, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_MATERIAL'		,  	3, true , 'GEN' , ''),
 	
-(95170, 'ALQUILADO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	1, true , 'GEN' , ''),
-(95171, 'PROPIO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	2, true , 'GEN' , ''),
-(95172, 'FAMILIAR'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	3, true , 'GEN' , ''),
-(95179, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	4, true , 'GEN' , ''),
+(10170, 'ALQUILADO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	1, true , 'GEN' , ''),
+(10171, 'PROPIO'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	2, true , 'GEN' , ''),
+(10172, 'FAMILIAR'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	3, true , 'GEN' , ''),
+(10179, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_VIV_CONDICION'		,  	4, true , 'GEN' , ''),
 	
-(95180, 'SIN MOVILIDAD'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'			,  	1, true , 'GEN' , ''),
-(95181, 'BICICLETA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'			,  	2, true , 'GEN' , ''),
-(95182, 'PROPIO MOTORIZADO 2|3 RUEDAS'							, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	3, true , 'GEN' , ''),
-(95183, 'PROPIO MOTORIZADO 4+ RUEDAS'							, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	4, true , 'GEN' , ''),
-(95184, 'TRANSPORTE PÚBLICO'									, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	5, true , 'GEN' , ''),
-(95185, 'MIXTO [PROPIO/PÚBLICO]'								, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	6, true , 'GEN' , ''),
-(95189, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	7, true , 'GEN' , ''),
+(10180, 'SIN MOVILIDAD'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'			,  	1, true , 'GEN' , ''),
+(10181, 'BICICLETA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'			,  	2, true , 'GEN' , ''),
+(10182, 'PROPIO MOTORIZADO 2|3 RUEDAS'							, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	3, true , 'GEN' , ''),
+(10183, 'PROPIO MOTORIZADO 4+ RUEDAS'							, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	4, true , 'GEN' , ''),
+(10184, 'TRANSPORTE PÚBLICO'									, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	5, true , 'GEN' , ''),
+(10185, 'MIXTO [PROPIO/PÚBLICO]'								, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	6, true , 'GEN' , ''),
+(10189, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_MOVILIDAD'	    	,  	7, true , 'GEN' , ''),
 
-(95190, 'SIN EDUCACIÓN FORMAL'									, 	''						, '01'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   1, true , 'GEN' , ''),	--SUNAT-PLAME-Anexo2.xlsx  ->  T9 Situación Educativa
-(95191, 'ESPECIAL INCOMPLETA'									, 	''						, '02'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   2, true , 'GEN' , ''),
-(95192, 'ESPECIAL COMPLETA'										, 	''						, '03'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   3, true , 'GEN' , ''),
-(95193, 'PRIMARIA INCOMPLETA'									, 	''						, '04'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   4, true , 'GEN' , ''),
-(95194, 'PRIMARIA COMPLETA'										, 	''						, '05'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   5, true , 'GEN' , ''),
-(95195, 'SECUNDARIA INCOMPLETA'									, 	''						, '06'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   6, true , 'GEN' , ''),
-(95196, 'SECUNDARIA COMPLETA'									, 	''						, '07'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   7, true , 'GEN' , ''),
-(95197, 'TÉCNICA INCOMPLETA - CEO/CETPRO'						, 	''						, '08'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   8, true , 'GEN' , ''),
-(95198, 'TÉCNICA COMPLETA - CEO/CETPRO'							, 	''						, '09'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   9, true , 'GEN' , ''),
-(95199, 'SUPERIOR INCOMPLETA - IST/ISP/ESC. FORM. ART./ESC. SUBOF.',''						, '10'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  10, true , 'GEN' , ''),
-(95200, 'SUPERIOR COMPLETA - IST/ISP/ESC. FORM. ART./ESC. SUBOF.'  ,''						, '11'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  11, true , 'GEN' , ''),
-(95201, 'UNIVERSITARIA INCOMPLETA - ESCUELA OF.'				, 	''						, '12'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  12, true , 'GEN' , ''),
-(95202, 'UNIVERSITARIA COMPLETA - ESCUELA OF.'					, 	''						, '13'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  13, true , 'GEN' , ''),
-(95203, 'GRADO DE BACHILLER'									, 	''						, '14'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  14, true , 'GEN' , ''),
-(95204, 'TITULADO'												, 	''						, '15'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  15, true , 'GEN' , ''),
-(95205, 'MAESTRÍA INCOMPLETA'									, 	''						, '16'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  16, true , 'GEN' , ''),
-(95206, 'MAESTRÍA COMPLETA'										, 	''  					, '17'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  17, true , 'GEN' , ''),
-(95207, 'GRADO DE MAESTRÍA'										, 	''  					, '18'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  18, true , 'GEN' , ''),
-(95208, 'DOCTORADO INCOMPLETO'									, 	''  					, '19'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  19, true , 'GEN' , ''),
-(95209, 'DOCTORADO COMPLETO'									, 	''  					, '20'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  20, true , 'GEN' , ''),
-(95210, 'GRADO DE DOCTOR'										, 	''  					, '21'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  21, true , 'GEN' , ''),
-(95219, '<SIN INDICAR>'											, 	''  					, '99'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  22, true , 'GEN' , ''),
+(10190, 'SIN EDUCACIÓN FORMAL'									, 	''						, '01'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   1, true , 'GEN' , ''),	--SUNAT-PLAME-Anexo2.xlsx  ->  T9 Situación Educativa
+(10191, 'ESPECIAL INCOMPLETA'									, 	''						, '02'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   2, true , 'GEN' , ''),
+(10192, 'ESPECIAL COMPLETA'										, 	''						, '03'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   3, true , 'GEN' , ''),
+(10193, 'PRIMARIA INCOMPLETA'									, 	''						, '04'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   4, true , 'GEN' , ''),
+(10194, 'PRIMARIA COMPLETA'										, 	''						, '05'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   5, true , 'GEN' , ''),
+(10195, 'SECUNDARIA INCOMPLETA'									, 	''						, '06'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   6, true , 'GEN' , ''),
+(10196, 'SECUNDARIA COMPLETA'									, 	''						, '07'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   7, true , 'GEN' , ''),
+(10197, 'TÉCNICA INCOMPLETA - CEO/CETPRO'						, 	''						, '08'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   8, true , 'GEN' , ''),
+(10198, 'TÉCNICA COMPLETA - CEO/CETPRO'							, 	''						, '09'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,   9, true , 'GEN' , ''),
+(10199, 'SUPERIOR INCOMPLETA - IST/ISP/ESC. FORM. ART./ESC. SUBOF.',''						, '10'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  10, true , 'GEN' , ''),
+(10200, 'SUPERIOR COMPLETA - IST/ISP/ESC. FORM. ART./ESC. SUBOF.'  ,''						, '11'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  11, true , 'GEN' , ''),
+(10201, 'UNIVERSITARIA INCOMPLETA - ESCUELA OF.'				, 	''						, '12'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  12, true , 'GEN' , ''),
+(10202, 'UNIVERSITARIA COMPLETA - ESCUELA OF.'					, 	''						, '13'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  13, true , 'GEN' , ''),
+(10203, 'GRADO DE BACHILLER'									, 	''						, '14'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  14, true , 'GEN' , ''),
+(10204, 'TITULADO'												, 	''						, '15'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  15, true , 'GEN' , ''),
+(10205, 'MAESTRÍA INCOMPLETA'									, 	''						, '16'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  16, true , 'GEN' , ''),
+(10206, 'MAESTRÍA COMPLETA'										, 	''  					, '17'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  17, true , 'GEN' , ''),
+(10207, 'GRADO DE MAESTRÍA'										, 	''  					, '18'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  18, true , 'GEN' , ''),
+(10208, 'DOCTORADO INCOMPLETO'									, 	''  					, '19'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  19, true , 'GEN' , ''),
+(10209, 'DOCTORADO COMPLETO'									, 	''  					, '20'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  20, true , 'GEN' , ''),
+(10210, 'GRADO DE DOCTOR'										, 	''  					, '21'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  21, true , 'GEN' , ''),
+(10219, '<SIN INDICAR>'											, 	''  					, '99'	,	''	,	''		,	''	,	''	    		,	'TI_SIT_EDUC'			,  22, true , 'GEN' , ''),
 
-(95220, 'COLEGIO / ESCUELA'										,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	1, true , 'GEN' , ''),
-(95221, 'CETPRO / CEO / OTRO'									,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	2, true , 'GEN' , ''),
-(95222, 'INSTITUTO'												,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	3, true , 'GEN' , ''),
-(95223, 'ESCUELA ARTISTICA / DEPORTIVA / CULTURAL / OTRO'		,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	4, true , 'GEN' , ''),
-(95224, 'ESCUELA POLICIAL'										,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	5, true , 'GEN' , ''),
-(95225, 'ESCUELA MILITAR'										,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	6, true , 'GEN' , ''),
-(95226, 'UNIVERSIDAD'											,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	7, true , 'GEN' , ''),
+(10220, 'COLEGIO / ESCUELA'										,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	1, true , 'GEN' , ''),
+(10221, 'CETPRO / CEO / OTRO'									,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	2, true , 'GEN' , ''),
+(10222, 'INSTITUTO'												,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	3, true , 'GEN' , ''),
+(10223, 'ESCUELA ARTISTICA / DEPORTIVA / CULTURAL / OTRO'		,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	4, true , 'GEN' , ''),
+(10224, 'ESCUELA POLICIAL'										,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	5, true , 'GEN' , ''),
+(10225, 'ESCUELA MILITAR'										,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	6, true , 'GEN' , ''),
+(10226, 'UNIVERSIDAD'											,	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_INST_ESTUDIO'		,  	7, true , 'GEN' , ''),
 
-(95230, 'SEÑOR'													, 	'SR.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	1, true , 'GEN' , ''),
-(95231, 'SEÑORA'												, 	'SRA.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	2, true , 'GEN' , ''),
-(95232, 'SEÑORITA'												, 	'SRTA.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	3, true , 'GEN' , ''),
-(95233, 'LICENCIADO/A'											, 	'LIC.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95234, 'CONTADOR/A PÚBLICO/A COLEGIADO/A'						, 	'C.P.C.'				, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95235, 'ABOGADO/A'												, 	'ABOG.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95236, 'INGENIERO/A'											, 	'ING.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95237, 'ARQUITECTO/A'											, 	'ARQ.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95238, 'PROFESOR/A'											, 	'PROF.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95239, 'BACHILLER'												, 	'BACH.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95240, 'MAGISTER'												, 	'MG.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95241, 'DOCTOR/A'												, 	'DR.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95242, 'OFICIAL'												, 	'OF.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95243, 'SUBOFICIAL'											, 	'SOF.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95244, 'TÉCNICO/A'												, 	'TEC.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
-(95245, 'PSICÓLOGO/A'											, 	'PS.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
---hasta el 95279
+(10230, 'SEÑOR'													, 	'SR.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	1, true , 'GEN' , ''),
+(10231, 'SEÑORA'												, 	'SRA.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	2, true , 'GEN' , ''),
+(10232, 'SEÑORITA'												, 	'SRTA.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	3, true , 'GEN' , ''),
+(10233, 'LICENCIADO/A'											, 	'LIC.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10234, 'CONTADOR/A PÚBLICO/A COLEGIADO/A'						, 	'C.P.C.'				, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10235, 'ABOGADO/A'												, 	'ABOG.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10236, 'INGENIERO/A'											, 	'ING.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10237, 'ARQUITECTO/A'											, 	'ARQ.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10238, 'PROFESOR/A'											, 	'PROF.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10239, 'BACHILLER'												, 	'BACH.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10240, 'MAGISTER'												, 	'MG.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10241, 'DOCTOR/A'												, 	'DR.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10242, 'OFICIAL'												, 	'OF.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10243, 'SUBOFICIAL'											, 	'SOF.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10244, 'TÉCNICO/A'												, 	'TEC.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+(10245, 'PSICÓLOGO/A'											, 	'PS.'					, ''	,	''	,	''		,	''	,	''				,	'TI_TITULO'				, 	4, true , 'GEN' , ''),
+--hasta el 10259
 
-(95990, 'PRODUCCIÓN'											,	''						, ''	,	''	,	''		,	''	,	'PRO'			,	'TI_CECO'				,  	1, true , 'GEN' , ''),
-(95991, 'ADMINISTRACIÓN'										,	''						, ''	,	''	,	''		,	''	,	'GEN'			,	'TI_CECO'				,  	2, true , 'GEN' , ''),
-(95992, 'VENTAS'												,	''						, ''	,	''	,	''		,	''	,	'VTA'			,	'TI_CECO'				,  	3, true , 'GEN' , '');
+(10260, 'ACTIVO'												, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	1, true , 'GEN' , ''),
+(10261, 'SUSPENSIÓN TEMPORAL'									, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	2, true , 'GEN' , ''),
+(10262, 'BAJA PROVISIONAL'										, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	3, true , 'GEN' , ''),
+(10263, 'BAJA DEFINITIVA'										, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	4, true , 'GEN' , ''),
+(10264, 'BAJA PROVISIONAL DE OFICIO'							, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	5, true , 'GEN' , ''),
+(10265, 'BAJA DEFINITIVA DE OFICIO'								, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	6, true , 'GEN' , ''),
+(10266, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	7, true , 'GEN' , ''),
+																																																
+(10270, 'HABIDO'												, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	1, true , 'GEN' , ''),
+(10271, 'NO HALLADO'											, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	2, true , 'GEN' , ''),
+(10272, 'NO HABIDO'												, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	3, true , 'GEN' , ''),
+(10273, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	4, true , 'GEN' , ''),
+
+(10280, 'CASTELLANO'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	1, true , 'GEN' , ''),
+(10281, 'QUECHUA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	2, true , 'GEN' , ''),
+(10282, 'AYMARA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10283, 'ASHANINKA(CAMPA)'										, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10284, 'AGUARUNA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10285, 'SHIPIBA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10286, 'HIJITOTO'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10287, 'COCAMA - COCAMILLA'									, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10288, 'MACHIGUENGA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10289, 'PIRO'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10290, 'CASHINAHUA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10291, 'COCATAIBO'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10292, 'YAMINAHUA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10293, 'CULINA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10294, 'SHARANAHUA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10295, 'MATSANAHUA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10296, 'ANAHUACA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10297, 'HUAMBISA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10298, 'ACHUAR'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10299, 'BORA'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10300, 'CHAYAHUITA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10301, 'YANESHA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
+(10302, 'INGLES'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	8, true , 'GEN' , ''),
+(10303, 'FRANCES'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	8, true , 'GEN' , ''),
+(10304, 'ITALIANO'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	8, true , 'GEN' , ''),
+(10308, '<OTRO>'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  10, true , 'GEN' , ''),
+(10309, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  20, true , 'GEN' , ''),
+
+(10310, 'CATÓLICA'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  	1, true , 'GEN' , ''),
+(10311, 'CRISTIANA'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  	2, true , 'GEN' , ''),
+(10312, 'OTRA RELIGIÓN'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  10, true , 'GEN' , ''),
+(10313, 'NINGUNA RELIGIÓN'										, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  11, true , 'GEN' , ''),
+(10314, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  12, true , 'GEN' , ''),
+(10315, 'DHÁRMICAS'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  	3, true , 'GEN' , ''),
+(10316, 'ISLAMÍCA'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  	4, true , 'GEN' , ''),
+(10317, 'JUDÍA'													, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_RELIGION'			,  	5, true , 'GEN' , ''),
+
+(10320, '<1,500.00'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	1, true , 'GEN' , ''),
+(10321, ' 1,500.00 -  2,500.00'								 	, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	2, true , 'GEN' , ''),
+(10322, ' 2,501.00 -  4,000.00'									, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	3, true , 'GEN' , ''),
+(10323, ' 4,001.00 -  5,500.00'									, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	4, true , 'GEN' , ''),
+(10324, ' 5,501.00 -  7,000.00'									, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	5, true , 'GEN' , ''),
+(10325, ' 7,001.00 -  8,500.00'									, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	6, true , 'GEN' , ''),
+(10326, ' 8,501.00 - 10,000.00'									, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	7, true , 'GEN' , ''),
+(10327, '10,001.00 - 15,000.00'									, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	8, true , 'GEN' , ''),
+(10328, '15,001.00 - 20,000.00'									, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  	9, true , 'GEN' , ''),
+(10329, '>20,000.00'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  10, true , 'GEN' , ''),
+(10339, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_INGRESOS'		,  10, true , 'GEN' , ''),
+																																																																																																																												
+(10340, 'SIS - SEGURO INTEGRAL DE SALUD'						, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	1, true , 'GEN' , ''),
+(10341, 'ESSALUD'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	2, true , 'GEN' , ''),
+(10342, 'SEGURO SALUD FFAA / FFPP'								, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	3, true , 'GEN' , ''),
+(10343, 'EPS RIMAC'												, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	5, true , 'GEN' , ''),
+(10344, 'EPS MAPFRE'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	6, true , 'GEN' , ''),
+(10345, 'EPS SANITAS'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	7, true , 'GEN' , ''),
+(10346, 'EPS PACÍFICO'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	8, true , 'GEN' , ''),
+(10349, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	''	,	''	    		,	'TI_FAM_SEGURO'			,  	9, true , 'GEN' , ''),
+
+
+(10990, 'PRODUCCIÓN'											,	''						, ''	,	''	,	''		,	''	,	'PRO'			,	'TI_CECO'				,  	1, true , 'GEN' , ''),
+(10991, 'ADMINISTRACIÓN'										,	''						, ''	,	''	,	''		,	''	,	'GEN'			,	'TI_CECO'				,  	2, true , 'GEN' , ''),
+(10992, 'VENTAS'												,	''						, ''	,	''	,	''		,	''	,	'VTA'			,	'TI_CECO'				,  	3, true , 'GEN' , '');
+
 
 /*	
+
+-- TALVES NO SE USE
+(10120, 'TRABAJADOR'											,	''						, ''	,	''	,	'USU'	,	''	,	'TRA'			,	'TI_GRP_PER'			,  	1, true , 'GEN' , ''),
+(10121, 'SOCIO COMERCIAL - CLIENTE'								,	''						, ''	,	''	,	''		,	''	,	'CLI'			,	'TI_GRP_PER'			,  	2, true , 'GEN' , ''),
+(10122, 'SOCIO COMERCIAL - PROVEEDOR'							,	''						, ''	,	''	,	''		,	''	,	'PRO'			,	'TI_GRP_PER'			,  	2, true , 'GEN' , ''),
+(10123, 'ESTUDIANTE COLEGIO'									,	''						, ''	,	''	,	'USU'	,	''	,	'ECO'			,	'TI_GRP_PER'			,  	3, true , 'GEN' , ''),
+(10124, 'ESTUDIANTE ACADEMIA'									,	''						, ''	,	''	,	'USU'	,	''	,	'EAC'			,	'TI_GRP_PER'			,  	4, true , 'GEN' , ''),
+(10125, 'DOCTOR'												,	''						, ''	,	''	,	''	    ,	''	,	'DOC'			,	'TI_GRP_PER'			,   5, true , 'GEN' , ''),
+(10126, 'PACIENTE'												,	''						, ''	,	''	,	'USU'	,	''	,	'PAC'			,	'TI_GRP_PER'			,  	6, true , 'GEN' , ''),
+(10127, 'FAMILIAR TRABAJADOR'									,	''						, ''	,	''	,	''		,	''	,	'FTR'			,	'TI_GRP_PER'			,  	6, true , 'GEN' , ''),
+(10128, 'FAMILIAR ESTUDIANTE'									,	''						, ''	,	''	,	'USU'	,	''	,	'FES'			,	'TI_GRP_PER'			,  	7, true , 'GEN' , ''),
+(10129, 'FAMILIAR PACIENTE'										,	''						, ''	,	''	,	''		,	''	,	'FPA'			,	'TI_GRP_PER'			,  	9, true , 'GEN' , ''),
+	
+	
 (95050, 'CABECERA DE OPCIONES'									,	''						, ''	,	''	,	''		,	''	,	'CAB'			,	'TI_OPCION_SIS'			,  	1, true , 'GEN' , ''),
 (95051, 'OPCIÓN - PANEL DE USUARIO'								,	''						, ''	,	''	,	''		,	''	,	'PNL'			,	'TI_OPCION_SIS'			,  	2, true , 'GEN' , ''),
 (95052, 'OPCIÓN - FORMULARIO EMERGENTE'							,	''						, ''	,	''	,	''		,	''	,	'FRM'			,	'TI_OPCION_SIS'			,  	3, true , 'GEN' , ''),
@@ -284,46 +372,6 @@ VALUES
 (95226, 'INTERDIARIO'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_TURNO'				,  	7, true , 'GEN' , ''),
 (95229, 'VARIABLE'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_TURNO'				,  	8, true , 'GEN' , ''),
 	
-(95230, 'CASTELLANO'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	1, true , 'GEN' , ''),
-(95231, 'QUECHUA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	2, true , 'GEN' , ''),
-(95232, 'AYMARA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95233, 'ASHANINKA(CAMPA)'										, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95234, 'AGUARUNA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95235, 'SHIPIBA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95236, 'HIJITOTO'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95237, 'COCAMA - COCAMILLA'									, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95238, 'MACHIGUENGA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95239, 'PIRO'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95240, 'CASHINAHUA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95241, 'COCATAIBO'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95242, 'YAMINAHUA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95243, 'CULINA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95244, 'SHARANAHUA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95245, 'MATSANAHUA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95246, 'ANAHUACA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95247, 'HUAMBISA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95248, 'ACHUAR'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95249, 'BORA'													, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95250, 'CHAYAHUITA'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95251, 'YANESHA'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	3, true , 'GEN' , ''),
-(95252, 'INGLES'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	8, true , 'GEN' , ''),
-(95253, 'FRANCES'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	8, true , 'GEN' , ''),
-(95254, 'ITALIANO'												, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  	8, true , 'GEN' , ''),
-(95259, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''	    		,	'TI_LENGUA'				,  11, true , 'GEN' , ''),
-	
-																																		
-(10001, 'ACTIVO'												, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	1, true , 'COM' , ''),
-(10002, 'SUSPENSIÓN TEMPORAL'									, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	2, true , 'COM' , ''),
-(10003, 'BAJA PROVISIONAL'										, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	3, true , 'COM' , ''),
-(10004, 'BAJA DEFINITIVA'										, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	4, true , 'COM' , ''),
-(10005, 'BAJA PROVISIONAL DE OFICIO'							, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	5, true , 'COM' , ''),
-(10006, 'BAJA DEFINITIVA DE OFICIO'								, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	6, true , 'COM' , ''),
-(10007, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_ESTADO_CONTRIB'		,  	7, true , 'COM' , ''),
-																																																
-(10010, 'HABIDO'												, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	1, true , 'COM' , ''),
-(10011, 'NO HALLADO'											, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	2, true , 'COM' , ''),
-(10012, 'NO HABIDO'												, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	3, true , 'COM' , ''),
-(10013, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''		,	''	,	''				,	'TI_CONDICION_CONTRIB'	,  	4, true , 'COM' , ''),
 
 -- COLEGIO
 
@@ -404,24 +452,6 @@ VALUES
 (10463, 'SECUNDARIA'											, 	'SEC'					, ''	,	''	,	''		,	'TI_NIV_EDUC'		, 	3, true , 'ACD' , ''),
 
 
-(10310, 'PAPÁ'													, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  	1, true , 'ACD' , ''),
-(10311, 'MAMÁ'													, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  	2, true , 'ACD' , ''),
-(10312, 'ESPOSO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10313, 'PAREJA'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10314, 'HIJO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10315, 'ABUELO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10316, 'HERMANO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10317, 'TÍO/A'													, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10318, 'PRIMO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10319, 'PADRINO/MADRINA'										, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10320, 'TUTOR/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10321, 'COMPADRE/COMADRE'										, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10322, 'CUÑADO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10323, 'SUEGRO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10324, 'AMISTAD'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  97, true , 'ACD' , ''),
-(10325, 'SOBRINO/A'												, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  10, true , 'ACD' , ''),
-(10326, 'OTRO PARENTESCO'										, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  98, true , 'ACD' , ''),
-(10327, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	'TI_PARENTESCO'		,  99, true , 'ACD' , ''),
 */
 																													
 
@@ -430,37 +460,10 @@ VALUES
 /*
 																															
 																																		
-(10220, 'CATÓLICA'												, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  	1, true , 'GEN' , ''),
-(10221, 'CRISTIANA'												, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  	2, true , 'GEN' , ''),
-(10222, 'OTRA RELIGIÓN'											, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  10, true , 'GEN' , ''),
-(10223, 'NINGUNA RELIGIÓN'										, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  11, true , 'GEN' , ''),
-(10224, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  12, true , 'GEN' , ''),
-(10225, 'DHÁRMICAS'												, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  	3, true , 'GEN' , ''),
-(10226, 'ISLAMÍCA'												, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  	4, true , 'GEN' , ''),
-(10227, 'JUDÍA'													, 	''						, ''	,	''	,	''	    ,	'TI_RELIGION'		,  	5, true , 'GEN' , ''),
+
 																													
 																															
-(10270, '<1,000.00'												, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	1, true , 'GEN' , ''),
-(10271, '  1,000.00 -  2,000.00'								, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	2, true , 'GEN' , ''),
-(10272, '  2,001.00 -  3,000.00'								, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	3, true , 'GEN' , ''),
-(10273, '  3,001.00 -  4,000.00'								, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	4, true , 'GEN' , ''),
-(10274, '  4,001.00 -  5,000.00'								, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	5, true , 'GEN' , ''),
-(10275, '  5,001.00 -  7,500.00'								, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	6, true , 'GEN' , ''),
-(10276, '  7,501.00 - 10,000.00'								, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	7, true , 'GEN' , ''),
-(10277, '10,001.00 - 15,000.00'									, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	8, true , 'GEN' , ''),
-(10278, '15,001.00 - 20,000.00'									, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  	9, true , 'GEN' , ''),
-(10279, '>20,000.00'											, 	''						, ''	,	''	,	''	    ,	'TI_FAM_INGRESOS'	,  10, true , 'GEN' , ''),
-																																																											
-																																																																																																																									
-(10290, 'SIS - SEGURO INTEGRAL DE SALUD'						, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	1, true , 'GEN' , ''),
-(10291, 'ESSALUD'												, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	2, true , 'GEN' , ''),
-(10292, 'SEGURO SALUD FFAA'										, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	3, true , 'GEN' , ''),
-(10293, 'SEGURO SALUD FFPP'										, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	4, true , 'GEN' , ''),
-(10294, 'EPS RIMAC'												, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	5, true , 'GEN' , ''),
-(10295, 'EPS MAPFRE'											, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	6, true , 'GEN' , ''),
-(10296, 'EPS SANITAS'											, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	7, true , 'GEN' , ''),
-(10297, 'EPS PACÍFICO'											, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	8, true , 'GEN' , ''),
-(10298, '<SIN INDICAR>'											, 	''						, ''	,	''	,	''	    ,	'TI_FAM_SEGURO'		,  	9, true , 'GEN' , ''),
+
 																																		
 																																								
 (10350, 'DIARIO'												, 	''						, ''	,	'1'	,	'DÍA'	,	'TI_PERIODICIDAD'	,  	1, true , 'GEN' , ''),
@@ -655,49 +658,36 @@ CREATE TABLE gen.empresa (
 	uuid_empresa		UUID			NOT NULL UNIQUE DEFAULT gen_random_uuid(),
 	grupo_emp			VARCHAR(25)		NOT NULL,
 	nom_empresa	 		VARCHAR(100)	NOT NULL,
-	nom_comercial		VARCHAR(100)	NOT NULL,
 	direccion			VARCHAR(100)	NOT NULL,
 	telefonos			VARCHAR(100)	NOT NULL,
 	ruc					VARCHAR(11)		NOT NULL,
 	sunat_usu			VARCHAR(50)		NOT NULL,
 	sunat_pwd			VARCHAR(50)		NOT NULL,
-	activo				BOOLEAN			NOT NULL,
-	id_tipo_empresa		INT				NOT NULL,
-	dominio				VARCHAR(50)		NOT NULL,
-	dominio_mail		VARCHAR(50)		NOT NULL,		
-	code_name			VARCHAR(25)		NOT NULL UNIQUE,
-	CONSTRAINT empresa_id_tipo_empresa_fkey FOREIGN KEY (id_tipo_empresa) REFERENCES gen.tipo(id_tipo) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION	
+	activo				BOOLEAN			NOT NULL	
 );
 --
-ALTER SEQUENCE empresa_id_empresa_seq RESTART WITH 1009;
+ALTER SEQUENCE gen.empresa_id_empresa_seq RESTART WITH 1007;
 --
 COMMENT ON TABLE gen.empresa IS 'Empresas que utilizan este sistema.'; 
-COMMENT ON COLUMN gen.empresa.id_empresa IS 'Identificador interno de empresa.';
+COMMENT ON COLUMN gen.empresa.id_empresa IS 'Identificador de empresa.';
 COMMENT ON COLUMN gen.empresa.uuid_empresa IS 'Identificador público UUID para la API.';
 COMMENT ON COLUMN gen.empresa.grupo_emp IS 'Grupo empresarial.';
 COMMENT ON COLUMN gen.empresa.nom_empresa IS 'Nombre oficial según SUNAT.';
-COMMENT ON COLUMN gen.empresa.nom_comercial IS 'Nombre comercial o alias.';
 COMMENT ON COLUMN gen.empresa.direccion IS 'Dirección fiscal.';
 COMMENT ON COLUMN gen.empresa.telefonos IS 'Teléfonos.';
 COMMENT ON COLUMN gen.empresa.ruc IS 'Número de RUC.';
 COMMENT ON COLUMN gen.empresa.sunat_usu IS 'Usuario SOL para los comprobantes electrónicos.';
 COMMENT ON COLUMN gen.empresa.sunat_pwd IS 'Contraseña SOL para los comprobantes electrónicos.';
 COMMENT ON COLUMN gen.empresa.activo IS 'Indica si la empresa está activa o vigente.';
-COMMENT ON COLUMN gen.empresa.id_tipo_empresa IS 'Identificador del tipo de empresa [GEN.TIPO/TI_EMPRESA].';
-COMMENT ON COLUMN gen.empresa.dominio IS 'Dominio de internet.';
-COMMENT ON COLUMN gen.empresa.dominio_mail IS 'Dominio del correo que utilizan.';
-COMMENT ON COLUMN gen.empresa.code_name IS 'Nombre único de la empresa.';
 --
-INSERT INTO gen.empresa (id_empresa, grupo_emp, nom_empresa, nom_comercial, direccion, telefonos, ruc, sunat_usu, sunat_pwd, activo, id_tipo_empresa, dominio, dominio_mail, code_name)
+INSERT INTO gen.empresa (id_empresa, grupo_emp, nom_empresa, direccion, telefonos, ruc, sunat_usu, sunat_pwd, activo)
 VALUES 
-(1001,  'YUPANA'	, 'YUPANA STUDIO E.I.R.L.'							, 'iGEST' 									, 'JR. SANTA ISABEL NRO. 2065, URB. MIRAFLORES, EL TAMBO, HUANCAYO'	, ''												, '20603133111', '', '' , true , 95000, ''						, ''					  , 'yupana' 			),
-(1002,  'SALOAYZA' 	, 'YHA GIBU TAMMY GERALDINI'						, 'BAZAR LIBRERÍA GERALDINE'   				, 'JR. CUZCO NRO. 793, HUANCAYO'									, '' 												, '10078230849', '', '' , true , 95000, ''						, ''					  , 'geraldine' 		),
-(1003,  'SALOAYZA'	, 'SALAZAR LOAYZA MIGUEL ANGEL'						, 'MI MUNDO DE LOS LIBROS'     				, 'JR. FRANCISCO SOLANO NRO. 142, URB. SAN CARLOS, HUANCAYO'		, ''												, '10078268129', '', '' , true , 95000, ''						, ''					  , 'mundodeloslibros' 	),
-(1004,  'SJBCORP'	, 'CORPORACION EDUCATIVA SAN JUAN BOSCO S.A.C.'		, 'COLEGIO PARTICULAR SAN JUAN BOSCO'		, 'JR. CUZCO NRO. 779, HUANCAYO'									, 'Tel. +51 064 233 789 | WhatsApp +51 971 036 002'	, '20133746278', '', '' , true , 95001, 'sanjuanbosco.edu.pe' 	, '@sanjuanbosco.edu.pe'  , 'sanjuanbosco' 		),
-(1005,  'SJBCORP'	, 'CORPORACION EDUCATIVA SAN JUAN BOSCO S.A.C.'		, 'ACADEMIA PREUNIVERSITARIA SAN FERNANDO' 	, 'JR. CUZCO NRO. 779, HUANCAYO'									, 'WhatsApp +51 971 036 002'						, '20133746278', '', '' , true , 95002, 'sanfernando.edu.pe'	, '@sanjuanbosco.edu.pe'  , 'sanfernando' 		),
-(1006,  'SJBCORP'	, 'CORPORACION EDUCATIVA SAN JUAN BOSCO S.A.C.'		, 'POLIDEPORTIVO SAN JUAN BOSCO' 			, 'JR. CUZCO NRO. 779, HUANCAYO'									, 'WhatsApp +51 971 036 002' 						, '20133746278', '', '' , true , 95000, ''						, '@sanjuanbosco.edu.pe'  , 'polideportivosjb' 	),
-(1007,  'SABAL'		, 'GRUPO SABAL S.A.C.'								, 'CENTRO MÉDICO CASA DEL NIÑO Y LA MADRE' 	, 'JR. MOQUEGUA NRO. 235, HUANCAYO'									, ''												, '20605817123', '', '' , true , 95003, ''						, ''					  , 'casadelniño' 		),
-(1008,  'LOSANDES'	, 'CAJA RURAL DE AHORRO Y CREDITO LOS ANDES S.A.' 	, 'CAJA LOS ANDES' 							, 'JR. JUNIN NRO. 129, PUNO'										, ''												, '20322445564', '', '' , false, 95004, ''						, ''					  , 'losandes' 			);
+(1001, 'YUPANA'  , 'YUPANA STUDIO E.I.R.L.'                       , 'JR. SANTA ISABEL NRO. 2065 - EL TAMBO, HUANCAYO'			, '' 													, '20603133111', '', '' , true ),
+(1002, 'SALOAYZA', 'YHA GIBU TAMMY GERALDINI'                     , 'JR. CUZCO NRO. 793 - HUANCAYO'                     		, '' 													, '10078230849', '', '' , true ),
+(1003, 'SALOAYZA', 'SALAZAR LOAYZA MIGUEL ANGEL'                  , 'JR. FRANCISCO SOLANO NRO. 142 - URB. SAN CARLOS, HUANCAYO'	, '' 													, '10078268129', '', '' , true ),
+(1004, 'SALOAYZA', 'CORPORACION EDUCATIVA SAN JUAN BOSCO S.A.C.'  , 'JR. CUZCO NRO. 779 - HUANCAYO'                    			, 'Tel. +51 064 233 789 | WhatsApp +51 971 036 002'		, '20133746278', '', '' , true ),
+(1005, 'SABAL'   , 'GRUPO SABAL S.A.C.'                           , 'JR. MOQUEGUA NRO. 235 - HUANCAYO'                 			, '' 													, '20605817123', '', '' , true ),
+(1006, 'LOSANDES', 'CAJA RURAL DE AHORRO Y CREDITO LOS ANDES S.A.', 'JR. JUNIN NRO. 129 - PUNO'                         		, '' 													, '20322445564', '', '' , false);
 
 
 
@@ -708,15 +698,13 @@ DROP TABLE IF EXISTS gen.var_global CASCADE;
 CREATE TABLE gen.var_global (
 	id_var_gb			SERIAL			NOT NULL PRIMARY KEY,
 	id_empresa			INT				NOT NULL,
-	id_sistema			CHAR(3)			NOT NULL,
+	id_sistema			CHAR(3)			NOT NULL CHECK (id_sistema IN ('COM','LGT','PER','FIN','CNT','ADM','COL','ACA','MED','BKA','GEN')),
 	nom_var_gb			VARCHAR(25)		NOT NULL,
 	valor				VARCHAR(100)	NOT NULL,
 	descripcion			VARCHAR(100)	NOT NULL,
 	UNIQUE (id_empresa, id_sistema, nom_var_gb),
 	CONSTRAINT var_global_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
---
-CREATE INDEX ON gen.var_global(id_sistema);
 --
 COMMENT ON TABLE gen.var_global IS 'Variables globales. Se repite por cada empresa.';
 COMMENT ON COLUMN gen.var_global.id_var_gb IS 'Identificador de la variable global.';
@@ -734,8 +722,6 @@ VALUES
 (1004	, 'GEN',  'MinCarInput'			, '6'													, 'Mínimo de caracteres para ingresar cualquier texto'							),
 (1005	, 'GEN',  'MinCarInput'			, '6'													, 'Mínimo de caracteres para ingresar cualquier texto'							),
 (1006	, 'GEN',  'MinCarInput'			, '6'													, 'Mínimo de caracteres para ingresar cualquier texto'							),
-(1007	, 'GEN',  'MinCarInput'			, '6'													, 'Mínimo de caracteres para ingresar cualquier texto'							),
-(1008	, 'GEN',  'MinCarInput'			, '6'													, 'Mínimo de caracteres para ingresar cualquier texto'							),
 				
 (1001	, 'GEN',  'MinCarApeNoms'		, '3'													, 'Mínimo de caracteres para ingresar nombres o apellidos'						),
 (1002	, 'GEN',  'MinCarApeNoms'		, '3'													, 'Mínimo de caracteres para ingresar nombres o apellidos'						),
@@ -743,8 +729,6 @@ VALUES
 (1004	, 'GEN',  'MinCarApeNoms'		, '3'													, 'Mínimo de caracteres para ingresar nombres o apellidos'						),
 (1005	, 'GEN',  'MinCarApeNoms'		, '3'													, 'Mínimo de caracteres para ingresar nombres o apellidos'						),
 (1006	, 'GEN',  'MinCarApeNoms'		, '3'													, 'Mínimo de caracteres para ingresar nombres o apellidos'						),
-(1007	, 'GEN',  'MinCarApeNoms'		, '3'													, 'Mínimo de caracteres para ingresar nombres o apellidos'						),
-(1008	, 'GEN',  'MinCarApeNoms'		, '3'													, 'Mínimo de caracteres para ingresar nombres o apellidos'						),
 		   
 (1001	, 'GEN',  'MinCarFind'			, '5'													, 'Mínimo de caracteres para realizar búsquedas'								),
 (1002	, 'GEN',  'MinCarFind'			, '5'													, 'Mínimo de caracteres para realizar búsquedas'								),
@@ -752,8 +736,6 @@ VALUES
 (1004	, 'GEN',  'MinCarFind'			, '5'													, 'Mínimo de caracteres para realizar búsquedas'								),
 (1005	, 'GEN',  'MinCarFind'			, '5'													, 'Mínimo de caracteres para realizar búsquedas'								),
 (1006	, 'GEN',  'MinCarFind'			, '5'													, 'Mínimo de caracteres para realizar búsquedas'								),
-(1007	, 'GEN',  'MinCarFind'			, '5'													, 'Mínimo de caracteres para realizar búsquedas'								),
-(1008	, 'GEN',  'MinCarFind'			, '5'													, 'Mínimo de caracteres para realizar búsquedas'								),
 		   
 (1001	, 'GEN',  'NomsCorrido'			, 'true'												, 'True. Exige que los nombre se escriban en un solo campo/columna.'			),
 (1002	, 'GEN',  'NomsCorrido'			, 'true'												, 'True. Exige que los nombre se escriban en un solo campo/columna.'			),
@@ -761,8 +743,6 @@ VALUES
 (1004	, 'GEN',  'NomsCorrido'			, 'false'												, 'True. Exige que los nombre se escriban en un solo campo/columna.'			),
 (1005	, 'GEN',  'NomsCorrido'			, 'false'												, 'True. Exige que los nombre se escriban en un solo campo/columna.'			),
 (1006	, 'GEN',  'NomsCorrido'			, 'true'												, 'True. Exige que los nombre se escriban en un solo campo/columna.'			),
-(1007	, 'GEN',  'NomsCorrido'			, 'true'												, 'True. Exige que los nombre se escriban en un solo campo/columna.'			),
-(1008	, 'GEN',  'NomsCorrido'			, 'false'												, 'True. Exige que los nombre se escriban en un solo campo/columna.'			),
 					
 (1001	, 'GEN',  'DirsCorrido'			, 'true'												, 'True. Exige que la dirección se escriba en un solo campo/columna'			),
 (1002	, 'GEN',  'DirsCorrido'			, 'true'												, 'True. Exige que la dirección se escriba en un solo campo/columna'			),
@@ -770,8 +750,6 @@ VALUES
 (1004	, 'GEN',  'DirsCorrido'			, 'false'												, 'True. Exige que la dirección se escriba en un solo campo/columna'			),
 (1005	, 'GEN',  'DirsCorrido'			, 'false'												, 'True. Exige que la dirección se escriba en un solo campo/columna'			),
 (1006	, 'GEN',  'DirsCorrido'			, 'true'												, 'True. Exige que la dirección se escriba en un solo campo/columna'			),
-(1007	, 'GEN',  'DirsCorrido'			, 'true'												, 'True. Exige que la dirección se escriba en un solo campo/columna'			),
-(1008	, 'GEN',  'DirsCorrido'			, 'true'												, 'True. Exige que la dirección se escriba en un solo campo/columna'			),
 					
 (1001	, 'GEN',  'FindPersona'			, 'NDOC'												, 'NDOC = Búsqueda por Doc. Identidad. NOMS=Búsqueda por nombres'				),
 (1002	, 'GEN',  'FindPersona'			, 'NDOC'												, 'NDOC = Búsqueda por Doc. Identidad. NOMS=Búsqueda por nombres'				),
@@ -779,36 +757,22 @@ VALUES
 (1004	, 'GEN',  'FindPersona'			, 'NOMS'												, 'NDOC = Búsqueda por Doc. Identidad. NOMS=Búsqueda por nombres'				),
 (1005	, 'GEN',  'FindPersona'			, 'NOMS'												, 'NDOC = Búsqueda por Doc. Identidad. NOMS=Búsqueda por nombres'				),
 (1006	, 'GEN',  'FindPersona'			, 'NOMS'												, 'NDOC = Búsqueda por Doc. Identidad. NOMS=Búsqueda por nombres'				),
-(1007	, 'GEN',  'FindPersona'			, 'NDOC'												, 'NDOC = Búsqueda por Doc. Identidad. NOMS=Búsqueda por nombres'				),
-(1008	, 'GEN',  'FindPersona'			, 'NDOC'												, 'NDOC = Búsqueda por Doc. Identidad. NOMS=Búsqueda por nombres'				),
-		   
---(1001	, 'GEN',  'ReqUsuIsTrab'		, 'false'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
---(1002	, 'GEN',  'ReqUsuIsTrab'		, 'true'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
---(1003	, 'GEN',  'ReqUsuIsTrab'		, 'true'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
---(1004	, 'GEN',  'ReqUsuIsTrab'		, 'true'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
---(1005	, 'GEN',  'ReqUsuIsTrab'		, 'true'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
---(1006	, 'GEN',  'ReqUsuIsTrab'		, 'true'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
---(1007	, 'GEN',  'ReqUsuIsTrab'		, 'true'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
---(1008	, 'GEN',  'ReqUsuIsTrab'		, 'true'												, 'False (cualquier persona registrada), True (requiere sea un trabajador)'		),
 
---por diseño los usuarios siempre seran trabajadores registrado, 
+--por diseño los usuarios siempre seran trabajadores/estudiantes/familiares_estudiantes registrados 
 (1001	, 'GEN',  'ReqUsuIsVigente'		, 'false'												, 'True (valida que tenga contrato vigente)'									),
 (1002	, 'GEN',  'ReqUsuIsVigente'		, 'true'												, 'True (valida que tenga contrato vigente)'									),
 (1003	, 'GEN',  'ReqUsuIsVigente'		, 'true'												, 'True (valida que tenga contrato vigente)'									),
 (1004	, 'GEN',  'ReqUsuIsVigente'		, 'true'												, 'True (valida que tenga contrato vigente)'									),
 (1005	, 'GEN',  'ReqUsuIsVigente'		, 'true'												, 'True (valida que tenga contrato vigente)'									),
 (1006	, 'GEN',  'ReqUsuIsVigente'		, 'true'												, 'True (valida que tenga contrato vigente)'									),
-(1007	, 'GEN',  'ReqUsuIsVigente'		, 'true'												, 'True (valida que tenga contrato vigente)'									),
-(1008	, 'GEN',  'ReqUsuIsVigente'		, 'true'												, 'True (valida que tenga contrato vigente)'									),
+
 
 (1001	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								),
 (1002	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								),
 (1003	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								),
 (1004	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								),
 (1005	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								),
-(1006	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								),
-(1007	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								),
-(1008	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								);
+(1006	, 'GEN',  'NumDecimales'		, '2'													, 'Número de decimales que se verá en los reportes'								);
 
 /*
 INSERT INTO gen.var_global (id_empresa, id_sistema, nom_var_gb, valor, descripcion) 
@@ -1068,184 +1032,5 @@ VALUES
 (1000	,  101, 	'ACD',  'anioMat'			, '2018'									, 'Año para las matrículas'),
 (1000	,  101, 	'ACD',  'anioEva'			, '2017'									, 'Año para las evaluaciones');
 */
-
-
-
-
-
-
--- ============================================================================
--- TABLA: gen.empresa_sistema
--- ============================================================================
-DROP TABLE IF EXISTS gen.empresa_sistema CASCADE;
-CREATE TABLE gen.empresa_sistema (
-	id_emp_sis			SERIAL			NOT NULL PRIMARY KEY,
-	id_empresa			INT				NOT NULL,
-	id_sistema			CHAR(3)			NOT NULL,
-	activo				BOOLEAN			NOT NULL,
-	solo_lectura		BOOLEAN			NOT NULL,
-	id_tipo_edition		INT				NOT NULL,
-	UNIQUE (id_empresa, id_sistema),
-	CONSTRAINT empresa_sistema_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
-	CONSTRAINT empresa_sistema_id_sistema_fkey FOREIGN KEY (id_sistema) REFERENCES gen.sistema(id_sistema) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-COMMENT ON TABLE gen.empresa_sistema IS 'Sistemas por cada empresa.';
-COMMENT ON COLUMN gen.empresa_sistema.id_emp_sis IS 'Identificador de entidad.';
-COMMENT ON COLUMN gen.empresa_sistema.id_empresa IS 'Identificador de empresa [GEN.EMPRESA].';
-COMMENT ON COLUMN gen.empresa_sistema.id_sistema IS 'Identificador de sistema [GEN.SISTEMA].';
-COMMENT ON COLUMN gen.empresa_sistema.activo IS 'Indica sí  el sistema está activo para la empresa.';
-COMMENT ON COLUMN gen.empresa_sistema.solo_lectura IS 'Indica sí el sistema está en modo solo lectura para la empresa.';
-COMMENT ON COLUMN gen.empresa_sistema.id_tipo_edition IS 'Identificador del tipo de edición [GEN.TIPO/TI_EDITION].';
---
-INSERT INTO gen.empresa_sistema (id_empresa, id_sistema, activo, solo_lectura, id_tipo_edition)
-VALUES
-(1001, 'GEN', true, false, 95052), -- YSST
-(1001, 'COM', true, false, 95052),
-(1001, 'LGT', true, false, 95052),
-(1001, 'PER', true, false, 95052),
-(1001, 'ADM', true, false, 95052),
-(1001, 'FIN', true, false, 95052),
-(1001, 'CNT', true, false, 95052),
-
-(1002, 'GEN', true, false, 95052), -- BAZAR
-(1002, 'COM', true, false, 95052),
-(1002, 'LGT', true, false, 95052),
-(1002, 'PER', true, false, 95050),
-(1002, 'ADM', true, false, 95050),
-(1002, 'FIN', true, false, 95050),
-
-(1003, 'GEN', true, false, 95052), -- EDITORIAL
-(1003, 'COM', true, false, 95052),
-(1003, 'LGT', true, false, 95052),
-(1003, 'PER', true, false, 95050),
-(1003, 'ADM', true, false, 95050),
-(1003, 'FIN', true, false, 95050),
-
-(1004, 'GEN', true, false, 95052), -- COLE
-(1004, 'COM', true, false, 95052),
-(1004, 'LGT', true, false, 95052),
-(1004, 'PER', true, false, 95052),
-(1004, 'ADM', true, false, 95052),
-(1004, 'FIN', true, false, 95052),
-(1004, 'CNT', true, false, 95052),
-(1004, 'COL', true, false, 95052),
-
-(1005, 'GEN', true, false, 95052), -- ACAD
-(1005, 'COM', true, false, 95052),
-(1005, 'LGT', true, false, 95052),
-(1005, 'PER', true, false, 95052),
-(1005, 'ADM', true, false, 95052),
-(1005, 'FIN', true, false, 95052),
-(1005, 'CNT', true, false, 95052),
-(1005, 'ACA', true, false, 95052),
-
-(1006, 'GEN', true, false, 95052), -- POLID
-(1006, 'COM', true, false, 95052),
-(1006, 'LGT', true, false, 95052),
-(1006, 'PER', true, false, 95052),
-(1006, 'ADM', true, false, 95052),
-(1006, 'FIN', true, false, 95052),
-(1006, 'CNT', true, false, 95052),
-
-(1007, 'GEN', true, false, 95052), -- SABAL
-(1007, 'COM', true, false, 95052),
-(1007, 'LGT', true, false, 95052),
-(1007, 'PER', true, false, 95052),
-(1007, 'ADM',false, false, 95052),
-(1007, 'FIN',false, false, 95052),
-(1007, 'CNT',false, false, 95052),
-(1007, 'MED', true, false, 95052),
-
-(1008, 'GEN', true, false, 95052), -- CLA
-(1008, 'COM', true, false, 95052),
-(1008, 'LGT', true, false, 95052),
-(1008, 'PER', true, false, 95052),
-(1008, 'ADM', true, false, 95052),
-(1008, 'FIN', true, false, 95052),
-(1008, 'CNT', true, false, 95052),
-(1008, 'BKA', true, false, 95052);
-
-
-
--- ============================================================================
--- TABLA: gen.sede
--- ============================================================================
-DROP TABLE IF EXISTS gen.sede CASCADE;
-CREATE TABLE gen.sede (
-	id_sede				SERIAL			NOT NULL PRIMARY KEY,
-	id_padre			INT				NOT NULL,
-	id_empresa			INT				NOT NULL,
-	nivel				INT				NOT NULL,
-	id_tipo_sede		INT				NOT NULL,
-	nom_sede			VARCHAR(50)		NOT NULL,
-	dir_sede			VARCHAR(100)	NOT NULL,
-	id_distrito			CHAR(6)			NOT NULL,
-	activo				BOOLEAN			NOT NULL,
-	sunat_oficial		BOOLEAN			NOT NULL,
-	sunat_cod			VARCHAR(10)		NOT NULL,
-	fac_ele_ruta		VARCHAR(250)	NOT NULL,
-	fac_ele_token		VARCHAR(250)	NOT NULL,
-	latitud				VARCHAR(25)		NOT NULL,
-	longitud			VARCHAR(25)		NOT NULL,
-	orden				INT				NOT NULL,
-	CONSTRAINT sede_id_distrito_fkey FOREIGN KEY (id_distrito) REFERENCES gen.distrito(id_distrito) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
-	CONSTRAINT sede_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-ALTER SEQUENCE sede_id_sede_seq RESTART WITH 31;
---
-CREATE INDEX ON gen.sede(id_padre);
-CREATE INDEX ON gen.sede(id_empresa, activo);
---
-COMMENT ON TABLE gen.sede IS 'Lugares geográficos donde funciona la empresa.';
-COMMENT ON COLUMN gen.sede.id_sede IS 'Identificador de la sede.';
-COMMENT ON COLUMN gen.sede.id_padre IS 'Identificador de la sede padre. Valor -1 para indicar ninguno [GEN.SEDE].';
-COMMENT ON COLUMN gen.sede.id_empresa IS 'Identificador de la empresa [GEN.EMPRESA].';
-COMMENT ON COLUMN gen.sede.nivel IS 'Nivel dentro de cada empresa, empieza en uno.';
-COMMENT ON COLUMN gen.sede.id_tipo_sede IS 'Identificador del tipo de sede [GEN.TIPO/TI_SEDE].';
-COMMENT ON COLUMN gen.sede.nom_sede IS 'Código o nombre del local o sede.';
-COMMENT ON COLUMN gen.sede.dir_sede IS 'Dirección, si queda en blanco, se muestra dirección definida en empresa.';
-COMMENT ON COLUMN gen.sede.id_distrito IS 'Identificador del distrito [GEN.DISTRITO].';
-COMMENT ON COLUMN gen.sede.activo IS 'Indica si la sede está activa o vigente.';
-COMMENT ON COLUMN gen.sede.sunat_oficial IS 'Si la sede está registrada en la SUNAT.';
-COMMENT ON COLUMN gen.sede.sunat_cod IS 'Código que asigna la SUNAT a las sedes.';
-COMMENT ON COLUMN gen.sede.fac_ele_ruta IS 'Ruta para comprobantes electrónicos.';
-COMMENT ON COLUMN gen.sede.fac_ele_token IS 'Token para comprobantes electrónicos.';
-COMMENT ON COLUMN gen.sede.latitud IS 'Coordenada latitud en formato WGS84.';
-COMMENT ON COLUMN gen.sede.longitud IS 'Coordenada longitud en formato WGS84.';
-COMMENT ON COLUMN gen.sede.orden IS 'Orden en que se muestran.';
---
-INSERT INTO gen.sede (id_sede, id_padre, id_empresa, nivel, id_tipo_sede, nom_sede, dir_sede, id_distrito, activo, sunat_oficial, sunat_cod, fac_ele_ruta, fac_ele_token, latitud, longitud, orden)
-VALUES 	
-( 1,   -1,  1001,   1,  95064,  'LOCAL HUANCAYO'						, 'JR. SANTA ISABEL NRO. 2065 - URB. MIRAFLORES, EL TAMBO, HUANCAYO'	, '110113' , true , true  , ''	    , '', '' , '' , '' ,   1 ),	--YSST
-( 2,   -1,  1002,   1,  95064,  'LOCAL HUANCAYO' 						, 'JR. CUZCO NRO. 793 - HUANCAYO'										, '110101' , true , true  , ''	    , '', '' , '' , '' ,   1 ),	--BAZAR
-( 3,   -1,  1003,   1,  95064,  'LOCAL HUANCAYO'						, 'JR. FRANCISCO SOLANO NRO. 142 - URB. SAN CARLOS, HUANCAYO'			, '110101' , true , true  , ''	    , '', '' , '' , '' ,   1 ),	--EDITORIAL
-( 4,   -1,  1004,   1,  95064,  'LOCAL CUZCO 779'						, 'JR. CUZCO NRO. 779 - HUANCAYO'										, '110101' , true , true  , ''	    , '', '' , '' , '' ,   1 ),	--COLEGIO
-( 5,   -1,  1004,   1,  95064,  'LOCAL CUZCO 789'						, 'JR. CUZCO NRO. 789 - HUANCAYO'										, '110101' , true , true  , ''	    , '', '' , '' , '' ,   2 ),
-( 6,   -1,  1004,   1,  95064,  'LOCAL JUNÍN 111'						, 'JR. JUNÍN NRO. 111 - HUANCAYO'										, '110101' , true , true  , ''	    , '', '' , '' , '' ,   3 ),
-( 7,   -1,  1004,   1,  95064,  'LOCAL JUNÍN 215'						, 'JR. JUNÍN NRO. 215 - HUANCAYO'										, '110101' , true , true  , '0003'  , '', '' , '' , '' ,   4 ),
-( 8,   -1,  1004,   1,  95064,  'LOCAL LIBERTAD 205'					, 'JR. LIBERTAD NRO. 205 - HUANCAYO'									, '110101' , true , true  , '0001'  , '', '' , '' , '' ,   5 ),
-( 9,   -1,  1004,   1,  95064,  'LOCAL PUNO 555'						, 'JR. PUNO NRO. 555 - HUANCAYO'										, '110101' , true , true  , '0002'  , '', '' , '' , '' ,   6 ),
-(10,   -1,  1005,   1,  95064,  'LOCAL HUANCAYO, CUZCO 779'				, 'JR. CUZCO NRO. 779 - HUANCAYO'										, '110101' , true , true  , '0007'  , '', '' , '' , '' ,   1 ),	--ACADEMIA
-(11,   -1,  1005,   1,  95064,  'LOCAL HUANCAYO, JUNIN 215'				, 'Jr. JUNIN Nro. 215, Huancayo'										, '110101' , true , true  , '0009'  , '', '' , '' , '' ,   2 ),
-(12,   -1,  1005,   1,  95064,  'LOCAL PAMPAS, NTRA. SEÑORA LOURDES'	, 'AV. PROGRESO N° 252. PAMPAS, TAYACAJA'								, '080501' , true , false , ''      , '', '' , '' , '' ,   3 ),
-(13,   -1,  1005,   1,  95064,  'LOCAL JAUJA, VIRGEN CARMEN'			, 'JR. LA MAR N° 790. JAUJA'											, '110301' , true , true  , '0010'  , '', '' , '' , '' ,   4 ),
-(14,   -1,  1006,   1,  95064,  'LOCAL CUZCO 779'						, 'JR. CUZCO NRO. 779 - HUANCAYO'										, '110101' , true , true  , '0011'  , '', '' , '' , '' ,   1 ),	--POLIDEPORTIVO
-(15,   -1,  1006,   1,  95064,  'LOCAL PUNO 555'						, 'JR. PUNO NRO. 555, HUANCAYO'											, '110101' , true , true  , '0011'  , '', '' , '' , '' ,   2 ),
-(18,   -1,  1007,   1,  95064,  'LOCAL HUANCAYO - MOQUEGUA'				, 'JR. MOQUEGUA NRO. 235 - HUANCAYO'									, '110101' , true , true  , ''  	, '', '' , '' , '' ,   1 ),	--SABAL
-(19,   -1,  1008,   1,  95060,  'PERÚ'									, 'JR. JUNIN NRO. 129 - PUNO'											, '080501' , true , true  , '0011'  , '', '' , '' , '' ,   1 ),	--CLA
-(20,   19,  1008,   2,  95061,  'ZONA NORTE'							, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 100 ),
-(21,   19,  1008,   2,  95061,  'ZONA CENTRO'							, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 200 ),
-(22,   19,  1008,   2,  95061,  'ZONA SUR'								, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 300 ),
-(23,   19,  1008,   2,  95061,  'ZONA ORIENTE'							, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 400 ),
-(24,   21,  1008,   3,  95062,  'SEDE LIMA'								, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 210 ),
-(25,   21,  1008,   3,  95062,  'SEDE HUANCAYO'							, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 220 ),
-(26,   21,  1008,   3,  95062,  'SEDE TARMA'							, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 230 ),
-(27,   25,  1008,   4,  95063,  'AGENCIA MERCADO'						, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 221 ),
-(28,   25,  1008,   4,  95063,  'AGENCIA SAN CARLOS'					, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 222 ),
-(29,   25,  1008,   4,  95063,  'AGENCIA CERCADO HYO'					, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 223 ),
-(30,   29,  1008,   5,  95065,  'AGENCIA PARIAHUANCA'					, ''																	, '080501' , true , true  , '0011'  , '', '' , '' , '' , 224 );
-
 
 

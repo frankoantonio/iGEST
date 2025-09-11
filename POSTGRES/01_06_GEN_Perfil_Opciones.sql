@@ -1,44 +1,172 @@
-
-/*
-----------------------------------------------------------------------------------------------------------------------------------------
---clie_prov-----------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-DROP TABLE IF EXISTS clie_prov;
-CREATE TABLE clie_prov (
-	id_cli_pro 					bigserial 		NOT NULL PRIMARY KEY,	
-	id_tipo_estado_contrib		int				NOT NULL,		
-	id_tipo_condicion_contrib	int				NOT NULL,		
-	id_direccion				int 			NOT NULL,			
-	correo                  	varchar(75) 	NOT NULL,	
-	celular						varchar(25) 	NOT NULL,	
-	telefono					varchar(25) 	NOT NULL,	
-	contacto					varchar(100) 	NOT NULL,	
-	obs							varchar(100) 	NOT NULL,	
-	CONSTRAINT clie_prov_id_cli_pro_fkey FOREIGN KEY (id_cli_pro) REFERENCES persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
+-- ============================================================================
+-- TABLA: gen.usuario
+-- ============================================================================
+DROP TABLE IF EXISTS gen.usuario CASCADE;
+CREATE TABLE gen.usuario (
+    id_usuario          BIGINT          NOT NULL PRIMARY KEY,
+    nom_usu             VARCHAR(50)     NOT NULL UNIQUE,
+    pwd_usu             VARCHAR(250)    NOT NULL,
+    activo              BOOLEAN         NOT NULL,
+    bloqueado           BOOLEAN         NOT NULL DEFAULT false,
+    cambio_pwd          BOOLEAN         NOT NULL DEFAULT false,
+    cambio_fh           TIMESTAMP       NULL,
+    us_registra         VARCHAR(25)     NOT NULL,
+    fh_registra         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ip_registra         VARCHAR(25)     NOT NULL,
+    CONSTRAINT usuario_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES gen.persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 --
-COMMENT ON TABLE clie_prov IS 'Clientes y/o proveedores.'; 
-COMMENT ON COLUMN clie_prov.id_cli_pro IS 'Identificador de cliente y/o proveedor.';
-COMMENT ON COLUMN clie_prov.id_tipo_estado_contrib IS 'Identificador del tipo de estado del contribuyente [TI_ESTADO_CONTRIB].';
-COMMENT ON COLUMN clie_prov.id_tipo_condicion_contrib IS 'Identificador del tipo de condición del contribuyente [TI_CONDICION_CONTRIB].';
-COMMENT ON COLUMN clie_prov.id_direccion IS 'Identificador de dirección [DIRECCION].';
-COMMENT ON COLUMN clie_prov.correo IS 'Correo electrónico.';
-COMMENT ON COLUMN clie_prov.celular IS 'Número de celular.';
-COMMENT ON COLUMN clie_prov.telefono IS 'Teléfono fijo.';
-COMMENT ON COLUMN clie_prov.contacto IS 'Nombre de un contacto, solo sí es persona jurídica.';
-COMMENT ON COLUMN clie_prov.obs IS 'Alguna observación sobre el cliente y/o proveedor.';
+COMMENT ON TABLE gen.usuario IS 'Usuarios del sistema con control de acceso y seguridad.';
+COMMENT ON COLUMN gen.usuario.id_usuario IS 'Identificador de usuario [GEN.PERSONA].';
+COMMENT ON COLUMN gen.usuario.nom_usu IS 'Nombre de usuario.';
+COMMENT ON COLUMN gen.usuario.pwd_usu IS 'Contraseña encriptada.';
+COMMENT ON COLUMN gen.usuario.activo IS 'Indica si el usuario está activo y puede acceder.';
+COMMENT ON COLUMN gen.usuario.bloqueado IS 'Indica si el usuario está bloqueado por seguridad.';
+COMMENT ON COLUMN gen.usuario.cambio_pwd IS 'Si cambió la contraseña asignada inicialmente.';
+COMMENT ON COLUMN gen.usuario.cambio_fh IS 'Fecha y hora del último cambio de contraseña.';
+COMMENT ON COLUMN gen.usuario.us_registra IS 'Usuario que registra.';
+COMMENT ON COLUMN gen.usuario.fh_registra IS 'Fecha y hora de registro.';
+COMMENT ON COLUMN gen.usuario.ip_registra IS 'Dirección IP o nombre del dispositivo de registro.';
 --
-INSERT INTO clie_prov (id_cli_pro, id_tipo_estado_contrib, id_tipo_condicion_contrib, id_direccion, correo, celular, telefono, contacto, obs)
-VALUES 
-(   0 ,     -1,     -1,   -1,   ''						 , ''			, ''  ,  ''	, ''),
-(  15 ,     -1,     -1,   -1,   'majachus@gmail.com'	 , '966308555'	, ''  ,  '' , ''),
-(  16 ,     -1,     -1,   -1,   'yenny@gmail.com'		 , ''			, ''  ,  ''	, ''),
-(  17 ,     -1,     -1,   -1,   'shirley@gmail.com'		 , ''			, ''  ,  '' , ''),
-(  18 ,     -1,     -1,   -1,   'marisa@gmail.com'		 , ''			, ''  ,  '' , ''),
-(  19 ,     -1,     -1,   -1,   'yesenia@gmail.com'		 , ''			, ''  ,  '' , ''),
-(  30 ,  10001,  10010,    1,   'yupanastudio@gmail.com' , '987779695'	, ''  ,  '' , '');
+INSERT INTO gen.usuario (id_usuario, nom_usu, pwd_usu, activo, us_registra, ip_registra) VALUES
+( 1, '1001.fbarzola'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+( 9, '1004.fbarzola'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(10, '1005.fbarzola'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(11, '1006.fbarzola'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(12, '1007.fbarzola'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(15, '1004.sarroyo'   ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(16, '1004.msolano'   ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(17, '1004.ysuasnabar',     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(18, '1004.msalazar'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(19, '1004.abeltran'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(20, '1004.jmelendez' ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(21, '1004.lreyes'    ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(22, '1004.fcardozo'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(23, '1004.kserrano'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(24, '1004.fpaz'      ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(25, '1004.cgonzalez' ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(26, '1004.bperez'    ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+(27, '1004.gvergara'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1'),
+( 9, '1004.40110805'  ,     '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W', true, 'admin' , '127.0.0.1');
 
-*/
+
+
+-- ============================================================================
+-- TABLA: gen.usuario_tipo
+-- ============================================================================
+DROP TABLE IF EXISTS gen.usuario_tipo CASCADE;
+CREATE TABLE gen.usuario_tipo (
+    id_usu_tipo         BIGSERIAL       NOT NULL PRIMARY KEY,    
+    id_usuario          BIGINT          NOT NULL,    
+    tipo_usuario        VARCHAR(25)     NOT NULL CHECK (tipo_usuario IN ('TRABAJADOR', 'ESTUDIANTE','FAMILIAR','CLIENTE')),
+    activo              BOOLEAN         NOT NULL,
+    us_registra         VARCHAR(25)     NOT NULL,
+    fh_registra         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ip_registra         VARCHAR(25)     NOT NULL,
+    UNIQUE (id_usuario, tipo_usuario),
+    CONSTRAINT usuario_tipo_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES gen.usuario(id_usuario) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+);
+--
+COMMENT ON TABLE gen.usuario_tipo IS 'Tipos de usuario asignados a cada usuario.'; 
+COMMENT ON COLUMN gen.usuario_tipo.id_usu_tipo IS 'Identificador de entidad.';
+COMMENT ON COLUMN gen.usuario_tipo.id_usuario IS 'Identificador de usuario [GEN.USUARIO].';
+COMMENT ON COLUMN gen.usuario_tipo.tipo_usuario IS 'Tipos de usuario que ingresarán al sistema.';
+COMMENT ON COLUMN gen.usuario_tipo.activo IS 'Indica si el usuario con el tipo indicado está activo.';
+COMMENT ON COLUMN gen.usuario_tipo.us_registra IS 'Usuario que registra.';
+COMMENT ON COLUMN gen.usuario_tipo.fh_registra IS 'Fecha y hora de registro.';
+COMMENT ON COLUMN gen.usuario_tipo.ip_registra IS 'Dirección IP o nombre del dispositivo de registro.';
+--
+INSERT INTO gen.usuario_tipo (id_usuario, id_tipo_usuario, activo, us_registra, ip_registra) VALUES
+( 9, 'TRABAJADOR', true, 'admin', '127.0.0.1'),	-- fbarzola [trabajador]
+(10, 'TRABAJADOR', true, 'admin', '127.0.0.1'),
+(11, 'TRABAJADOR', true, 'admin', '127.0.0.1'),
+( 9, 'ESTUDIANTE', true, 'admin', '127.0.0.1'),	--40110805 [estudiante, familiar, cliente_clinica_por_ahora]    
+( 9, 'FAMILIAR'  , true, 'admin', '127.0.0.1'),   
+( 9, 'CLIENTE'   , true, 'admin', '127.0.0.1');
+
+
+
+-- ============================================================================
+-- TABLA: gen.usuario_sede_sistema
+-- ============================================================================
+DROP TABLE IF EXISTS gen.usuario_sede_sistema CASCADE;
+CREATE TABLE gen.usuario_sede_sistema (
+    id_usu_sed_sis      SERIAL          NOT NULL PRIMARY KEY,
+    id_empresa          INT             NOT NULL,
+    id_usuario          BIGINT          NOT NULL,
+    id_sede             INT             NOT NULL,
+    activo_sede         BOOLEAN         NOT NULL,
+    id_sistema          CHAR(3)         NOT NULL,
+    activo_sistema      BOOLEAN         NOT NULL,
+    us_registra         VARCHAR(25)     NOT NULL,
+    fh_registra         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ip_registra         VARCHAR(25)     NOT NULL,
+    CONSTRAINT usuario_sede_sistema_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES gen.usuario(id_usuario) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT usuario_sede_sistema_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT usuario_sede_sistema_id_sede_fkey FOREIGN KEY (id_sede) REFERENCES gen.sede(id_sede) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT usuario_sede_sistema_id_sistema_fkey FOREIGN KEY (id_sistema) REFERENCES gen.sistema(id_sistema) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT usuario_sede_sistema_ukey UNIQUE (id_usuario, id_sede, id_sistema)
+);
+--
+CREATE INDEX ON gen.usuario_sede_sistema(id_empresa);
+CREATE INDEX ON gen.usuario_sede_sistema(id_usuario);
+CREATE INDEX ON gen.usuario_sede_sistema(id_sede, activo_sede);
+CREATE INDEX ON gen.usuario_sede_sistema(id_sistema, activo_sistema);
+--
+COMMENT ON TABLE gen.usuario_sede_sistema IS 'Sedes y sistemas habilitados por usuario.'; 
+COMMENT ON COLUMN gen.usuario_sede_sistema.id_usu_sed_sis IS 'Identificador de entidad.';
+COMMENT ON COLUMN gen.usuario_sede_sistema.id_empresa IS 'Identificador de empresa [GEN.EMPRESA].';
+COMMENT ON COLUMN gen.usuario_sede_sistema.id_usuario IS 'Identificador de usuario [GEN.USUARIO].';
+COMMENT ON COLUMN gen.usuario_sede_sistema.id_sede IS 'Identificador de sede [GEN.SEDE].';
+COMMENT ON COLUMN gen.usuario_sede_sistema.activo_sede IS 'Indica si la sede está activa para el usuario.';
+COMMENT ON COLUMN gen.usuario_sede_sistema.id_sistema IS 'Identificador de sistema [GEN.SISTEMA].';
+COMMENT ON COLUMN gen.usuario_sede_sistema.activo_sistema IS 'Indica si el sistema está activo para el usuario.';
+COMMENT ON COLUMN gen.usuario_sede_sistema.us_registra IS 'Usuario que registra.';
+COMMENT ON COLUMN gen.usuario_sede_sistema.fh_registra IS 'Fecha y hora de registro.';
+COMMENT ON COLUMN gen.usuario_sede_sistema.ip_registra IS 'Dirección IP o nombre del dispositivo de registro.';
+--
+INSERT INTO gen.usuario_sede_sistema (id_empresa, id_usuario, id_sede, activo_sede, id_sistema, activo_sistema, us_registra, ip_registra) 
+VALUES
+-- YSST-fbarzola
+( 1001,  1,  1, true, 'ADM', true, 'admin', '127.0.0.1'),    
+( 1001,  1,  1, true, 'COM', true, 'admin', '127.0.0.1'),    
+( 1001,  1,  1, true, 'LGT', true, 'admin', '127.0.0.1'),    
+( 1001,  1,  1, true, 'PER', true, 'admin', '127.0.0.1'),    
+( 1001,  1,  1, true, 'FIN', true, 'admin', '127.0.0.1'),    
+-- SJB-fbarzola
+( 1004,  9,  4, true, 'ADM', true, 'admin', '127.0.0.1'),    
+( 1004,  9,  4, true, 'COM', true, 'admin', '127.0.0.1'),    
+( 1004,  9,  4, true, 'LGT', true, 'admin', '127.0.0.1'),    
+( 1004,  9,  4, true, 'PER', true, 'admin', '127.0.0.1'),    
+( 1004,  9,  4, true, 'FIN', true, 'admin', '127.0.0.1'),    
+( 1004,  9,  4, true, 'COL', true, 'admin', '127.0.0.1'),    
+-- SJB-sarroyo
+( 1004, 15,  4, true, 'ADM', true, 'admin', '127.0.0.1'),    
+( 1004, 15,  4, true, 'COM', true, 'admin', '127.0.0.1'),    
+( 1004, 15,  4, true, 'LGT', true, 'admin', '127.0.0.1'),    
+( 1004, 15,  4, true, 'PER', true, 'admin', '127.0.0.1'),    
+( 1004, 15,  4, true, 'FIN', true, 'admin', '127.0.0.1'),    
+( 1004, 15,  4, true, 'COL', true, 'admin', '127.0.0.1'),    
+-- SANFER-fbarzola
+( 1005, 10, 10, true, 'ADM', true, 'admin', '127.0.0.1'),    
+( 1005, 10, 10, true, 'COM', true, 'admin', '127.0.0.1'),    
+( 1005, 10, 10, true, 'LGT', true, 'admin', '127.0.0.1'),    
+( 1005, 10, 10, true, 'PER', true, 'admin', '127.0.0.1'),    
+( 1005, 10, 10, true, 'FIN', true, 'admin', '127.0.0.1'),    
+( 1005, 10, 10, true, 'ACA', true, 'admin', '127.0.0.1'),    
+-- POLID-fbarzola
+( 1006, 11, 14, true, 'ADM', true, 'admin', '127.0.0.1'),    
+( 1006, 11, 14, true, 'COM', true, 'admin', '127.0.0.1'),    
+( 1006, 11, 14, true, 'LGT', true, 'admin', '127.0.0.1'),    
+( 1006, 11, 14, true, 'PER', true, 'admin', '127.0.0.1'),    
+( 1006, 11, 14, true, 'FIN', true, 'admin', '127.0.0.1'),    
+( 1006, 11, 14, true, 'ACA', true, 'admin', '127.0.0.1');
+-- SABAL-fbarzola
+
+
+
+
+
 
 
 ----------------------------------------------------------------------------------------------------------------------------------------
@@ -778,124 +906,6 @@ VALUES
 
 
 
-/*
-----------------------------------------------------------------------------------------------------------------------------------------
---estudiante_col--------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-DROP TABLE IF EXISTS estudiante_col;
-CREATE TABLE estudiante_col (
-	id_est_col			bigint			NOT NULL PRIMARY KEY,
-	id_tipo_grp_sange	int,
-	codigo				varchar(14),
-	id_tipo_religion	
-	lugar_hnos	
-	numero_hnos
-	id_tipo_parto
-	desc_parto
-	obs_medica
-	obs_adicional
-	exo religion
-	estado
-	
-	correo				varchar()
-	telefono			varchar()
-	celular				varchar()
-	estado_Actual		boolean,	
-	--CONSTRAINT trabajador_ukey UNIQUE (nom_usu),
-	CONSTRAINT estudiante_col_id_trabajador_fkey FOREIGN KEY (id_trabajador) REFERENCES persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-INSERT INTO estudiante_col (id_usuario, nom_usu, pwd_usu, fe_operacion, activo, cambio_pwd) --trabajador, fam_alumno
-VALUES 
-( 1, '1001.fbarzola'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-																												 		    
-( 9, '1004.fbarzola'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(15, '1004.ssalazar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(16, '1004.ysinche'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(17, '1004.sarroyo'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(18, '1004.msolano'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(19, '1004.ysuasnabar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(20, '1004.msalazar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(21, '1004.abeltran'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(22, '1004.jmelendez'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(23, '1004.lreyes'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(24, '1004.fcardozo'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(25, '1004.kserrano'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(26, '1004.fpaz'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(27, '1004.cgonzalez'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(28, '1004.bperez'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(29, '1004.gvergara'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-																												 		    
-(10, '1005.fbarzola'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(31, '1005.ssalazar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(32, '1005.ysinche'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(33, '1005.sarroyo'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(34, '1005.msolano'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false );
-*/
-
-
-/*
-----------------------------------------------------------------------------------------------------------------------------------------
---estudiante_aca--------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-DROP TABLE IF EXISTS estudiante_col;
-CREATE TABLE estudiante_col (
-	id_est_col			bigint			NOT NULL PRIMARY KEY,
-	id_tipo_grp_sange	int,
-	--codigo				varchar(14),  esto va en la incripcion
-	egresado
-	idInstEst  --donde esta estudiando o donde ereso
-	--lugar_hnos	
-	--numero_hnos
-	--id_tipo_parto
-	--desc_parto
-	obs_medica
-	obs_adicional
-	--exo religion
-	estado
-	
-	correo				varchar()
-	telefono			varchar()
-	celular				varchar()
-	estado_Actual		boolean,	
-	--CONSTRAINT trabajador_ukey UNIQUE (nom_usu),
-	CONSTRAINT estudiante_col_id_trabajador_fkey FOREIGN KEY (id_trabajador) REFERENCES persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-INSERT INTO estudiante_col (id_usuario, nom_usu, pwd_usu, fe_operacion, activo, cambio_pwd) --trabajador, fam_alumno
-VALUES 
-( 1, '1001.fbarzola'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-																												 		    
-( 9, '1004.fbarzola'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(15, '1004.ssalazar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(16, '1004.ysinche'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(17, '1004.sarroyo'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(18, '1004.msolano'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(19, '1004.ysuasnabar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(20, '1004.msalazar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(21, '1004.abeltran'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(22, '1004.jmelendez'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(23, '1004.lreyes'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(24, '1004.fcardozo'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(25, '1004.kserrano'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(26, '1004.fpaz'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(27, '1004.cgonzalez'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(28, '1004.bperez'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(29, '1004.gvergara'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-																												 		    
-(10, '1005.fbarzola'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(31, '1005.ssalazar'		, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(32, '1005.ysinche'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(33, '1005.sarroyo'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false ),
-(34, '1005.msolano'			, '$2a$12$dODuS6SCsnv1pOmulWf0s.I1hqvoVcz1sl1izkthWZxtSpn5iUI2W'	, '2019-12-17' , true, false );
-*/
-
-
-
-
-
-
-
 
 /*
 ----------------------------------------------------------------------------------------------------------------------------------------
@@ -1053,525 +1063,6 @@ VALUES
 
 
 /*
-
-
-
-
-
-
---=================_OK_OK_OK_=================*=================_OK_OK_OK_=================*=================_OK_OK_OK_================*
-----------------------------------------------------------------------------------------------------------------------------------------
---adm_grupo_fams--------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-drop table if exists adm_grupo_fams; 
-CREATE TABLE adm_grupo_fams (
-	id_grp_fam		bigserial		NOT NULL PRIMARY KEY,
-	nom_grp_fam		varchar(30)		NOT NULL, 
-	procedencia		varchar(30)		NOT NULL,
-	codigo			varchar(8)		NOT NULL,
-	id_empresa		int				not null,
-	cerrado			boolean			not null
-);
---
-CREATE UNIQUE INDEX adm_grupo_fams_noms_ukey ON adm_grupo_fams ( id_empresa , fn_unaccent(nom_grp_fam) , fn_unaccent(procedencia) );
---
-COMMENT ON TABLE adm_grupo_fams IS 'Grupos familiares.'; 
-COMMENT ON COLUMN adm_grupo_fams.id_grp_fam IS 'Identificador del grupo.';
-COMMENT ON COLUMN adm_grupo_fams.nom_grp_fam IS 'Nombre del grupo.';
-COMMENT ON COLUMN adm_grupo_fams.procedencia IS 'Lugar de procedencia. Ej: El Tambo, Huancayo.';
-COMMENT ON COLUMN adm_grupo_fams.codigo IS 'Código que crea el sistema. Ej: BAROLI01.';
-COMMENT ON COLUMN adm_grupo_fams.id_empresa IS 'Identificador de empresa.';
-COMMENT ON COLUMN adm_grupo_fams.cerrado IS 'Si true, ya no se podrá modificar.';
---
-INSERT INTO adm_grupo_fams (nom_grp_fam, procedencia, codigo, id_empresa, cerrado)
-VALUES  
-('BARZOLA OLIVARES'		, 'EL TAMBO, HUANCAYO'		,'BAROLI01'	 , 1005 , true ),
-('SORIANO SINCHE'		, 'HUANCAYO'				,'SORSIN01'	 , 1005 , false),
-('HERRERA SOLANO'		, 'HUANCAYO'				,'HERSOL01'	 , 1005 , false);
-
-
-
-
---=================_OK_OK_OK_=================*=================_OK_OK_OK_=================*=================_OK_OK_OK_================*
-----------------------------------------------------------------------------------------------------------------------------------------
---adm_familiar--------------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-drop table if exists adm_familiar; 
-CREATE TABLE adm_familiar (
-	id_familiar			bigint			NOT null primary key,
-	ocupacion			varchar(75)		not null,					
-	centro_lab			varchar(75)		not null,
-	centro_lab_det		varchar(75)	not null,
-	CONSTRAINT familiar_id_fam_fkey FOREIGN KEY (id_familiar) REFERENCES persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-COMMENT ON TABLE adm_familiar IS 'Familiar del estudiante.'; 
-COMMENT ON COLUMN adm_familiar.id_familiar IS 'Identificador del familiar o persona.';
-COMMENT ON COLUMN adm_familiar.ocupacion IS 'Ocupación o labor que realiza.';
-COMMENT ON COLUMN adm_familiar.centro_lab IS 'Nombre del centro de labores.';
-COMMENT ON COLUMN adm_familiar.centro_lab_det IS 'Datos de contacto del centro de labores.';
---
-INSERT INTO adm_familiar (id_familiar, ocupacion, centro_lab, centro_lab_det) 
-VALUES 
-(20, 'DESARROLLADOR DE SISTEMAS'	, 'C.E. SAN JUAN BOSCO'	, 'JR. CUZCO NRO 779, HUANCAYO. TELF: 064233789' ),
-(21, 'EMPLEADO X'					, 'C.E. SAN JUAN BOSCO'	, 'JR. CUZCO NRO 779, HUANCAYO. TELF: 064233789' ),
-(22, 'EMPLEADO Y'					, 'C.E. SAN JUAN BOSCO'	, 'JR. CUZCO NRO 779, HUANCAYO. TELF: 064233789' ),
-(23, 'EMPLEADO Z'					, 'C.E. SAN JUAN BOSCO'	, 'JR. CUZCO NRO 779, HUANCAYO. TELF: 064233789' ),
-(24, 'EMPLEADO XYZ'					, 'C.E. SAN JUAN BOSCO'	, 'JR. CUZCO NRO 779, HUANCAYO. TELF: 064233789' );
-
-
-
-
---=================_OK_OK_OK_=================*=================_OK_OK_OK_=================*=================_OK_OK_OK_================*
-----------------------------------------------------------------------------------------------------------------------------------------
---adm_familiar_est----------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-drop table if exists adm_familiar_est;
-CREATE TABLE adm_familiar_est (
-	id_fam_est			bigserial		NOT null primary key,
-	id_familiar			bigint			not null,
-	id_estudiante		bigint			not null,	
-	id_tipo_pariente	int				not null,
-	fallecido			bool			not null,
-	apoderado			bool			not null,	
-	vive_con_est		bool			not null,		
-	CONSTRAINT familiar_est_id_familiar_fkey FOREIGN KEY (id_familiar) REFERENCES adm_familiar(id_familiar) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-COMMENT ON TABLE adm_familiar_est IS 'Familiar del estudiante.'; 
-COMMENT ON COLUMN adm_familiar_est.id_fam_est IS 'Identificador de entidad.';
-COMMENT ON COLUMN adm_familiar_est.id_familiar IS 'Identificador del familiar.';
-COMMENT ON COLUMN adm_familiar_est.id_estudiante IS 'Identificador del estudiante.';
-COMMENT ON COLUMN adm_familiar_est.id_tipo_pariente IS 'Ientificador del tipo de pariente [TI_PARIENT].';
-COMMENT ON COLUMN adm_familiar_est.fallecido IS 'Si el familiar falleció.';
-COMMENT ON COLUMN adm_familiar_est.apoderado IS 'Si es apoderado del estudiante.';
-COMMENT ON COLUMN adm_familiar_est.vive_con_est IS 'Si vive con el estudiante.';
---
-INSERT INTO adm_familiar_est (id_familiar, id_estudiante, id_tipo_pariente, fallecido, apoderado, vive_con_est) 
-VALUES 
-(21, 20, 283, true, true , true ),
-(22, 20, 284, true, false, true ),
-(23, 20, 285, true, false, true );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
---=================_OK_OK_OK_=================*=================_OK_OK_OK_=================*=================_OK_OK_OK_================*
-----------------------------------------------------------------------------------------------------------------------------------------
---adm_estudiante_cole-------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-drop table if exists adm_estudiante_cole; 
-CREATE TABLE adm_estudiante_cole (
-	id_est_col			bigint			NOT null primary key,
-	cod_estudiante		varchar(14)		not null,	
-	id_tipo_lengua1		int				not null,		
-	id_tipo_lengua2		int				not null,		
-	id_tipo_religion	int				not null,						
-	hnos_lugar			int				not null,		
-	hnos_total			int				not null,						
-	id_tipo_viv			int				not null,		
-	id_tipo_viv_mat		int				not null,		
-	id_tipo_viv_con		int				not null,
-	id_tipo_fam_ing		int				not null,		
-	id_tipo_fam_seg		int				not null,
-	id_tipo_fam_veh		int				not null,
-	activo				bool			not null,
-	correo_cole			varchar(75)     not null,
-	CONSTRAINT estudiante_cole_id_est_col_fkey FOREIGN KEY (id_est_col) REFERENCES persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-COMMENT ON TABLE adm_estudiante_cole IS 'Estudiantes de colegio.'; 
-COMMENT ON COLUMN adm_estudiante_cole.id_est_col IS 'Identificador de estudiante o persona.';
-COMMENT ON COLUMN adm_estudiante_cole.cod_estudiante IS 'Código que asigna la UGEL al estudiante.';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_lengua1 IS 'Identificador del idioma materno [TI_LENGUA-].';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_lengua2 IS 'Identificador del segundo idioma [TI_LENGUA-].';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_religion IS 'Identificador de la religión que profesa [TI_RELIGIO].';
-COMMENT ON COLUMN adm_estudiante_cole.hnos_lugar IS 'Lugar que ocupa en el total de hermanos.';
-COMMENT ON COLUMN adm_estudiante_cole.hnos_total IS 'Total de hermanos.';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_viv IS 'Identificador del tipo de vivienda [TI_VIVIEND].';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_viv_mat IS 'Identificador del material de vivienda [TI_VIVMATE].';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_viv_con IS 'Identificador de la condición de vivienda [TI_VIVCOND].';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_fam_ing IS 'Identificador del tipo de ingreso mensual familiar [TI_FAMINGR].';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_fam_seg IS 'Identificador del tipo de seguro de salud [TI_FAMSEGU].';
-COMMENT ON COLUMN adm_estudiante_cole.id_tipo_fam_veh IS 'Identificador del tipo de vehículo con el que se desplaza [TI_FAMVEHI].';
-COMMENT ON COLUMN adm_estudiante_cole.activo IS 'Cuando esta inactivo no se debe modificar sus datos.';
-COMMENT ON COLUMN adm_estudiante_cole.correo_cole IS 'Correo del estudiante.';
---
-INSERT INTO adm_estudiante_cole (id_est_col, cod_estudiante, id_tipo_lengua1, id_tipo_lengua2, id_tipo_religion, hnos_lugar, hnos_total, 
-	id_tipo_viv, id_tipo_viv_mat, id_tipo_viv_con, id_tipo_fam_ing, id_tipo_fam_seg, id_tipo_fam_veh, activo, correo_cole) 
-VALUES 
-(20, '12345678901234', 170, 192, 210, 3, 5, 221, 230, 240, 258, 262, 301, true  , 'correo@sanjuanbosco.edu.pe'),
-(21, '12345678901235',  -1,  -1,  -1, 3, 5,	 -1,  -1,  -1,  -1,  -1,  -1, false , 'correo@sanjuanbosco.edu.pe');
-
-
-
-
---=================_OK_OK_OK_=================*=================_OK_OK_OK_=================*=================_OK_OK_OK_================*
-----------------------------------------------------------------------------------------------------------------------------------------
---adm_estudiante_acad-------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-drop table if exists adm_estudiante_acad;
-CREATE TABLE adm_estudiante_acad (
-	id_est_acad			bigint			not null primary key,
-	cod_estudiante		varchar(20)		not null,	
-	activo				bool			not null,
-	correo_acad			varchar(75)		not null,
-	CONSTRAINT estudiante_acad_id_est_aca_fkey FOREIGN KEY (id_est_acad) REFERENCES persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-COMMENT ON TABLE adm_estudiante_acad IS 'Estudiantes de la academia.';
-COMMENT ON COLUMN adm_estudiante_acad.id_est_acad IS 'Identificador de estudiante o persona.';
-COMMENT ON COLUMN adm_estudiante_acad.cod_estudiante IS 'Código que se asigna para las fichas de exámenes tipo admisión.';
-COMMENT ON COLUMN adm_estudiante_acad.activo IS 'Cuando esta inactivo no se debe modificar sus datos.';
-COMMENT ON COLUMN adm_estudiante_acad.correo_acad IS 'Correo del estudiante.';
---
-INSERT INTO adm_estudiante_acad (id_est_acad, cod_estudiante, activo, correo_acad) 
-VALUES
-(20, '1234567890', true , 'sf40110805@sanjuanbosco.edu.pe'),
-(21, '9190910002', false, 'sf40110805@sanjuanbosco.edu.pe');
-
-
-*/
-
-
-
-
-
-
-
-/*
-----------------------------------------------------------------------------------------------------------------------------------------
---persona_jur-----------------------------------------------------------------------------------------------------------------------
-----------------------------------------------------------------------------------------------------------------------------------------
-drop table if exists persona_jur; 
-CREATE TABLE persona_jur (
-	id_per_jur			bigint			NOT null primary key,	
-	id_tipo_estado		int				not null,
-	id_tipo_condicion	int				not null,
-	obs					varchar(100)	not null--,	
-	--CONSTRAINT persona_jur_id_per_jur_fkey FOREIGN KEY (id_per_jur) REFERENCES persona(id_persona) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
-);
---
-COMMENT ON TABLE persona_jur IS 'Empresas que son clientes o proveedores.'; 
-COMMENT ON COLUMN persona_jur.id_per_jur IS 'Identificador de persona jurídica.';
-COMMENT ON COLUMN persona_jur.id_tipo_estado IS 'Identificador de estado en SUNAT [].';
-COMMENT ON COLUMN persona_jur.id_tipo_condicion IS 'Identificador de condición en SUNAt [].';
-COMMENT ON COLUMN persona_jur.obs IS 'Observación o anotación sobre el cliente.';
---
-INSERT INTO persona_jur (id_per_jur, id_tipo_estado, id_tipo_condicion, obs) 
-VALUES 
-(27, -1	, -1 , 'OBS 01' ),
-(28, -1	, -1 , 'OBS 01' );
-*/
-
-
-
-
-
-
---select * from adm_grupo_fams gf ;
---select * from persona p where id_grp_fam = -1;
-
-
-
-
-
-
-
-
---
- --
-
-
-
-
-
-/*
-
-
-
-
--- =============================================
--- BÚSQUEDA FLEXIBLE DE NOMBRES CON PG_TRGM
--- Migración mejorada desde SQL Server
--- =============================================
-
--- =============================================
--- 1. FUNCIÓN BÁSICA COMO LA DE SQL SERVER
--- =============================================
-CREATE OR REPLACE FUNCTION buscar_por_partes(
-    texto_completo TEXT,
-    patron_busqueda TEXT
-) RETURNS BOOLEAN AS $$
-DECLARE
-    palabras_patron TEXT[];
-    palabra TEXT;
-    texto_limpio TEXT;
-BEGIN
-    -- Limpiar texto (sin tildes, minúsculas, espacios extras)
-    texto_limpio := lower(trim(regexp_replace(fn_unaccent(texto_completo), '\s+', ' ', 'g')));
-    
-    -- Dividir el patrón en palabras (separadas por espacios)
-    palabras_patron := string_to_array(lower(trim(regexp_replace(fn_unaccent(patron_busqueda), '\s+', ' ', 'g'))), ' ');
-    
-    -- Verificar que cada palabra del patrón exista en el texto
-    FOREACH palabra IN ARRAY palabras_patron
-    LOOP
-        IF palabra != '' AND position(palabra IN texto_limpio) = 0 THEN
-            RETURN FALSE;
-        END IF;
-    END LOOP;
-    
-    RETURN TRUE;
-END;
-$$ LANGUAGE plpgsql IMMUTABLE;
-
--- =============================================
--- 2. FUNCIÓN AVANZADA CON TRIGRAM Y SCORING
--- =============================================
-CREATE OR REPLACE FUNCTION buscar_nombres_inteligente(
-    nombres TEXT,
-    apellidos TEXT,
-    patron_busqueda TEXT
-) RETURNS TABLE(
-    coincide BOOLEAN,
-    score_similitud REAL,
-    partes_encontradas INT
-) AS $$
-DECLARE
-    texto_completo TEXT;
-    palabras_patron TEXT[];
-    palabra TEXT;
-    partes_encontradas_count INT := 0;
-    total_palabras INT;
-    score_final REAL;
-    coincide_resultado BOOLEAN := FALSE;
-BEGIN
-    -- Construir texto completo
-    texto_completo := lower(fn_unaccent(nombres || ' ' || apellidos));
-    
-    -- Limpiar patrón y dividir en palabras
-    palabras_patron := string_to_array(
-        lower(trim(regexp_replace(fn_unaccent(patron_busqueda), '\s+', ' ', 'g'))), 
-        ' '
-    );
-    
-    -- Remover palabras vacías
-    palabras_patron := array_remove(palabras_patron, '');
-    total_palabras := array_length(palabras_patron, 1);
-    
-    -- Contar partes encontradas
-    FOREACH palabra IN ARRAY palabras_patron
-    LOOP
-        -- Buscar con similitud trigram (tolera errores de tipeo)
-        IF texto_completo % palabra OR position(palabra IN texto_completo) > 0 THEN
-            partes_encontradas_count := partes_encontradas_count + 1;
-        END IF;
-    END LOOP;
-    
-    -- Calcular score y decidir coincidencia
-    IF total_palabras > 0 THEN
-        score_final := partes_encontradas_count::REAL / total_palabras::REAL;
-        coincide_resultado := score_final >= 0.6; -- 60% de coincidencia mínima
-    ELSE
-        score_final := 0;
-        coincide_resultado := FALSE;
-    END IF;
-    
-    -- Bonus por similitud trigram del texto completo
-    score_final := score_final + (similarity(texto_completo, lower(fn_unaccent(patron_busqueda))) * 0.3);
-    
-    RETURN QUERY SELECT coincide_resultado, score_final, partes_encontradas_count;
-END;
-$$ LANGUAGE plpgsql IMMUTABLE;
-
--- =============================================
--- 3. EJEMPLOS DE USO CON TUS DATOS
--- =============================================
-
--- Crear tabla de ejemplo (estudiantes)
-CREATE TABLE IF NOT EXISTS colegio.estudiantes_ejemplo (
-    id SERIAL PRIMARY KEY,
-    nombres VARCHAR(100),
-    apellidos VARCHAR(100),
-    documento VARCHAR(8)
-);
-
--- Datos de prueba
-INSERT INTO colegio.estudiantes_ejemplo (nombres, apellidos, documento) VALUES
-('Juan Carlos', 'Pérez González', '12345678'),
-('María José', 'García Rodríguez', '87654321'),
-('José Antonio', 'Martínez López', '11223344'),
-('Ana Lucía', 'Fernández Silva', '55667788'),
-('Carlos Eduardo', 'López Vargas', '99887766'),
-('Bartolomé Oliver', 'Franco Mendoza', '44556677'),
-('Oliver Bartolomé', 'Mendoza Franco', '77889900'),
-('Barbara Olivia', 'Francia Montenegro', '22334455');
-
--- =============================================
--- 4. CREAR ÍNDICES PARA PERFORMANCE
--- =============================================
-
--- Índice trigram para búsquedas rápidas
-CREATE INDEX IF NOT EXISTS idx_estudiantes_nombres_trigram 
-ON colegio.estudiantes_ejemplo 
-USING gin((fn_unaccent(lower(nombres || ' ' || apellidos))) gin_trgm_ops);
-
--- Índice tradicional para búsquedas exactas
-CREATE INDEX IF NOT EXISTS idx_estudiantes_nombres_texto 
-ON colegio.estudiantes_ejemplo 
-USING btree(lower(fn_unaccent(nombres || ' ' || apellidos)));
-
--- =============================================
--- 5. CONSULTAS DE EJEMPLO (COMO TU "Bar O l i Fra")
--- =============================================
-
--- Ejemplo 1: Búsqueda básica por partes
-SELECT nombres, apellidos,
-       buscar_por_partes(nombres || ' ' || apellidos, 'Bar O l i Fra') as coincide
-FROM colegio.estudiantes_ejemplo
-WHERE buscar_por_partes(nombres || ' ' || apellidos, 'Bar O l i Fra');
-
--- Ejemplo 2: Búsqueda inteligente con scoring
-SELECT 
-    nombres, 
-    apellidos,
-    busqueda.*
-FROM colegio.estudiantes_ejemplo e
-CROSS JOIN LATERAL buscar_nombres_inteligente(e.nombres, e.apellidos, 'Bar O l i Fra') as busqueda
-WHERE busqueda.coincide
-ORDER BY busqueda.score_similitud DESC;
-
--- Ejemplo 3: Búsqueda con errores de tipeo
-SELECT 
-    nombres, 
-    apellidos,
-    similarity(fn_unaccent(lower(nombres || ' ' || apellidos)), fn_unaccent(lower('juan peres'))) as score
-FROM colegio.estudiantes_ejemplo
-WHERE fn_unaccent(lower(nombres || ' ' || apellidos)) % fn_unaccent(lower('juan peres'))
-ORDER BY score DESC;
-
--- Ejemplo 4: Autocompletado (para frontend)
-SELECT DISTINCT
-    nombres || ' ' || apellidos as nombre_completo,
-    similarity(fn_unaccent(lower(nombres || ' ' || apellidos)), fn_unaccent(lower($1))) as score
-FROM colegio.estudiantes_ejemplo
-WHERE fn_unaccent(lower(nombres || ' ' || apellidos)) % fn_unaccent(lower($1))
-ORDER BY score DESC
-LIMIT 10;
-
--- =============================================
--- 6. FUNCIÓN PARA SPRING BOOT (MÁS SIMPLE)
--- =============================================
-CREATE OR REPLACE FUNCTION buscar_estudiantes_flexible(
-    patron_busqueda TEXT,
-    limite INT DEFAULT 50
-) RETURNS TABLE(
-    id INT,
-    nombres VARCHAR(100),
-    apellidos VARCHAR(100),
-    documento VARCHAR(8),
-    score REAL
-) AS $$
-BEGIN
-    RETURN QUERY
-    SELECT 
-        e.id,
-        e.nombres,
-        e.apellidos,
-        e.documento,
-        GREATEST(
-            similarity(fn_unaccent(lower(e.nombres || ' ' || e.apellidos)), fn_unaccent(lower(patron_busqueda))),
-            CASE 
-                WHEN buscar_por_partes(e.nombres || ' ' || e.apellidos, patron_busqueda) THEN 0.8 
-                ELSE 0 
-            END
-        ) as score
-    FROM colegio.estudiantes_ejemplo e
-    WHERE 
-        fn_unaccent(lower(e.nombres || ' ' || e.apellidos)) % fn_unaccent(lower(patron_busqueda))
-        OR buscar_por_partes(e.nombres || ' ' || e.apellidos, patron_busqueda)
-    ORDER BY score DESC
-    LIMIT limite;
-END;
-$$ LANGUAGE plpgsql;
-
--- =============================================
--- 7. PRUEBAS CON DIFERENTES PATRONES
--- =============================================
-
--- Prueba 1: "Bar O l i Fra" (tu ejemplo)
-SELECT * FROM buscar_estudiantes_flexible('Bar O l i Fra');
-
--- Prueba 2: Con errores de tipeo
-SELECT * FROM buscar_estudiantes_flexible('juan peres');
-
--- Prueba 3: Solo apellidos
-SELECT * FROM buscar_estudiantes_flexible('garcia rodriguez');
-
--- Prueba 4: Parcial desordenado
-SELECT * FROM buscar_estudiantes_flexible('carlos martinez');
-
--- Prueba 5: Con números de documento
-SELECT * FROM buscar_estudiantes_flexible('123456');
-
--- =============================================
--- 8. VIEW PARA USAR EN SPRING BOOT
--- =============================================
-CREATE OR REPLACE VIEW v_estudiantes_busqueda AS
-SELECT 
-    id,
-    nombres,
-    apellidos,
-    documento,
-    fn_unaccent(lower(nombres || ' ' || apellidos)) as texto_busqueda,
-    nombres || ' ' || apellidos as nombre_completo
-FROM colegio.estudiantes_ejemplo;
-
--- =============================================
--- 9. COMENTARIOS Y DOCUMENTACIÓN
--- =============================================
-COMMENT ON FUNCTION buscar_por_partes IS 'Función básica para buscar por partes separadas (equivalente a SQL Server)';
-COMMENT ON FUNCTION buscar_nombres_inteligente IS 'Función avanzada con scoring y tolerancia a errores';
-COMMENT ON FUNCTION buscar_estudiantes_flexible IS 'Función optimizada para usar desde Spring Boot';
-
--- =============================================
--- 10. ESTADÍSTICAS DE PERFORMANCE
--- =============================================
-
--- Ver el plan de ejecución
-EXPLAIN ANALYZE 
-SELECT * FROM buscar_estudiantes_flexible('Bar O l i Fra');
-
--- Verificar que usa el índice trigram
-EXPLAIN (ANALYZE, BUFFERS) 
-SELECT * FROM colegio.estudiantes_ejemplo
-WHERE fn_unaccent(lower(nombres || ' ' || apellidos)) % 'bartolome';
-
-*/
-
-
-
-
-
-
-/* 
- C# TRABAJAR EN SEGUNDO PLANO 
- https://social.msdn.microsoft.com/Forums/es-ES/e4e370d0-273f-4202-b9a3-34400ff998d9/como-evitar-bloqueo-con-buttonclick?forum=vcses
-*/
-
-
-/*
 CAMBIO_FECHA										
 id_cambio_fecha	id_usuario	id_negocio	id_modulo	fe_solicita	fe_cambio	motivo	desde_sol	hasta_sol	desde_aut	hasta_aut
 1	20	col	com	1/10/2021	30/09/2021	Confirmo banco	08:00	10:00	09:00	10:00
@@ -1593,3 +1084,53 @@ id_autorizacion	id_negocio	id_usu_sol	id_usu_aut	id_tipo_aut	id_solicita	id_sist
 */
 
 
+
+
+
+-- ============================================================================
+-- TABLA: gen.acceso
+-- ============================================================================
+DROP TABLE IF EXISTS gen.acceso CASCADE;
+CREATE TABLE gen.acceso (
+    id_acceso           BIGSERIAL       NOT NULL PRIMARY KEY,
+    id_empresa          INT             NOT NULL,
+    id_usuario          BIGINT          NOT NULL,
+    id_tipo_usu         INT             NOT NULL,
+    fe_login            DATE            NOT NULL,
+    fh_login            TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fh_logout           TIMESTAMP       NULL,
+    info_cliente        JSONB           NOT NULL DEFAULT '{}'::jsonb,
+    CONSTRAINT acceso_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT acceso_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES gen.usuario(id_usuario) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT acceso_id_tipo_usu_fkey FOREIGN KEY (id_tipo_usu) REFERENCES gen.tipo(id_tipo) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
+);
+--
+CREATE INDEX idx_acceso_empresa ON gen.acceso(id_empresa);
+CREATE INDEX idx_acceso_usuario ON gen.acceso(id_usuario);
+CREATE INDEX idx_acceso_fecha ON gen.acceso(fe_login);
+CREATE INDEX idx_acceso_login ON gen.acceso(fh_login);
+CREATE INDEX idx_acceso_empresa_fecha ON gen.acceso(id_empresa, fe_login);
+CREATE INDEX idx_acceso_usuario_fecha ON gen.acceso(id_usuario, fe_login);
+--
+COMMENT ON TABLE gen.acceso IS 'Registro de accesos al sistema para auditoría.';
+COMMENT ON COLUMN gen.acceso.id_acceso IS 'Identificador de acceso.';
+COMMENT ON COLUMN gen.acceso.id_empresa IS 'Identificador de la empresa [GEN.EMPRESA].';
+COMMENT ON COLUMN gen.acceso.id_usuario IS 'Identificador del usuario [GEN.USUARIO].';
+COMMENT ON COLUMN gen.acceso.id_tipo_usu IS 'Identificador del tipo de usuario [GEN.TIPO].';
+COMMENT ON COLUMN gen.acceso.fe_login IS 'Fecha de acceso.';
+COMMENT ON COLUMN gen.acceso.fh_login IS 'Fecha y hora del login.';
+COMMENT ON COLUMN gen.acceso.fh_logout IS 'Fecha y hora del logout.';
+COMMENT ON COLUMN gen.acceso.info_cliente IS 'Información del cliente en formato JSON: IP, user agent, navegador, OS, resolución, etc.';12, 95060, true, 'admin', '127.0.0.1'),    
+(12, 95064, true, 'admin', '127.0.0.1'),    
+(12, 95065, true, 'admin', '127.0.0.1');
+
+
+
+
+
+-- EN LA MATRICULA/SUSCRIPCION IRIA LOS CURSOS EXONERADOS, EL CONTACTO DE EMERGENCAI, E APODERADO ACADEMICO, EL APODERADO ECONOMICO
+-- EN LA MATRICULA/SUSCRIPCION IRIA LOS CURSOS EXONERADOS, EL CONTACTO DE EMERGENCAI, E APODERADO ACADEMICO, EL APODERADO ECONOMICO
+-- EN LA MATRICULA/SUSCRIPCION IRIA LOS CURSOS EXONERADOS, EL CONTACTO DE EMERGENCAI, E APODERADO ACADEMICO, EL APODERADO ECONOMICO
+-- EN LA MATRICULA/SUSCRIPCION IRIA LOS CURSOS EXONERADOS, EL CONTACTO DE EMERGENCAI, E APODERADO ACADEMICO, EL APODERADO ECONOMICO
+-- EN LA MATRICULA/SUSCRIPCION IRIA LOS CURSOS EXONERADOS, EL CONTACTO DE EMERGENCAI, E APODERADO ACADEMICO, EL APODERADO ECONOMICO
+--COMMENT ON COLUMN gen.estudiante_cole.contacto_full IS 'Información completa de contacto de emergencia (nombres, celular, parentesco).';

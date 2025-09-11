@@ -3,11 +3,10 @@
 -- ============================================================================
 DROP TABLE IF EXISTS gen.pais CASCADE;
 CREATE TABLE gen.pais (
-	id_pais     INT        		NOT NULL,
+	id_pais     INT        		NOT NULL PRIMARY KEY,
     nom_pais    VARCHAR(50)     NOT NULL,
     activo      BOOLEAN         NOT NULL,
-    orden       INT             NOT NULL,
-    CONSTRAINT pais_pkey PRIMARY KEY(id_pais)
+    orden       INT             NOT NULL
 );
 --
 COMMENT ON TABLE gen.pais IS 'Tabla de países.';
@@ -37,10 +36,9 @@ VALUES
 -- ============================================================================
 DROP TABLE IF EXISTS gen.departamento CASCADE;
 CREATE TABLE gen.departamento (
-	id_departamento		CHAR(2)			NOT NULL,
+	id_departamento		CHAR(2)			NOT NULL PRIMARY KEY,
 	id_pais				INT				NOT NULL,
 	nom_departamento	VARCHAR(50) 	NOT NULL,
-	CONSTRAINT departamento_pkey PRIMARY KEY (id_departamento),
 	CONSTRAINT departamento_id_pais_fkey FOREIGN KEY (id_pais) REFERENCES gen.pais(id_pais) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 --
@@ -105,10 +103,9 @@ values
 -- ============================================================================
 DROP TABLE if exists  gen.provincia CASCADE;
 CREATE TABLE gen.provincia (
-	id_provincia		CHAR(4)			NOT NULL,
+	id_provincia		CHAR(4)			NOT NULL PRIMARY KEY,
 	id_departamento		CHAR(2)			NOT NULL,
 	nom_provincia		VARCHAR(50) 	NOT NULL,
-	CONSTRAINT provincia_pkey PRIMARY KEY (id_provincia),
 	CONSTRAINT provincia_id_departamento_fkey FOREIGN KEY (id_departamento) REFERENCES gen.departamento(id_departamento) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 --
@@ -343,12 +340,11 @@ VALUES
 -- ============================================================================
 DROP TABLE IF EXISTS gen.distrito CASCADE;
 CREATE TABLE gen.distrito (
-	id_distrito			CHAR(6)			NOT NULL,
+	id_distrito			CHAR(6)			NOT NULL PRIMARY KEY,
 	id_provincia		CHAR(4)			NOT NULL,
 	nom_distrito		VARCHAR(50) 	NOT NULL,
 	latitud				VARCHAR(25)		NOT NULL,
 	longitud			VARCHAR(25)		NOT NULL,
-	CONSTRAINT distrito_pkey PRIMARY KEY (id_distrito),
 	CONSTRAINT distrito_id_provincia_fkey FOREIGN KEY (id_provincia) REFERENCES gen.provincia(id_provincia) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION 
 );
 --

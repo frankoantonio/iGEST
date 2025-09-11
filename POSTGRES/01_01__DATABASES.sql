@@ -1,7 +1,7 @@
 /*
  En la terminal de PostgreSQL, ejecutar una de las dos formas:
  - copiar y pegar directamente 
- - cargar el archivo con este comando	->	postgres=#  \i /RUTA_DESDE_RAIZ/01_01_DATABASES.sql
+ - cargar el archivo con este comando -> postgres=# \i /RUTA_DESDE_RAIZ/01_01_DATABASES.sql
 */
 
 -- =============================================
@@ -10,12 +10,15 @@
 \c postgres
 
 DROP DATABASE IF EXISTS db_igest;
+
 CREATE DATABASE db_igest 
     WITH ENCODING = 'UTF8'
-    LC_COLLATE = 'es_PE.UTF-8'
-    LC_CTYPE = 'es_PE.UTF-8'
-    TEMPLATE = template0;
+         LC_COLLATE = 'es_PE.utf8'
+         LC_CTYPE = 'es_PE.utf8'
+         TEMPLATE = template0;
+
 COMMENT ON DATABASE db_igest IS 'Base de datos unificada para todos los sistemas iGEST';
+
 
 
 -- =============================================
@@ -23,10 +26,10 @@ COMMENT ON DATABASE db_igest IS 'Base de datos unificada para todos los sistemas
 -- =============================================
 \c db_igest
 
-CREATE EXTENSION IF NOT EXISTS unaccent;     
-CREATE EXTENSION IF NOT EXISTS pgcrypto;     -- gen_random_uuid(), cifrado y funciones criptográficas
-CREATE EXTENSION IF NOT EXISTS pg_trgm;      -- Índices y búsquedas de texto por similitud (trigramas)
-CREATE EXTENSION IF NOT EXISTS btree_gin;    -- Compatibilidad para usar GIN en tipos comunes (índices compuestos)
+CREATE EXTENSION IF NOT EXISTS unaccent;      -- Eliminación de acentos y tildes
+CREATE EXTENSION IF NOT EXISTS pgcrypto;      -- gen_random_uuid(), cifrado y funciones criptográficas
+CREATE EXTENSION IF NOT EXISTS pg_trgm;       -- Índices y búsquedas de texto por similitud (trigramas)
+CREATE EXTENSION IF NOT EXISTS btree_gin;     -- Compatibilidad para usar GIN en tipos comunes (índices compuestos)
 
 -- Función personalizada fn_unaccent
 CREATE OR REPLACE FUNCTION public.fn_unaccent(text)
@@ -35,8 +38,9 @@ LANGUAGE sql IMMUTABLE STRICT PARALLEL SAFE AS
 $$
     SELECT unaccent($1);
 $$;
---
+
 COMMENT ON FUNCTION public.fn_unaccent(text) IS 'Normaliza texto eliminando tildes y acentos, envoltorio de la extensión unaccent.';
+
 
 
 -- =============================================
@@ -76,31 +80,41 @@ CREATE SCHEMA IF NOT EXISTS bka;
 COMMENT ON SCHEMA bka IS 'Sistema bancario. Préstamos, operaciones, refinanciamientos, seguros.';
 
 
+
 -- =============================================
 -- USUARIO PARA APLICACIÓN
 -- =============================================
 DROP USER IF EXISTS usr_igest;
+
 CREATE USER usr_igest WITH 
-    PASSWORD 'i%&&tmm@r2sdk78ssk7#48fGFsdf95#$(54##%$#3r%$Qgr3$L'
+    PASSWORD 'rR7X4j0L2(s@8$69N*~vbtyd$k+d0$1CzukA*8hXKP'
     CONNECTION LIMIT 100
     VALID UNTIL 'infinity';
 
+-- Permisos de conexión
 GRANT CONNECT ON DATABASE db_igest TO usr_igest;
+
+-- Permisos de uso de esquemas
 GRANT USAGE ON SCHEMA public, gen, com, lgt, per, fin, cnt, adm, col, aca, med, bka TO usr_igest;
 
+-- Permisos por defecto para tablas
 ALTER DEFAULT PRIVILEGES IN SCHEMA gen, com, lgt, per, fin, cnt, adm, col, aca, med, bka
 GRANT SELECT, INSERT, UPDATE ON TABLES TO usr_igest;
 
+-- Permisos por defecto para secuencias
 ALTER DEFAULT PRIVILEGES IN SCHEMA gen, com, lgt, per, fin, cnt, adm, col, aca, med, bka
 GRANT USAGE, SELECT, UPDATE ON SEQUENCES TO usr_igest;
 
+-- Permisos por defecto para funciones
 ALTER DEFAULT PRIVILEGES IN SCHEMA public, gen, com, lgt, per, fin, cnt, adm, col, aca, med, bka
 GRANT EXECUTE ON ROUTINES TO usr_igest;
+
 
 
 -- =============================================
 -- TABLA DE AUDITORÍA UNIFICADA (POR ESQUEMA)
 -- =============================================
+
 -- Función para crear tabla de auditoría en cada esquema
 CREATE OR REPLACE FUNCTION crear_auditoria_esquema(nombre_esquema TEXT)
 RETURNS void AS $$
@@ -108,7 +122,8 @@ DECLARE
     sql_query TEXT;
 BEGIN
     sql_query := format('
-        DROP TABLE IF EXISTS %1$I.auditoria CASCADE;
+        DROP TABLE IF EXISTS %1$I.auditoria;
+
         CREATE TABLE %1$I.auditoria (
             id_auditoria    BIGSERIAL,
             anio            INT NOT NULL,
@@ -127,23 +142,8 @@ BEGIN
         ) PARTITION BY LIST (anio);
         
         CREATE INDEX IF NOT EXISTS %1$s_auditoria_idx 
-        ON %1$I.auditoria (nom_entidad, id_entidad, nom_usuario, fh_oper);
-        
-        CREATE INDEX IF NOT EXISTS %1$s_auditoria_fecha_idx 
-        ON %1$I.auditoria (fe_oper, fh_oper);
-
-		CREATE INDEX IF NOT EXISTS %1$s_auditoria_valores_idx 
-		ON %1$I.auditoria USING gin (valores);
-        
-        CREATE TABLE IF NOT EXISTS %1$I.auditoria_2025 
-        PARTITION OF %1$I.auditoria FOR VALUES IN (2025);
-        
-        CREATE TABLE IF NOT EXISTS %1$I.auditoria_2026 
-        PARTITION OF %1$I.auditoria FOR VALUES IN (2026);
-        
-        CREATE TABLE IF NOT EXISTS %1$I.auditoria_2027 
-        PARTITION OF %1$I.auditoria FOR VALUES IN (2027);
-        
+        ON %1$I.auditoria (nom_entidad, id_entidad, nom_usuario, fe_oper);
+               
         COMMENT ON TABLE %1$I.auditoria IS ''Tabla de auditoría para el esquema %1$s.'';
         COMMENT ON COLUMN %1$I.auditoria.id_auditoria IS ''Identificador de entidad.'';
         COMMENT ON COLUMN %1$I.auditoria.anio IS ''Año de operación.'';
@@ -178,6 +178,47 @@ SELECT crear_auditoria_esquema('med');
 SELECT crear_auditoria_esquema('bka');
 
 
+
+-- =============================================
+-- CREACIÓN DE PARTICIONES DE AUDITORÍA
+-- =============================================
+
+-- Función para crear particiones en cada esquema
+CREATE OR REPLACE FUNCTION crear_particiones_auditoria(
+    nombre_esquema TEXT,
+    anio_inicio INT,
+    anio_fin INT
+)
+RETURNS void AS $$
+DECLARE
+    anio INT;
+BEGIN
+    FOR anio IN anio_inicio..anio_fin LOOP
+        EXECUTE format('
+            CREATE TABLE IF NOT EXISTS %1$I.auditoria_%2$s
+            PARTITION OF %1$I.auditoria
+            FOR VALUES IN (%2$s);',
+            nombre_esquema, anio
+        );
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Crear particiones en cada esquema (2025-2030)
+SELECT crear_particiones_auditoria('gen', 2025, 2030);
+SELECT crear_particiones_auditoria('com', 2025, 2030);
+SELECT crear_particiones_auditoria('lgt', 2025, 2030);
+SELECT crear_particiones_auditoria('per', 2025, 2030);
+SELECT crear_particiones_auditoria('fin', 2025, 2030);
+SELECT crear_particiones_auditoria('cnt', 2025, 2030);
+SELECT crear_particiones_auditoria('adm', 2025, 2030);
+SELECT crear_particiones_auditoria('col', 2025, 2030);
+SELECT crear_particiones_auditoria('aca', 2025, 2030);
+SELECT crear_particiones_auditoria('med', 2025, 2030);
+SELECT crear_particiones_auditoria('bka', 2025, 2030);
+
+
+
 -- =============================================
 -- CONFIGURACIÓN FINAL
 -- =============================================
@@ -185,5 +226,9 @@ ALTER DATABASE db_igest SET timezone TO 'America/Lima';			-- Zona horaria de la 
 ALTER DATABASE db_igest SET log_min_duration_statement = 1000;	-- Registrar consultas que duren más de 1 segundo (1000 ms)
 
 
+
+-- Habilitar y configurar en producción pg_stat_statements
+-- Habilitar y configurar en producción pg_stat_statements
+-- Habilitar y configurar en producción pg_stat_statements
 
 
