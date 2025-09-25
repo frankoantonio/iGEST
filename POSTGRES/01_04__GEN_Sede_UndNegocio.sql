@@ -13,8 +13,7 @@ CREATE TABLE gen.empresa_sistema (
     fh_registra         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ip_registra         VARCHAR(25)     NOT NULL,
 	UNIQUE (id_empresa, id_sistema),
-	CONSTRAINT empresa_sistema_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
-	CONSTRAINT empresa_sistema_id_sistema_fkey FOREIGN KEY (id_sistema) REFERENCES gen.sistema(id_sistema) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
+	CONSTRAINT empresa_sistema_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 --
 COMMENT ON TABLE gen.empresa_sistema IS 'Sistemas por cada empresa.';
@@ -109,7 +108,7 @@ CREATE TABLE gen.sede (
 	CONSTRAINT sede_id_empresa_fkey FOREIGN KEY (id_empresa) REFERENCES gen.empresa(id_empresa) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 --
-ALTER SEQUENCE gen.sede_id_sede_seq RESTART WITH 31;
+ALTER SEQUENCE gen.sede_id_sede_seq RESTART WITH 26;
 --
 COMMENT ON TABLE gen.sede IS 'Lugares geográficos donde funciona la empresa.';
 COMMENT ON COLUMN gen.sede.id_sede IS 'Identificador de la sede.';
@@ -181,8 +180,6 @@ CREATE TABLE gen.und_negocio (
 	CONSTRAINT und_negocio_tipo_id_tipo_negocio_fkey FOREIGN KEY (id_tipo_negocio) REFERENCES gen.tipo(id_tipo) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 --
-ALTER SEQUENCE gen.und_negocio_id_und_neg_seq RESTART WITH 1009;
---
 COMMENT ON TABLE gen.und_negocio IS 'Unidades de negocio asociadas a cada empresa.';
 COMMENT ON COLUMN gen.und_negocio.id_und_neg IS 'Identificador de unidad de negocio.';
 COMMENT ON COLUMN gen.und_negocio.uuid_und_neg IS 'Identificador UUID público.';
@@ -211,21 +208,42 @@ INSERT INTO gen.und_negocio (id_empresa, nom_comercial, activo, id_tipo_negocio,
 -- ============================================================================
 DROP TABLE IF EXISTS gen.und_negocio_sede CASCADE;
 CREATE TABLE gen.und_negocio_sede (
-    id_und_neg_sede		SERIAL 	NOT NULL PRIMARY KEY,
-    id_empresa 			INTEGER NOT NULL,
-    id_und_neg 			INTEGER NOT NULL REFERENCES gen.und_negocio(id_und_neg),
-    id_sede 			INTEGER NOT NULL,
-    activo 				BOOLEAN NOT NULL,
-	us_registra         VARCHAR(25)     NOT NULL,
+    id_und_neg_sede     SERIAL          NOT NULL PRIMARY KEY,
+    id_empresa          INT             NOT NULL,
+    id_und_neg          INT             NOT NULL,
+    id_sede             INT             NOT NULL,
+    activo              BOOLEAN         NOT NULL,
+    us_registra         VARCHAR(25)     NOT NULL,
     fh_registra         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    ip_registra         VARCHAR(25)     NOT NULL,	    
-    UNIQUE(id_und_neg, id_sede)
+    ip_registra         VARCHAR(25)     NOT NULL,
+    UNIQUE (id_und_neg, id_sede),
+    CONSTRAINT und_negocio_sede_und_neg_fkey FOREIGN KEY (id_und_neg) REFERENCES gen.und_negocio (id_und_neg) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION    
 );
 --
-COMMENT ON COLUMN gen.sede.us_registra IS 'Usuario que registra.';
-COMMENT ON COLUMN gen.sede.fh_registra IS 'Fecha y hora de registro.';
-COMMENT ON COLUMN gen.sede.ip_registra IS 'Dirección IP o nombre del dispositivo de registro.';
+COMMENT ON TABLE gen.und_negocio_sede IS 'Sedes asociadas a las unidades de negocio.';
+COMMENT ON COLUMN gen.und_negocio_sede.id_und_neg_sede IS 'Identificador de entidad.';
+COMMENT ON COLUMN gen.und_negocio_sede.id_empresa IS 'Identificador de empresa [GEN.EMPRESA].';
+COMMENT ON COLUMN gen.und_negocio_sede.id_und_neg IS 'Identificador de unidad de negocio [GEN.UND_NEGOCIO].';
+COMMENT ON COLUMN gen.und_negocio_sede.id_sede IS 'Identificador de sede [GEN.SEDE].';
+COMMENT ON COLUMN gen.und_negocio_sede.activo IS 'Indica sí la sede está activo en la unidad de negocio.';
+COMMENT ON COLUMN gen.und_negocio_sede.us_registra IS 'Usuario que registra.';
+COMMENT ON COLUMN gen.und_negocio_sede.fh_registra IS 'Fecha y hora de registro.';
+COMMENT ON COLUMN gen.und_negocio_sede.ip_registra IS 'Dirección IP o nombre del dispositivo de registro.';
 --
+INSERT INTO gen.und_negocio_sede (id_empresa, id_und_neg, id_sede, activo, us_registra, ip_registra) VALUES 
+(1004, 4 , 4 , true , 'dba' , 'localhost'),
+(1004, 4 , 5 , true , 'dba' , 'localhost'),
+(1004, 4 , 6 , true , 'dba' , 'localhost'),
+(1004, 4 , 7 , true , 'dba' , 'localhost'),
+(1004, 4 , 8 , true , 'dba' , 'localhost'),
+(1004, 4 , 9 , true , 'dba' , 'localhost'),
+(1004, 5 , 4 , true , 'dba' , 'localhost'),
+(1004, 5 , 7 , true , 'dba' , 'localhost'),
+(1004, 5 ,10 , true , 'dba' , 'localhost'),
+(1004, 5 ,11 , true , 'dba' , 'localhost'),
+(1004, 6 , 4 , true , 'dba' , 'localhost'),
+(1004, 6 , 9 , true , 'dba' , 'localhost');
+
 
 
 -- ============================================================================
@@ -233,11 +251,52 @@ COMMENT ON COLUMN gen.sede.ip_registra IS 'Dirección IP o nombre del dispositiv
 -- ============================================================================
 DROP TABLE IF EXISTS gen.und_negocio_sistema CASCADE;
 CREATE TABLE gen.und_negocio_sistema (
-    id_und_neg_sis		SERIAL  NOT NULL PRIMARY KEY,
-    id_und_neg 			INTEGER NOT NULL REFERENCES gen.und_negocio(id_und_neg),
-    id_sistema 			CHAR(3) NOT NULL, --REFERENCES gen.sistema(id_sistema),
-    activo 				BOOLEAN NOT NULL,
-    UNIQUE(id_und_neg, id_sistema)
+    id_und_neg_sis      SERIAL          NOT NULL PRIMARY KEY,
+    id_empresa          INT             NOT NULL,
+    id_und_neg          INT             NOT NULL,
+    id_sistema          CHAR(3)         NOT NULL,
+    activo              BOOLEAN         NOT NULL,
+    us_registra         VARCHAR(25)     NOT NULL,
+    fh_registra         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    ip_registra         VARCHAR(25)     NOT NULL,    
+    CONSTRAINT und_negocio_sistema_und_neg_fkey FOREIGN KEY (id_und_neg) REFERENCES gen.und_negocio (id_und_neg) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT und_negocio_sistema_sistema_fkey FOREIGN KEY (id_sistema) REFERENCES gen.sistema (id_sistema) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION,
+    CONSTRAINT und_negocio_sistema_unq UNIQUE (id_und_neg, id_sistema)
 );
+--
+COMMENT ON TABLE gen.und_negocio_sistema IS 'Sistemas asociados a las unidades de negocio.';
+COMMENT ON COLUMN gen.und_negocio_sistema.id_und_neg_sis IS 'Identificador de entidad.';
+COMMENT ON COLUMN gen.und_negocio_sistema.id_empresa IS 'Identificador de empresa [GEN.EMPRESA].';
+COMMENT ON COLUMN gen.und_negocio_sistema.id_und_neg IS 'Identificador de unidad de negocio [GEN.UND_NEGOCIO].';
+COMMENT ON COLUMN gen.und_negocio_sistema.id_sistema IS 'Identificador de sistema [GEN.SISTEMA].';
+COMMENT ON COLUMN gen.und_negocio_sistema.activo IS 'Indica si el sistema está activo.';
+COMMENT ON COLUMN gen.und_negocio_sistema.us_registra IS 'Usuario que registra.';
+COMMENT ON COLUMN gen.und_negocio_sistema.fh_registra IS 'Fecha y hora de registro.';
+COMMENT ON COLUMN gen.und_negocio_sistema.ip_registra IS 'Dirección IP o nombre del dispositivo de registro.';
+--
+INSERT INTO gen.und_negocio_sistema (id_empresa, id_und_neg, id_sistema, activo, us_registra, ip_registra) VALUES 
+(1004, 4 , 'GEN' , true , 'dba' , 'localhost'),
+(1004, 4 , 'COM' , true , 'dba' , 'localhost'),
+(1004, 4 , 'LGT' , true , 'dba' , 'localhost'),
+(1004, 4 , 'PER' , true , 'dba' , 'localhost'),
+(1004, 4 , 'FIN' , true , 'dba' , 'localhost'),
+(1004, 4 , 'CNT' , true , 'dba' , 'localhost'),
+(1004, 4 , 'ADM' , true , 'dba' , 'localhost'),
+(1004, 4 , 'COL' , true , 'dba' , 'localhost'),
+(1004, 5 , 'GEN' , true , 'dba' , 'localhost'),
+(1004, 5 , 'COM' , true , 'dba' , 'localhost'),
+(1004, 5 , 'LGT' , true , 'dba' , 'localhost'),
+(1004, 5 , 'PER' , true , 'dba' , 'localhost'),
+(1004, 5 , 'FIN' , true , 'dba' , 'localhost'),
+(1004, 5 , 'CNT' , true , 'dba' , 'localhost'),
+(1004, 5 , 'ADM' , true , 'dba' , 'localhost'),
+(1004, 5 , 'ACA' , true , 'dba' , 'localhost'),
+(1004, 6 , 'GEN' , true , 'dba' , 'localhost'),
+(1004, 6 , 'COM' , true , 'dba' , 'localhost'),
+(1004, 6 , 'LGT' , true , 'dba' , 'localhost'),
+(1004, 6 , 'PER' , true , 'dba' , 'localhost'),
+(1004, 6 , 'FIN' , true , 'dba' , 'localhost'),
+(1004, 6 , 'CNT' , true , 'dba' , 'localhost'),
+(1004, 6 , 'ADM' , true , 'dba' , 'localhost');
 
 

@@ -1,7 +1,5 @@
 /*
- En la terminal de PostgreSQL, ejecutar una de las dos formas:
- - copiar y pegar directamente 
- - cargar el archivo con este comando -> postgres=# \i /RUTA_DESDE_RAIZ/01_01_DATABASES.sql
+	En la terminal de PostgreSQL, copiar y pegar directamente 
 */
 
 -- =============================================
@@ -112,11 +110,11 @@ GRANT EXECUTE ON ROUTINES TO usr_igest;
 
 
 -- =============================================
--- TABLA DE AUDITORÍA UNIFICADA (POR ESQUEMA)
+-- TABLA DE AUDITORÍA POR ESQUEMA
 -- =============================================
 
 -- Función para crear tabla de auditoría en cada esquema
-CREATE OR REPLACE FUNCTION crear_auditoria_esquema(nombre_esquema TEXT)
+CREATE OR REPLACE FUNCTION public.fn_crear_auditoria_esquema(nombre_esquema TEXT)
 RETURNS void AS $$
 DECLARE
     sql_query TEXT;
@@ -165,17 +163,17 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Crear tablas de auditoría en cada esquema
-SELECT crear_auditoria_esquema('gen');
-SELECT crear_auditoria_esquema('com');
-SELECT crear_auditoria_esquema('lgt');
-SELECT crear_auditoria_esquema('per');
-SELECT crear_auditoria_esquema('fin');
-SELECT crear_auditoria_esquema('cnt');
-SELECT crear_auditoria_esquema('adm');
-SELECT crear_auditoria_esquema('col');
-SELECT crear_auditoria_esquema('aca');
-SELECT crear_auditoria_esquema('med');
-SELECT crear_auditoria_esquema('bka');
+SELECT fn_crear_auditoria_esquema('gen');
+SELECT fn_crear_auditoria_esquema('com');
+SELECT fn_crear_auditoria_esquema('lgt');
+SELECT fn_crear_auditoria_esquema('per');
+SELECT fn_crear_auditoria_esquema('fin');
+SELECT fn_crear_auditoria_esquema('cnt');
+SELECT fn_crear_auditoria_esquema('adm');
+SELECT fn_crear_auditoria_esquema('col');
+SELECT fn_crear_auditoria_esquema('aca');
+SELECT fn_crear_auditoria_esquema('med');
+SELECT fn_crear_auditoria_esquema('bka');
 
 
 
@@ -184,38 +182,45 @@ SELECT crear_auditoria_esquema('bka');
 -- =============================================
 
 -- Función para crear particiones en cada esquema
-CREATE OR REPLACE FUNCTION crear_particiones_auditoria(
+CREATE OR REPLACE FUNCTION public.fn_crear_particiones(
     nombre_esquema TEXT,
+    nombre_tabla TEXT,
     anio_inicio INT,
     anio_fin INT
 )
 RETURNS void AS $$
 DECLARE
     anio INT;
+    sql TEXT;
 BEGIN
     FOR anio IN anio_inicio..anio_fin LOOP
-        EXECUTE format('
-            CREATE TABLE IF NOT EXISTS %1$I.auditoria_%2$s
-            PARTITION OF %1$I.auditoria
-            FOR VALUES IN (%2$s);',
-            nombre_esquema, anio
+        sql := format(
+            'CREATE TABLE IF NOT EXISTS %I.%I_%s PARTITION OF %I.%I FOR VALUES IN (%s);',
+            nombre_esquema,         -- %1$ -> esquema
+            nombre_tabla,           -- %2$ -> tabla particionada con sufijo
+            anio::TEXT,             -- %3$ -> sufijo año
+            nombre_esquema,         -- %4$ -> esquema (otra vez)
+            nombre_tabla,           -- %5$ -> tabla base particionada
+            anio                    -- %6$ -> valor de partición
         );
+        EXECUTE sql;
     END LOOP;
 END;
 $$ LANGUAGE plpgsql;
 
+
 -- Crear particiones en cada esquema (2025-2030)
-SELECT crear_particiones_auditoria('gen', 2025, 2030);
-SELECT crear_particiones_auditoria('com', 2025, 2030);
-SELECT crear_particiones_auditoria('lgt', 2025, 2030);
-SELECT crear_particiones_auditoria('per', 2025, 2030);
-SELECT crear_particiones_auditoria('fin', 2025, 2030);
-SELECT crear_particiones_auditoria('cnt', 2025, 2030);
-SELECT crear_particiones_auditoria('adm', 2025, 2030);
-SELECT crear_particiones_auditoria('col', 2025, 2030);
-SELECT crear_particiones_auditoria('aca', 2025, 2030);
-SELECT crear_particiones_auditoria('med', 2025, 2030);
-SELECT crear_particiones_auditoria('bka', 2025, 2030);
+SELECT fn_crear_particiones('gen', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('com', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('lgt', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('per', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('fin', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('cnt', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('adm', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('col', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('aca', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('med', 'auditoria', 2025, 2030);
+SELECT fn_crear_particiones('bka', 'auditoria', 2025, 2030);
 
 
 
