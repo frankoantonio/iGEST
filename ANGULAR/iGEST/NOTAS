@@ -1,0 +1,93 @@
+OpenStreetMap + Leaflet - Sin restricciones:
+
+npm install leaflet @types/leaflet   
+
+
+
+==========================================================================================================================================
+
+VERSION FLUTTER
+Ctrl+Shift+P        →   "Flutter: Change SDK"
+Versión Flutter     →   3.32.7
+
+En el terminal      →   flutter run -d chrome --web-port=60500
+
+==========================================================================================================================================
+==========================================================================================================================================
+
+NOMBRE / PAQUETE DEL APLICATIVO ----------------------------------------------------------------------------------------------------------
+
+    PAQUETE
+        android/app/build.gradle  →   applicationId = "pe.igest.app"
+                                      namespace     = "pe.igest.app"
+    NOMBRE_APP
+        pubspec.yaml                                →   name: igest_app
+        android/app/src/main/AndroidManifest.xml    →   android:label="iGEST"
+    IMPORTANTE! Verificar/Cambiar este archivo: android\app\src\main\kotlin\com\example\igest_app\MainActivity.kt 
+        package com.example.igest_app               →   package pe.igest.app 
+
+VERSIONES ANDROID-------------------------------------------------------------------------------------------------------------------------
+    
+    android/app/build.gradle  →   
+
+        defaultConfig {
+            ...
+            //minSdk = flutter.minSdkVersion
+            minSdk = 30
+            //targetSdk = flutter.targetSdkVersion
+            targetSdk = 36
+            ...
+        }
+
+* En Android Studio Instalar previamente NDK, Command Line, cMake, Google USB Driver
+
+==========================================================================================================================================
+==========================================================================================================================================
+
+MAPAS ------------------------------------------------------------------------------------------------------------------------------------
+
+En GCP habilitar el API de mapas. Crear tres claves (para web, android, ios)
+Esa clave es pública, se tendria que restringir su acceso de acuerdo a si es web, android, ios y seleccionar solo las API necesarias  
+  * Sitios Web. Indicar desde que rutas se van conectar a esta API (http://localhost/*  https://*.igest.pe  https://igest.pe)   
+  * App Android.
+      PAQUETE. Obtener de la configuración anterior 
+      CLAVE SHA1. Huella digital del certificado de depuración, desarrollando en WINDOWS (en CMD)
+        keytool -list -v -keystore "%USERPROFILE%\.android\debug.keystore" -alias androiddebugkey -storepass android -keypass android
+          Nombre de Alias: androiddebugkey
+          Fecha de Creación: 3 may. 2024
+          Tipo de Entrada: PrivateKeyEntry
+          Longitud de la Cadena de Certificado: 1
+          Certificado[1]:
+          Propietario: C=US, O=Android, CN=Android Debug
+          Emisor: C=US, O=Android, CN=Android Debug
+          Número de serie: 1
+          Válido desde: Fri May 03 13:24:54 PET 2024 hasta: Sun Apr 26 13:24:54 PET 2054
+          Huellas digitales del certificado:
+                  SHA1: 16:D1:4A:16:E2:6E:DA:66:D6:4F:64:4D:13:67:1D:88:4A:CE:17:35
+                  SHA256: 4A:D6:90:5C:91:FD:5F:17:39:67:6A:87:9E:8E:18:C2:E3:F3:54:C4:E7:A2:E8:C2:D6:81:45:66:4B:24:59:4B
+          Nombre del algoritmo de firma: SHA1withRSA (débil)
+          Algoritmo de clave pública de asunto: Clave RSA de 2048 bits
+          Versión: 1
+          Warning:
+          El certificado uses the SHA1withRSA signature algorithm which is considered a security risk.
+      Pegar los datos obtenidos En GCP / Credenciales / Restricciones de Android. 
+        Agregar un registro con el nombre de paquete del app  y la clave generada
+  * App IOS. No se esta tocando...
+Instalar biblioteca de mapas
+Instalar en SDK de Android Studio en DNK la versión 27.0.12077973  
+Cambiar en "android/app/build.gradle.kts"   ndkVersion = flutter.ndkVersion   →   ndkVersion = "27.0.12077973"
+ANDROID. Agrega la clave de API en android/app/src/main/AndroidManifest.xml
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="TU_API_KEY_AQUI"/>
+WEB. Agrega la clave de API y el termino async en web/index.html
+    <head>
+        ...
+        <script async src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI"></script>
+    </head>
+
+==========================================================================================================================================
+==========================================================================================================================================
+
+
+

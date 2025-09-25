@@ -1,1 +1,109 @@
-<p>recovery-page works!</p>
+<div class="recovery-container" [ngStyle]="{ 'background-image': backgroundImageUrl }">
+
+  <nz-card class="recovery-card" *ngIf="!showVerification">
+    
+    <img class="recovery-logo"
+      [src]="'https://storage.googleapis.com/igest-public/logos/logo_' + Vars.obTheme.idEmpresa + '.png'" alt="Logo" />
+
+    <div class="divider-line"></div>
+
+    <h3 class="recovery-title">Recuperar Contraseña</h3>
+    <p class="recovery-subtitle">Ingresa tu usuario y correo para recuperar tu cuenta</p>
+
+    <!-- Formulario de Recovery -->
+    <form nz-form class="recovery-form" (ngSubmit)="onSubmit()">
+
+      <!-- Usuario -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input placeholder="Escribe tu usuario" [(ngModel)]="recoveryData.username" name="username" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Correo -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="email" nz-input placeholder="Escribe tu correo electrónico" [(ngModel)]="recoveryData.email" name="email" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Información del email enmascarado -->
+      <div class="masked-email-info" *ngIf="maskedEmail">
+        <nz-alert 
+          nzType="info" 
+          nzShowIcon
+          [nzMessage]="'Se enviará el código a: ' + maskedEmail"
+          nzCloseable="false">
+        </nz-alert>
+      </div>
+
+      <!-- Botón Enviar -->
+      <nz-form-item>
+        <button nz-button nzType="primary" nzSize="large" nzBlock type="submit" class="my-button">
+          <nz-icon nzType="mail"></nz-icon>
+          Enviar Código
+        </button>
+      </nz-form-item>
+    </form>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <div class="bottom-divider"></div>
+      <div class="bottom-actions">
+        <a class="my-link" (click)="openLogin()">
+          <nz-icon nzType="arrow-left"></nz-icon> 
+          Volver al inicio de sesión
+        </a>
+      </div>
+    </div>
+
+  </nz-card>
+
+  <!-- Verificación de 6 dígitos -->
+  <nz-card class="verification-card" *ngIf="showVerification">
+    
+    <img class="recovery-logo"
+      [src]="'https://storage.googleapis.com/igest-public/logos/logo_' + Vars.obTheme.idEmpresa + '.png'" alt="Logo" />
+
+    <div class="divider-line"></div>
+
+    <h3 class="verification-title">Verificación de Código</h3>
+    <p class="verification-subtitle">Ingresa el código de 6 dígitos que enviamos a</p>
+    <p class="masked-email-display">{{ maskedEmail }}</p>
+
+    <!-- Contenedor de códigos -->
+    <div class="verification-inputs">
+      <input 
+        *ngFor="let code of verificationCodes; let i = index"
+        #verificationInput
+        class="verification-input"
+        type="text"
+        maxlength="1"
+        [(ngModel)]="verificationCodes[i]"
+        (input)="onVerificationInput($event, i)"
+        (keydown)="onVerificationKeydown($event, i)"
+        [attr.data-index]="i"
+      />
+    </div>
+
+    <!-- Botón Verificar -->
+    <nz-form-item class="verification-button-container">
+      <button nz-button nzType="primary" nzSize="large" nzBlock class="my-button" (click)="onVerify()">
+        <nz-icon nzType="check-circle"></nz-icon>
+        Verificar
+      </button>
+    </nz-form-item>
+
+    <!-- Reenviar código -->
+    <div class="resend-code">
+      <a class="my-link-mini" (click)="resendCode()">¿No recibiste el código? Reenviar</a>
+      <a class="my-link-mini" (click)="goBack()" style="margin-left: 16px;">Cambiar datos</a>
+    </div>
+
+  </nz-card>
+
+</div>

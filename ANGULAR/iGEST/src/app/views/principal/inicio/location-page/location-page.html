@@ -1,1 +1,139 @@
-<p>location-page works!</p>
+<div class="location-container" [ngStyle]="{ 'background-image': backgroundImageUrl }">
+  
+  <!-- Loading -->
+  <nz-spin *ngIf="isLoading" nzSize="large" class="loading-spinner">
+    <div class="loading-message">Cargando ubicaciones...</div>
+  </nz-spin>
+
+  <!-- Error -->
+  <div *ngIf="error && !isLoading" class="error-container">
+    <nz-result
+      nzStatus="error"
+      nzTitle="Error al cargar ubicaciones"
+      [nzSubTitle]="error">
+      <div nz-result-extra>
+        <button nz-button nzType="primary" (click)="initializeData()">
+          <nz-icon nzType="reload"></nz-icon>
+          Reintentar
+        </button>
+      </div>
+    </nz-result>
+  </div>
+
+  <!-- Contenido principal -->
+  <div *ngIf="!isLoading && !error" class="content-wrapper">
+    
+    <!-- Header con botón de regreso -->
+    <div class="header">
+      <button nz-button nzType="text" nzSize="large" class="back-button" (click)="goBack()">
+        <nz-icon nzType="arrow-left"></nz-icon>
+        <span>Volver</span>
+      </button>
+      <h1 class="page-title">Ubícanos</h1>
+    </div>
+
+    <!-- Mapa -->
+    <div class="map-container" #mapContainer>
+      <div 
+        id="leaflet-map" 
+        class="leaflet-map"
+        [style.height.px]="mapHeight">
+      </div>
+
+      <!-- Botón de mi ubicación -->
+      <button 
+        nz-button 
+        nzType="primary" 
+        nzShape="circle" 
+        nzSize="large"
+        class="my-location-btn"
+        (click)="goToMyLocation()"
+        nzTooltipTitle="Ir a mi ubicación"
+        nz-tooltip>
+        <nz-icon nzType="aim"></nz-icon>
+      </button>
+    </div>
+
+    <!-- Tarjetas de sedes -->
+    <div class="cards-section" *ngIf="sedes.length > 0">
+      <div class="cards-container" #cardsContainer>
+        
+        <!-- Botón anterior (solo en web) -->
+        <button 
+          *ngIf="showArrows && selectedIndex > 0"
+          nz-button 
+          nzType="default" 
+          nzShape="circle"
+          class="arrow-btn arrow-left"
+          (click)="selectSede(selectedIndex - 1)">
+          <nz-icon nzType="left"></nz-icon>
+        </button>
+
+        <!-- Scroll de tarjetas -->
+        <div class="cards-scroll" #cardsScroll>
+          <div 
+            *ngFor="let sede of sedes; let i = index" 
+            class="sede-card"
+            [class.selected]="i === selectedIndex"
+            (click)="selectSede(i)">
+            
+            <div class="card-content">
+              <!-- Imagen de la sede -->
+              <div class="sede-image">
+                <img 
+                  [src]="sede.imagen || defaultSedeImage" 
+                  [alt]="sede.nombre"
+                  (error)="onImageError($event)"
+                  loading="lazy">
+              </div>
+
+              <!-- Información de la sede -->
+              <div class="sede-info">
+                <h3 class="sede-name">{{ sede.nombre }}</h3>
+                <p class="sede-address">
+                  <nz-icon nzType="environment"></nz-icon>
+                  {{ sede.direccion }}
+                </p>
+                
+                <div class="sede-details" *ngIf="sede.telefono || sede.horario">
+                  <p *ngIf="sede.telefono" class="sede-phone">
+                    <nz-icon nzType="phone"></nz-icon>
+                    {{ sede.telefono }}
+                  </p>
+                  <p *ngIf="sede.horario" class="sede-schedule">
+                    <nz-icon nzType="clock-circle"></nz-icon>
+                    <span [innerHTML]="formatSchedule(sede.horario)"></span>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Botón de acciones -->
+              <div class="card-actions">
+                <button 
+                  nz-button 
+                  nzType="primary" 
+                  nzBlock
+                  (click)="openDirections(sede)">
+                  <nz-icon nzType="compass"></nz-icon>
+                  Cómo llegar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón siguiente (solo en web) -->
+        <button 
+          *ngIf="showArrows && selectedIndex < sedes.length - 1"
+          nz-button 
+          nzType="default" 
+          nzShape="circle"
+          class="arrow-btn arrow-right"
+          (click)="selectSede(selectedIndex + 1)">
+          <nz-icon nzType="right"></nz-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>

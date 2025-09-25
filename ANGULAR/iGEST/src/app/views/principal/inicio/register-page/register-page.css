@@ -1,0 +1,205 @@
+/* ============ Container ============ */
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: center / cover no-repeat;
+}
+
+/* ============ Card ============ */
+.register-card, .verification-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 450px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 20px 24px;
+  text-align: center;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--theme-primary-color-dark) 40%, transparent);
+  background-color: var(--theme-primary-color-light);
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.12),
+    0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.verification-card {
+  max-width: 400px;
+  max-height: 85vh;
+}
+
+/* ============ Logo ============ */
+.register-logo {
+  width: 200px;
+  height: 150px;
+  object-fit: contain;
+  margin-bottom: 10px;
+}
+
+/* ============ Divider ============ */
+.divider-line,
+.bottom-divider {
+  width: 100%;
+  height: 2px;
+  margin: 0 auto 24px;
+}
+
+.divider-line {
+  background: linear-gradient(90deg, transparent, var(--theme-primary-color) 50%, transparent);
+}
+
+.bottom-divider {
+  height: 1px;
+  background-color: rgba(0, 0, 0, 0.1);
+  margin-bottom: 12px;
+}
+
+/* ============ Form ============ */
+.register-form {
+  width: 100%;
+}
+
+.register-form nz-form-item {
+  margin-bottom: 16px;
+}
+
+/* ============ Footer ============ */
+.card-footer {
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+/* ============ Links (shared) ============ */
+.bottom-actions {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* ============ Verification Section ============ */
+.verification-title {
+  color: var(--theme-primary-color-dark);
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+}
+
+.verification-subtitle {
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 14px;
+  margin: 0 0 32px 0;
+  line-height: 1.4;
+}
+
+.verification-inputs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.verification-input {
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  border: 2px solid #d9d9d9;
+  border-radius: 8px;
+  background-color: white;
+  color: var(--theme-primary-color-dark);
+  transition: all 0.3s ease;
+}
+
+.verification-input:focus {
+  outline: none;
+  border-color: var(--theme-primary-color);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--theme-primary-color) 20%, transparent);
+  background-color: color-mix(in srgb, var(--theme-primary-color) 5%, white);
+}
+
+.verification-input:not(:placeholder-shown) {
+  border-color: var(--theme-primary-color);
+  background-color: color-mix(in srgb, var(--theme-primary-color) 10%, white);
+}
+
+.verification-button-container {
+  margin-bottom: 24px;
+}
+
+.resend-code {
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 480px) {
+  .register-container {
+    padding: 10px;
+  }
+
+  .register-card, .verification-card {
+    margin: 10px;
+    padding: 24px 16px 16px;
+    max-width: none;
+  }
+
+  .register-logo {
+    width: 160px;
+    height: 120px;
+    margin-bottom: 24px;
+  }
+
+  .verification-inputs {
+    gap: 8px;
+  }
+
+  .verification-input {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+
+  .verification-title {
+    font-size: 20px;
+  }
+
+  .verification-subtitle {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 320px) {
+  .register-container {
+    padding: 5px;
+  }
+
+  .register-card, .verification-card {
+    padding: 20px 12px 12px;
+  }
+
+  .register-logo {
+    width: 140px;
+    height: 100px;
+    margin-bottom: 20px;
+  }
+
+  .verification-inputs {
+    gap: 6px;
+  }
+
+  .verification-input {
+    width: 35px;
+    height: 35px;
+    font-size: 15px;
+  }
+
+  .verification-title {
+    font-size: 18px;
+  }
+}

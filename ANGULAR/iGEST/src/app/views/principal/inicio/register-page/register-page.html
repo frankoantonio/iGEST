@@ -1,1 +1,130 @@
-<p>register-page works!</p>
+<div class="register-container" [ngStyle]="{ 'background-image': backgroundImageUrl }">
+
+  <nz-card class="register-card" *ngIf="!showVerification">
+    
+    <img class="register-logo"
+      [src]="'https://storage.googleapis.com/igest-public/logos/logo_' + Vars.obTheme.idEmpresa + '.png'" alt="Logo" />
+
+    <div class="divider-line"></div>
+
+    <!-- Formulario de Registro -->
+    <form nz-form class="register-form" (ngSubmit)="onSubmit()">
+
+      <!-- Nombres -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input placeholder="Nombres" [(ngModel)]="registerData.nombres" name="nombres" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Apellido Paterno -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input placeholder="Apellido Paterno" [(ngModel)]="registerData.apellidoPaterno" name="apellidoPaterno" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Apellido Materno -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="user">
+            <input type="text" nz-input placeholder="Apellido Materno" [(ngModel)]="registerData.apellidoMaterno" name="apellidoMaterno" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Número de Documento de Identidad -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="idcard">
+            <input type="text" nz-input placeholder="Número de Documento de Identidad" [(ngModel)]="registerData.numDocIdentidad" name="numDocIdentidad" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Celular -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="phone">
+            <input type="text" nz-input placeholder="Celular" [(ngModel)]="registerData.celular" name="celular" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Correo -->
+      <nz-form-item>
+        <nz-form-control>
+          <nz-input-group nzPrefixIcon="mail">
+            <input type="email" nz-input placeholder="Correo electrónico" [(ngModel)]="registerData.correo" name="correo" required />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      <!-- Botón Registrar -->
+      <nz-form-item>
+        <button nz-button nzType="primary" nzSize="large" nzBlock type="submit" class="my-button">
+          <nz-icon nzType="user-add"></nz-icon>
+          Registrar
+        </button>
+      </nz-form-item>
+    </form>
+
+    <!-- Footer -->
+    <div class="card-footer">
+      <div class="bottom-divider"></div>
+      <div class="bottom-actions">
+        <a class="my-link" (click)="openLogin()">
+          <nz-icon nzType="login"></nz-icon> 
+          ¿Ya tienes cuenta? Inicia sesión
+        </a>
+      </div>
+    </div>
+
+  </nz-card>
+
+  <!-- Verificación de 6 dígitos -->
+  <nz-card class="verification-card" *ngIf="showVerification">
+    
+    <img class="register-logo"
+      [src]="'https://storage.googleapis.com/igest-public/logos/logo_' + Vars.obTheme.idEmpresa + '.png'" alt="Logo" />
+
+    <div class="divider-line"></div>
+
+    <h3 class="verification-title">Verificación de Cuenta</h3>
+    <p class="verification-subtitle">Ingresa el código de 6 dígitos que enviamos a tu correo</p>
+
+    <!-- Contenedor de códigos -->
+    <div class="verification-inputs">
+      <input 
+        *ngFor="let code of verificationCodes; let i = index"
+        #verificationInput
+        class="verification-input"
+        type="text"
+        maxlength="1"
+        [(ngModel)]="verificationCodes[i]"
+        (input)="onVerificationInput($event, i)"
+        (keydown)="onVerificationKeydown($event, i)"
+        [attr.data-index]="i"
+      />
+    </div>
+
+    <!-- Botón Verificar -->
+    <nz-form-item class="verification-button-container">
+      <button nz-button nzType="primary" nzSize="large" nzBlock class="my-button" (click)="onVerify()">
+        <nz-icon nzType="check-circle"></nz-icon>
+        Verificar
+      </button>
+    </nz-form-item>
+
+    <!-- Reenviar código -->
+    <div class="resend-code">
+      <a class="my-link-mini" (click)="resendCode()">¿No recibiste el código? Reenviar</a>
+    </div>
+
+  </nz-card>
+
+</div>
