@@ -798,11 +798,11 @@ VALUES
 
 
 -- ============================================================================
--- TABLA: gen.usuario_perfil
+-- TABLA: gen.usuario_rol
 -- ============================================================================
-DROP TABLE IF EXISTS gen.usuario_perfil CASCADE;
-CREATE TABLE gen.usuario_perfil (
-    id_usu_perfil       BIGSERIAL       NOT NULL PRIMARY KEY,
+DROP TABLE IF EXISTS gen.usuario_rol CASCADE;
+CREATE TABLE gen.usuario_rol (
+    id_usu_rol       	BIGSERIAL       NOT NULL PRIMARY KEY,
     nom_usu         	VARCHAR(50)     NOT NULL,
     id_empresa          INT             NOT NULL,
     id_und_negocio      INT             NOT NULL,
@@ -817,29 +817,76 @@ CREATE TABLE gen.usuario_perfil (
     us_registra         VARCHAR(25)     NOT NULL,
     fh_registra         TIMESTAMP       NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ip_registra         VARCHAR(25)     NOT NULL,
-    CONSTRAINT usuario_perfil_nom_usu_fkey FOREIGN KEY (nom_usu) REFERENCES gen.usuario(nom_usu) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
+    CONSTRAINT usuario_rol_nom_usu_fkey FOREIGN KEY (nom_usu) REFERENCES gen.usuario(nom_usu) MATCH SIMPLE ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 --
-COMMENT ON TABLE gen.usuario_perfil IS 'Perfiles y permisos asignados a usuarios por sistema, rol, empresa y unidad de negocio.';
-COMMENT ON COLUMN gen.usuario_perfil.id_usu_perfil IS 'Identificador único del perfil del usuario.';
-COMMENT ON COLUMN gen.usuario_perfil.nom_usu IS 'Nombre del usuario [GEN.USUARIO].';
-COMMENT ON COLUMN gen.usuario_perfil.id_empresa IS 'Identificador de empresa [GEN.EMPRESA].';
-COMMENT ON COLUMN gen.usuario_perfil.id_und_negocio IS 'Identificador de unidad de negocio [GEN.UNIDAD_NEGOCIO].';
-COMMENT ON COLUMN gen.usuario_perfil.id_sistema IS 'Identificador del sistema [GEN.SISTEMA].';
-COMMENT ON COLUMN gen.usuario_perfil.activo_sistema IS 'Estado del sistema para el usuario.';
-COMMENT ON COLUMN gen.usuario_perfil.id_rol IS 'Identificador del rol asignado [GEN.ROL].';
-COMMENT ON COLUMN gen.usuario_perfil.activo_rol IS 'Estado del rol asignado.';
-COMMENT ON COLUMN gen.usuario_perfil.ver IS 'Permiso para visualizar.';
-COMMENT ON COLUMN gen.usuario_perfil.crear IS 'Permiso para crear.';
-COMMENT ON COLUMN gen.usuario_perfil.editar IS 'Permiso para editar.';
-COMMENT ON COLUMN gen.usuario_perfil.eliminar IS 'Permiso para eliminar.';
-COMMENT ON COLUMN gen.usuario_perfil.us_registra IS 'Usuario que registró el perfil.';
-COMMENT ON COLUMN gen.usuario_perfil.fh_registra IS 'Fecha y hora de registro.';
-COMMENT ON COLUMN gen.usuario_perfil.ip_registra IS 'IP o dispositivo desde el cual se realizó el registro.';
+COMMENT ON TABLE gen.usuario_rol IS 'Permisos asignados al usuarios, por empresa, unidad de negocio, sistema, rol.';
+COMMENT ON COLUMN gen.usuario_rol.id_usu_rol IS 'Identificador de entidad.';
+COMMENT ON COLUMN gen.usuario_rol.nom_usu IS 'Nombre del usuario [GEN.USUARIO].';
+COMMENT ON COLUMN gen.usuario_rol.id_empresa IS 'Identificador de empresa [GEN.EMPRESA].';
+COMMENT ON COLUMN gen.usuario_rol.id_und_negocio IS 'Identificador de unidad de negocio [GEN.UNIDAD_NEGOCIO].';
+COMMENT ON COLUMN gen.usuario_rol.id_sistema IS 'Identificador del sistema [GEN.SISTEMA].';
+COMMENT ON COLUMN gen.usuario_rol.activo_sistema IS 'Indica si el sistema están activos.';
+COMMENT ON COLUMN gen.usuario_rol.id_rol IS 'Identificador del rol asignado [GEN.ROL].';
+COMMENT ON COLUMN gen.usuario_rol.activo_rol IS 'Indica si el rol asignado esta activo.';
+COMMENT ON COLUMN gen.usuario_rol.ver IS 'Permiso para visualizar.';
+COMMENT ON COLUMN gen.usuario_rol.crear IS 'Permiso para crear.';
+COMMENT ON COLUMN gen.usuario_rol.editar IS 'Permiso para editar.';
+COMMENT ON COLUMN gen.usuario_rol.eliminar IS 'Permiso para eliminar.';
+COMMENT ON COLUMN gen.usuario_rol.us_registra IS 'Usuario que registra.';
+COMMENT ON COLUMN gen.usuario_rol.fh_registra IS 'Fecha y hora de registro.';
+COMMENT ON COLUMN gen.usuario_rol.ip_registra IS 'Dirección IP o nombre del dispositivo de registro.';
 --
+INSERT INTO gen.usuario_rol (nom_usu, id_empresa, id_und_negocio, id_sistema, activo_sistema, id_rol, activo_rol, ver, crear, editar, eliminar, us_registra, ip_registra) VALUES
+('1004.fbarzola', 1004, 4, 'GEN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 4, 'COM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 4, 'LGT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 4, 'PER', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 4, 'FIN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 4, 'CNT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 4, 'ADM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 4, 'COL', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+--
+('1004.fbarzola', 1004, 5, 'GEN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 5, 'COM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 5, 'LGT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 5, 'PER', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 5, 'FIN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 5, 'CNT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 5, 'ADM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 5, 'ACA', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+
+('1004.fbarzola', 1004, 6, 'GEN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 6, 'COM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 6, 'LGT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 6, 'PER', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 6, 'FIN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 6, 'CNT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.fbarzola', 1004, 6, 'ADM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+
+('1004.40110805', 1004, 4, 'GEN', true, -1, false, true, true, true, true, 'dba', 'localhost'),		--rol_estudainte_Acceso,  rol_familar_cceso
+('1004.40110805', 1004, 4, 'COM', true, -1, false, true, true, true, true, 'dba', 'localhost'),		--rol_estudainte_comercial  rol_familiar_comercil
+('1004.40110805', 1004, 4, 'COL', true, -1, false, true, true, true, true, 'dba', 'localhost'),		--rol_Estudiante_colegio  rol_familiar_colegio
+
+('1004.40110805', 1004, 5, 'GEN', true, -1, false, true, true, true, true, 'dba', 'localhost'),		--idem pero con academia
+('1004.40110805', 1004, 5, 'COM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1004.40110805', 1004, 5, 'ACA', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+
+('1005.fbarzola', 1005, 7, 'GEN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.fbarzola', 1005, 7, 'COM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.fbarzola', 1005, 7, 'LGT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.fbarzola', 1005, 7, 'PER', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.fbarzola', 1005, 7, 'FIN', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.fbarzola', 1005, 7, 'CNT', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.fbarzola', 1005, 7, 'ADM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.fbarzola', 1005, 7, 'MED', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+
+('1005.40110805', 1005, 7, 'GEN', true, -1, false, true, true, true, true, 'dba', 'localhost'),		--idem pero con clinica medica
+('1005.40110805', 1005, 7, 'COM', true, -1, false, true, true, true, true, 'dba', 'localhost'),
+('1005.40110805', 1005, 7, 'MED', true, -1, false, true, true, true, true, 'dba', 'localhost');
 
 
-
+select * from gen.usuario_rol;
 /*
 CAMBIO_FECHA										
 id_cambio_fecha	id_usuario	id_negocio	id_modulo	fe_solicita	fe_cambio	motivo	desde_sol	hasta_sol	desde_aut	hasta_aut

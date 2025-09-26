@@ -85,7 +85,7 @@ COMMENT ON SCHEMA bka IS 'Sistema bancario. Préstamos, operaciones, refinanciam
 DROP USER IF EXISTS usr_igest;
 
 CREATE USER usr_igest WITH 
-    PASSWORD 'rR7X4j0L2(s@8$69N*~vbtyd$k+d0$1CzukA*8hXKP'
+    PASSWORD 'rR7X4jI0L2(ss@8$sv69N*~vsbatyd$k+dnd0$1nCzukAa*8hXKP'
     CONNECTION LIMIT 100
     VALID UNTIL 'infinity';
 
